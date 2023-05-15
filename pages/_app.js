@@ -8,6 +8,13 @@ import Head from "next/head";
 import GoTop from "../components/Shared/GoTop";
 import Loader from "../components/Shared/Loader";
 
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+
+const supportedChainIDs = [1,3,4,5];
+const connectors = {
+  injected: {},
+};
+
 function MyApp({ Component, pageProps }) {
 	const [loading, setLoading] = useState(true);
 
@@ -18,14 +25,18 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<>
 			<Head>
-				<title>Gible - React Next NFT Marketplace Template</title>
+				<title>Brokereum</title>
 				<meta
 					name="viewport"
 					content="initial-scale=1.0, width=device-width"
 				/>
 			</Head>
-
+			<ThirdwebProvider
+					supportedChainIDs={supportedChainIDs}
+					connectors={connectors}
+			>
 			<Component {...pageProps} />
+			</ThirdwebProvider>
 
 			{/* Preloader */}
 			<Loader loading={loading} />
