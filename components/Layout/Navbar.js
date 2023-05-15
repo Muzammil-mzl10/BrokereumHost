@@ -80,7 +80,7 @@ const Navbar = ({ address }) => {
           <div className="container-fluid">
             <nav className="navbar navbar-expand-md navbar-light ">
               <Link href="/">
-                <a className="navbar-brand" style={{width:"12rem"}}>
+                <a className="navbar-brand" style={{ width: "12rem" }}>
                   <img src="../images/footer-logo2.png" alt="Logo" />
                 </a>
               </Link>
