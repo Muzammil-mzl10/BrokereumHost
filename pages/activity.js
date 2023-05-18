@@ -4,11 +4,13 @@ import ActivityArea from '../components/Activity/ActivityArea';
 import TrendingArea from '../components/Common/TrendingArea';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
+import Navbar from "../components/Layout/Navbar";
+
 
 const Activity = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Recent Activity'
         parentTitle='Activity'

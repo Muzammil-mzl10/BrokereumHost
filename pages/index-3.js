@@ -10,12 +10,13 @@ import BlogArea from '../components/Common/BlogArea';
 import CollectionArea from '../components/Common/CollectionsArea';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
+import Navbar from "../components/Layout/Navbar";
 
 
 const Index = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <BannerArea/>
       <AuctionArea/>
       <TrendingArea/>

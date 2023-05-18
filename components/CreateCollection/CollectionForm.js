@@ -1,12 +1,61 @@
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
+import { useAddress } from "@thirdweb-dev/react";
 
 const CollectionForm = () => {
   const [mediaPreview, setMediaPreview] = React.useState("");
-
-  const handleChange = (e) => {
+  const options = [
+    "Land",
+    "Detached Semi Detached",
+    "Multifamily",
+    "Condo",
+    "Flat",
+  ];
+  const address= useAddress()
+ 
+  const propertyTypeChange = (e) => {
+    console.log(e)
+  }
+  console.log(address);
+  const handleChange1 = (e) => {
     const { name, files } = e.target;
     setMediaPreview(window.URL.createObjectURL(files[0]));
+  };
+
+    const [formData, setFormData] = useState({
+      IDunique: "",
+      propertyType: "",
+      salesDeadline: "",
+      propertySize: "",
+      landPlotSize: "",
+      description: "",
+      propertyZone: "",
+      utilization: "",
+      volume: "",
+      volumeMax: "",
+      coordinates: "",
+      address: "",
+      zipCode: "",
+      price: "",
+      priceType: "",
+      rooms: "",
+      siteScore: "",
+    });
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log(formData);
   };
   return (
     <div className="collection-form">
@@ -18,12 +67,12 @@ const CollectionForm = () => {
             type="file"
             name="media"
             accept="image/*, application/pdf"
-            onChange={handleChange}
+            onChange={handleChange1}
           />
         </div>
       </div>
       <img className="media-preview" src={mediaPreview} />
-      <div className="collection-category">
+      {/* <div className="collection-category">
         <h3>Choose Item Category</h3>
         <ul>
           <li>
@@ -72,15 +121,15 @@ const CollectionForm = () => {
             </Link>
           </li>
         </ul>
-      </div>
-      <form>
+      </div> */}
+      <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-lg-12">
             <div className="form-group">
-              <label>Item Name</label>
+              <label>Property Name</label>
               <input
                 type="text"
-                name="name"
+                name="iTemName"
                 id="name"
                 className="form-control"
                 placeholder="e. g. “walking in the air”"
@@ -90,93 +139,244 @@ const CollectionForm = () => {
 
           <div className="col-lg-12 col-md-12">
             <div className="form-group">
-              <label>Description</label>
+              <label>Property Description</label>
               <textarea
-                name="description"
                 className="form-control"
                 id="description"
                 cols="30"
                 rows="5"
-                placeholder="e. g. “after purchasing you’ll able to get the real product”"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="e. g. 'Write the description of the Property'"
               ></textarea>
             </div>
           </div>
 
-          <div className="col-lg-4">
+          <div className="col-lg-6">
+            <div className="checkbox-method-area">
+              <div className="form-group col-lg-6 col-md-12">
+                <label>Price Type</label>
+              </div>
+              <div className="col-lg-12 col-md-12">
+                <div className="checkbox-method">
+                  <p>
+                    <input type="radio" id="fixed-price1" name="radio-group1" />
+                    <label htmlFor="fixed-price1">Sales</label>
+                  </p>
+                </div>
+              </div>
+
+              <div className="col-lg-12 col-md-12">
+                <div className="checkbox-method">
+                  <p>
+                    <input
+                      type="radio"
+                      id="timed-auction1"
+                      name="radio-group1"
+                    />
+                    <label htmlFor="timed-auction1">Monthly Rent</label>
+                  </p>
+                </div>
+              </div>
+
+              <div className="col-lg-12 col-md-12">
+                <div className="checkbox-method">
+                  <p>
+                    <input type="radio" id="open-bid1" name="radio-group1" />
+                    <label htmlFor="open-bid1">Yearly Rent</label>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <div className="form-group col-lg-6 col-md-12">
+              <label>Property Type</label>
+              <Dropdown
+                options={options}
+                onChange={propertyTypeChange}
+                placeholder="Select an option"
+              />
+            </div>
+          </div>
+
+          <div className="col-lg-6">
             <div className="form-group">
               <label>Royalties</label>
               <input type="text" className="form-control" placeholder="5%" />
             </div>
           </div>
-
-          <div className="col-lg-4">
-            <div className="form-group">
-              <label>Size</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="e. g. “size” "
-              />
-            </div>
+          {/* <div className="form-group col-lg-6 col-md-12">
+            <label>IDunique</label>
+            <input
+              type="text"
+              className="form-control"
+              name="IDunique"
+              value={formData.IDunique}
+              onChange={handleChange}
+            />
+          </div> */}
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Property Type</label>
+            <input
+              type="text"
+              className="form-control col-lg-6 col-md-12"
+              name="propertyType"
+              value={formData.propertyType}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Sales Deadline</label>
+            <input
+              type="number"
+              className="form-control col-lg-6 col-md-12"
+              name="salesDeadline"
+              value={formData.salesDeadline}
+              onChange={handleChange}
+            />
           </div>
 
-          <div className="col-lg-4">
-            <div className="form-group">
-              <label>Property</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="subject"
-              />
-            </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Land Plot Size</label>
+            <input
+              type="number"
+              className="form-control"
+              name="landPlotSize"
+              value={formData.landPlotSize}
+              onChange={handleChange}
+            />
           </div>
 
-          <div className="col-lg-12">
-            <div className="form-group">
-              <label>Number Of Copies</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="e. g. “1”"
-              />
-            </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Property Zone</label>
+            <input
+              type="text"
+              className="form-control"
+              name="propertyZone"
+              value={formData.propertyZone}
+              onChange={handleChange}
+            />
           </div>
-          <div className="col-lg-12">
-            <div className="checkbox-method-area">
-              <div className="col-lg-12 col-md-12">
-                <div className="checkbox-method">
-                  <p>
-                    <input type="radio" id="fixed-price" name="radio-group" />
-                    <label htmlFor="fixed-price">Fixed Price</label>
-                  </p>
-                </div>
-              </div>
-
-              <div className="col-lg-12 col-md-12">
-                <div className="checkbox-method">
-                  <p>
-                    <input type="radio" id="timed-auction" name="radio-group" />
-                    <label htmlFor="timed-auction">Timed Auction</label>
-                  </p>
-                </div>
-              </div>
-
-              <div className="col-lg-12 col-md-12">
-                <div className="checkbox-method">
-                  <p>
-                    <input type="radio" id="open-bid" name="radio-group" />
-                    <label htmlFor="open-bid">Open For Bid</label>
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Utilization</label>
+            <input
+              type="number"
+              step="any"
+              className="form-control"
+              name="utilization"
+              value={formData.utilization}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Volume</label>
+            <input
+              type="number"
+              className="form-control"
+              name="volume"
+              value={formData.volume}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Max Volume</label>
+            <input
+              type="number"
+              className="form-control"
+              name="volumeMax"
+              value={formData.volumeMax}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Coordinates</label>
+            <input
+              type="text"
+              className="form-control"
+              name="coordinates"
+              value={formData.coordinates}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Address</label>
+            <input
+              type="text"
+              className="form-control"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Zip Code</label>
+            <input
+              type="text"
+              className="form-control"
+              name="zipCode"
+              value={formData.zipCode}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Price</label>
+            <input
+              type="number"
+              className="form-control"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Price Type</label>
+            <input
+              type="text"
+              className="form-control"
+              name="priceType"
+              value={formData.priceType}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Rooms</label>
+            <input
+              type="number"
+              step="any"
+              className="form-control"
+              name="rooms"
+              value={formData.rooms}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Site Score</label>
+            <input
+              type="number"
+              step="any"
+              className="form-control"
+              name="siteScore"
+              value={formData.siteScore}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="col-lg-12 col-md-12">
-            <button type="submit" className="default-btn border-radius-5">
-              Create Item
+            <button
+              disabled={!address}
+              type="submit"
+              className={
+                address
+                  ? "default-btn border-radius-5"
+                  : "default p-2 bg-gray border-radius-5"
+              }
+            >
+              Create Item 
             </button>
           </div>
+           <span className="mt-3" style={{color:"red"}}> {address?'':"Please Connect your Crypto Wallet.....!"}</span>
         </div>
       </form>
     </div>

@@ -13,13 +13,10 @@ import { useState } from 'react';
 
 const Index = () => {
 
-  const [address, setAddress] = useState();
-
-  console.log(address)
 
   return (
     <>
-      <Navbar address={setAddress} />
+      <Navbar />
       <BannerArea />
       <TrendingArea />
       <TopSeller />

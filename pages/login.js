@@ -3,11 +3,12 @@ import PageBanner from '../components/Common/PageBanner';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
 import Link from 'next/link'
+import Navbar from "../components/Layout/Navbar";
 
 const Login = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Log In'
         parentTitle='Pages'

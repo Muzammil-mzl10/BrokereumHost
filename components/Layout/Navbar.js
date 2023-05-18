@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Link from "../../utils/ActiveLink";
 import SearchModal from "./SearchModal";
 import { ConnectWallet, useAddress } from "@thirdweb-dev/react";
-const Navbar = ({ address }) => {
+const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showWallet, setShowWallet] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
@@ -10,12 +10,6 @@ const Navbar = ({ address }) => {
 
   const walletaAddress = useAddress();
 
-  useEffect(() => {
-    
-    address(walletaAddress)
-    console.log(address);
-
-  },[walletaAddress])
 
 
   const toggleMenu = () => {
@@ -106,25 +100,7 @@ const Navbar = ({ address }) => {
                   <li className="nav-item">
                     <a href="#" className="nav-link active">
                       Home
-                      <i className="ri-arrow-down-s-line"></i>
                     </a>
-                    <ul className="dropdown-menu">
-                      <li className="nav-item">
-                        <Link href="/" activeClassName="active">
-                          <a className="nav-link active">Home One</a>
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link href="/index-2" activeClassName="active">
-                          <a className="nav-link">Home Two</a>
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link href="/index-3" activeClassName="active">
-                          <a className="nav-link">Home Three</a>
-                        </Link>
-                      </li>
-                    </ul>
                   </li>
 
                   <li className="nav-item">
@@ -338,9 +314,6 @@ const Navbar = ({ address }) => {
                   <ul className="optional-item-list">
                     <li>
                       <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
-                      {/* <Link  activeClassName='active'>
-                        <a className='active'>Connect Wallet</a>
-                      </Link> */}
                     </li>
                   </ul>
                 </div>
@@ -393,9 +366,7 @@ const Navbar = ({ address }) => {
                         </Link>
                       </li>
                       <li>
-                        <Link href="/add-wallet" activeClassName="active">
-                          <a className="active">Connect Wallet</a>
-                        </Link>
+                        <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
                       </li>
                     </ul>
                   </div>

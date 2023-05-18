@@ -13,7 +13,7 @@ const CreateCollectionArea = () => {
             <div className="col-lg-9">
               <div className="collection-form-area">
                 <div className="section-title">
-                  <h2>Create Collectible Item</h2>
+                  <h2>Create Property NFT</h2>
                 </div>
 
                 <CollectionForm />

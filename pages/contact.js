@@ -4,11 +4,12 @@ import InvolvedArea from "../components/Common/InvolvedArea";
 import Footer from "../components/Layout/Footer";
 import Copyright from "../components/Common/Copyright";
 import Link from "next/link";
+import Navbar from "../components/Layout/Navbar";
 
 const Contact = () => {
 	return (
 		<>
-			<NavbarTwo />
+			<Navbar />
 			<PageBanner
 				bannerHeading="Contact Us"
 				parentTitle="Contact Us"

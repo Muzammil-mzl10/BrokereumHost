@@ -2,11 +2,12 @@ import NavbarTwo from '../components/Layout/NavbarTwo';
 import PageBanner from '../components/Common/PageBanner';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
+import Navbar from "../components/Layout/Navbar";
 
 const ForgotPassword = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Forgot Password'
         parentTitle='Discover'

@@ -3,11 +3,12 @@ import PageBanner from '../components/Common/PageBanner';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
 import BlogDetailsArea from '../components/BlogDetails/BlogDetailsArea';
+import Navbar from "../components/Layout/Navbar";
 
 const BlogDetails = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Blog Details Page'
         parentTitle='Community'

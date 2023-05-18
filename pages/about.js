@@ -7,11 +7,11 @@ import AboutWidget from '../components/About/AboutWidget';
 import AboutInvolved from '../components/About/AboutInvolved';
 import AboutTestimonial from '../components/About/AboutTestimonial';
 import TeamArea from '../components/Common/TeamArea';
-
+import Navbar from "../components/Layout/Navbar";
 const About = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='About Us'
         parentTitle='Community'

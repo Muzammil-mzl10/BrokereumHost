@@ -3,21 +3,22 @@ import PageBanner from '../components/Common/PageBanner';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
 import Link from 'next/link'
+import Navbar from '../components/Layout/Navbar';
 
 const FourZeroFour = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
-        bannerHeading='404 Error Page'
-        parentTitle='Pages'
-        pageTitle='404'
-        bg='inner-bg9'
+        bannerHeading="404 Error Page"
+        parentTitle="Pages"
+        pageTitle="404"
+        bg="inner-bg9"
       />
-      <div className='error-area ptb-100'>
-        <div className='d-table'>
-          <div className='d-table-cell'>
-            <div className='error-content'>
+      <div className="error-area ptb-100">
+        <div className="d-table">
+          <div className="d-table-cell">
+            <div className="error-content">
               <h1>
                 4 <span>0</span> 4
               </h1>
@@ -26,10 +27,8 @@ const FourZeroFour = () => {
                 The page you are looking for might have been removed had its
                 name changed or is temporarily unavailable.
               </p>
-              <Link href='/'>
-                <a className='default-btn'>
-                  Return To Home Page
-                </a>
+              <Link href="/">
+                <a className="default-btn">Return To Home Page</a>
               </Link>
             </div>
           </div>

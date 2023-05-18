@@ -4,11 +4,12 @@ import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
 import Pagination from '../components/Common/Pagination';
 import Link from 'next/link'
+import Navbar from "../components/Layout/Navbar";
 
 const BlogOne = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Blog Left Sidebar'
         parentTitle='Community'

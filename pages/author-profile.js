@@ -4,11 +4,12 @@ import AuthorProfileArea from '../components/AuthorProfile/AuthorProfileArea';
 import InvolvedArea from '../components/Common/InvolvedArea';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
+import Navbar from "../components/Layout/Navbar";
 
 const AuthorProfile = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Author Profile'
         parentTitle='Pages'

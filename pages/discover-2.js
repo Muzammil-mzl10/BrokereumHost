@@ -4,11 +4,12 @@ import DiscoverArea from '../components/Discover/DiscoverArea';
 import InvolvedArea from '../components/Common/InvolvedArea';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
+import Navbar from "../components/Layout/Navbar";
 
 const DiscoverTwo = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Discover Exclusive Digital Assets'
         parentTitle='Discover'

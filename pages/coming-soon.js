@@ -3,6 +3,7 @@ import NavbarTwo from '../components/Layout/NavbarTwo';
 import PageBanner from '../components/Common/PageBanner';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
+import Navbar from "../components/Layout/Navbar";
 
 const ComingSoon = () => {
   //counter calculation
@@ -50,7 +51,7 @@ const ComingSoon = () => {
   }, []);
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Coming Soon'
         parentTitle='Pages'

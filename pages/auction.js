@@ -4,11 +4,12 @@ import AuctionArea from '../components/Auction/AuctionArea';
 import InvolvedArea from '../components/Common/InvolvedArea';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
+import Navbar from "../components/Layout/Navbar";
 
 const Auction = () => {
   return (
     <>
-      <NavbarTwo />
+      <Navbar />
       <PageBanner
         bannerHeading='Live Auction Is Going On'
         parentTitle='Discover'
