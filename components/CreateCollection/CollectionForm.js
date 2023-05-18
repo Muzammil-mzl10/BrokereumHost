@@ -218,16 +218,6 @@ const CollectionForm = () => {
             />
           </div> */}
           <div className="form-group col-lg-6 col-md-12">
-            <label>Property Type</label>
-            <input
-              type="text"
-              className="form-control col-lg-6 col-md-12"
-              name="propertyType"
-              value={formData.propertyType}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group col-lg-6 col-md-12">
             <label>Sales Deadline</label>
             <input
               type="number"
@@ -330,16 +320,7 @@ const CollectionForm = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group col-lg-6 col-md-12">
-            <label>Price Type</label>
-            <input
-              type="text"
-              className="form-control"
-              name="priceType"
-              value={formData.priceType}
-              onChange={handleChange}
-            />
-          </div>
+         
           <div className="form-group col-lg-6 col-md-12">
             <label>Rooms</label>
             <input
