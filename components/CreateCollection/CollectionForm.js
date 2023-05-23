@@ -1,11 +1,39 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import Link from "next/link";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useSigner,useContract } from "@thirdweb-dev/react";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
+import { ethers } from "ethers";
+
 
 const CollectionForm = () => {
+const [Contract, setContract] = useState(null);
+const signer = useSigner();
+  console.log(signer)
+  const { contract } = useContract(
+    "0x7921eC9DF2eacB73d6C3879AB336dfF644536675",
+    "nft-collection"
+  );
+  // useEffect(() => {
+  //    fetchContract();
+  //  }, []);
+
+  //  const fetchContract = async () => {
+  //    try {
+  //      const sdk = new ThirdwebSDK("mumbai");
+  //      const fetchedContract = await sdk.getContract(
+  //        "0x7921eC9DF2eacB73d6C3879AB336dfF644536675",signer
+  //      );
+  //      setContract(fetchedContract);
+  //      console.log(fetchedContract);
+  //    } catch (error) {
+  //      console.error("Error fetching contract:", error);
+  //    }
+  //  };
+  
   const [mediaPreview, setMediaPreview] = React.useState("");
+  const [apiData,setapiData] = useState()
   const options = [
     "Land",
     "Detached Semi Detached",
@@ -13,6 +41,7 @@ const CollectionForm = () => {
     "Condo",
     "Flat",
   ];
+
   const address= useAddress()
  
   const propertyTypeChange = (e) => {
@@ -23,6 +52,7 @@ const CollectionForm = () => {
     const { name, files } = e.target;
     setMediaPreview(window.URL.createObjectURL(files[0]));
   };
+  
 
     const [formData, setFormData] = useState({
       IDunique: "",
@@ -35,7 +65,8 @@ const CollectionForm = () => {
       utilization: "",
       volume: "",
       volumeMax: "",
-      coordinates: "",
+      coordinatesLng:"",
+      coordinatesLat:"",
       address: "",
       zipCode: "",
       price: "",
@@ -43,6 +74,57 @@ const CollectionForm = () => {
       rooms: "",
       siteScore: "",
     });
+  
+  const fetchAPI = () => {
+
+    console.log(formData.coordinatesLat, formData.coordinatesLng)
+    
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("token", "DNfbHaqajFigz4jPX9B8vnatUduLKZXVwA83WKZG");
+  var raw = JSON.stringify({
+    lat: parseFloat(formData.coordinatesLat),
+    lng: parseFloat(formData.coordinatesLng),
+  });
+
+  var requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+    redirect: "follow",
+  };
+
+  fetch("http://46.243.90.203:3000/res_api/parcel_data", requestOptions)
+    .then((response) => response.json())
+    .then((result) => {
+      setapiData(result)
+      console.log(result)
+    })
+    .catch((error) => console.log("error", error));
+
+    // fetch(`http://46.243.90.203:3000/res_api/parcel_data`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "token": "DNfbHaqajFigz4jPX9B8vnatUduLKZXVwA83WKZG",
+    //   },
+    //   body: {
+    //     lat: formData.coordinatesLat,
+    //     lng: formData.coordinatesLng,
+    //   },
+    // })
+    //   .then((res) => {
+    //     console.log(res);
+    //     res.json();
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => console.log(err));
+
+
+  }
+  
   
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,10 +134,20 @@ const CollectionForm = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log(formData);
+
+    const metadatas = 
+      {
+        name: "Cool NFT",
+        description: "This is a cool NFT"
+      };
+
+    console.log(address)
+    const results = await contract.mint(metadatas);
+    console.log(results)
   };
   return (
     <div className="collection-form">
@@ -270,7 +362,7 @@ const CollectionForm = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="form-group col-lg-6 col-md-12">
+          <div className="form-group col-lg-12 col-md-12">
             <label>Max Volume</label>
             <input
               type="number"
@@ -280,16 +372,47 @@ const CollectionForm = () => {
               onChange={handleChange}
             />
           </div>
+          <div className="form-group col-lg-12 col-md-12">
+            <label style={{ fontWeight: "bold", marginTop: "10px" }}>
+              Enter Property Coordinates :
+            </label>
+          </div>
           <div className="form-group col-lg-6 col-md-12">
-            <label>Coordinates</label>
+            <label>Latitude</label>
             <input
               type="text"
               className="form-control"
-              name="coordinates"
-              value={formData.coordinates}
+              name="coordinatesLat"
+              value={formData.coordinatesLat}
               onChange={handleChange}
             />
           </div>
+          <div className="form-group col-lg-6 col-md-12">
+            <label>Longitude</label>
+            <input
+              type="text"
+              className="form-control"
+              name="coordinatesLng"
+              value={formData.coordinatesLng}
+              onChange={handleChange}
+            />
+          </div>
+          <div
+            className={
+              apiData
+                ? "form-group col-lg-12 col-md-12"
+                : "form-group col-lg-12 col-md-12"
+            }
+          >
+            <button
+              disabled={apiData?true:false}
+              className={apiData ? "btn btn-success" : "btn btn-dark"}
+              onClick={fetchAPI}
+            >
+              {apiData ? "Successfully Fetched" : "Submit"}
+            </button>
+          </div>
+
           <div className="form-group col-lg-6 col-md-12">
             <label>Address</label>
             <input
@@ -320,7 +443,7 @@ const CollectionForm = () => {
               onChange={handleChange}
             />
           </div>
-         
+
           <div className="form-group col-lg-6 col-md-12">
             <label>Rooms</label>
             <input
@@ -354,10 +477,13 @@ const CollectionForm = () => {
                   : "default p-2 bg-gray border-radius-5"
               }
             >
-              Create Item 
+              Create Item
             </button>
           </div>
-           <span className="mt-3" style={{color:"red"}}> {address?'':"Please Connect your Crypto Wallet.....!"}</span>
+          <span className="mt-3" style={{ color: "red" }}>
+            {" "}
+            {address ? "" : "Please Connect your Crypto Wallet.....!"}
+          </span>
         </div>
       </form>
     </div>
