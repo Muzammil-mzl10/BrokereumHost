@@ -41,6 +41,7 @@ const signer = useSigner();
   
   const [mediaPreview, setMediaPreview] = React.useState("");
   const [apiData,setapiData] = useState()
+  const [IPFSHASH, setIPFSHASH] = useState();
   const options = [
     "Land",
     "Detached Semi Detached",
@@ -132,62 +133,66 @@ const signer = useSigner();
              id: apiData.features[0].properties.score,
              Owner: apiData.features[0].properties.owner,
              address: {
-               street: "",
-               city: "",
-               canton: "",
-               zip: "",
-               parcel_id: "",
+               street: apiData.features[0].properties.streetname,
+               city: apiData.features[0].properties.cityname,
+               canton: apiData.features[0].properties.canton,
+               zip: apiData.features[0].properties.zip,
+               parcel_id: apiData.features[0].properties.parcel_id,
                coordinates: {
-                 lat: coordinatesLat,
-                 lng: coordinatesLng,
+                 lat:formData.coordinatesLat,
+                 lng:formData.coordinatesLng,
                },
              },
              building: {
-               bldg_constr_year: "",
-               bldg_flats: "",
-               bldg_floors: "",
-               bldg_size: "",
-               bldg_vol: "",
+               bldg_constr_year:
+                 apiData.features[0].properties.bldg_constr_year,
+               bldg_flats: apiData.features[0].properties.bldg_flats,
+               bldg_floors: apiData.features[0].properties.bldg_floors,
+               bldg_size: apiData.features[0].properties.bldg_size,
+               bldg_vol: apiData.features[0].properties.bldg_vol_gwr,
              },
              plot: {
-               parcel_area: "",
-               ratio_s: "",
-               ratio_s_free: "",
-               ratio_v: "",
-               ratio_v_free: "",
-               area_max: "",
-               vol_max: "",
-               gfa_now: "",
-               gfa_max: "",
-               cy_min: "",
+               parcel_area: apiData.features[0].properties.parcel_area,
+               ratio_s: apiData.features[0].properties.ratio_s,
+               ratio_s_free: apiData.features[0].properties.ratio_s_free,
+               ratio_v: apiData.features[0].properties.ratio_v,
+               ratio_v_free: apiData.features[0].properties.ratio_v_free,
+               area_max: apiData.features[0].properties.area_max,
+               vol_max: apiData.features[0].properties.vol_max,
+               gfa_now: apiData.features[0].properties.gfa_now,
+               gfa_max: apiData.features[0].properties.gfa_max,
+               cy_min: apiData.features[0].properties.cy_min,
              },
              construction_zone: {
-               cz_abbrev: "",
-               cz_floors_usual: "",
-               cz_height_usual: "",
-               cz_local: "",
-               cz_type: "",
-               cz_util_est: "",
-               cz_util_now: "",
+               cz_abbrev: apiData.features[0].properties.cz_abbrev,
+               cz_floors_usual: apiData.features[0].properties.cz_floors_usual,
+               cz_height_usual: apiData.features[0].properties.cz_height_usual,
+               cz_local: apiData.features[0].properties.cz_local,
+               cz_type: apiData.features[0].properties.cz_type,
+               cz_util_est: apiData.features[0].properties.cz_util_est,
+               cz_util_now: apiData.features[0].properties.cz_util_now,
              },
              noise: {
-               noise_bahn_night: "",
-               noise_bahn_day: "",
-               noise_street_night: "",
-               noise_street_day: "",
+               noise_bahn_night:
+                 apiData.features[0].properties.noise_bahn_night,
+               noise_bahn_day: apiData.features[0].properties.noise_bahn_day,
+               noise_street_night:
+                 apiData.features[0].properties.noise_street_day,
+               noise_street_day:
+                 apiData.features[0].properties.noise_street_night,
              },
              travel: {
-               tt_agglo_pubt: "",
-               tt_agglo_road: "",
+               tt_agglo_pubt: apiData.features[0].properties.tt_agglo_pubt,
+               tt_agglo_road: apiData.features[0].properties.tt_agglo_road,
              },
              vacancies: {
-               vac_all: "",
-               vac_new: "",
-               vac_old: "",
+               vac_all: apiData.features[0].properties.vac_all,
+               vac_new: apiData.features[0].properties.vac_new,
+               vac_old: apiData.features[0].properties.vac_old,
              },
              tax: {
-               tax_100k_pa: "",
-               tax_scale:"",
+               tax_100k_pa: apiData.features[0].properties.tax_100k_pa,
+               tax_scale: apiData.features[0].properties.tax_scale,
              },
            },
          },
@@ -195,7 +200,8 @@ const signer = useSigner();
      ],
      options: { uploadWithGatewayUrl: true },
    });
-   alert(uploadUrl);
+    setIPFSHASH(uploadUrl[0]);
+    console.log(uploadUrl[0]);
  };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -204,15 +210,15 @@ const signer = useSigner();
 
    
    uploadToIpfs();
-    const metadatas = 
-      {
-        name: "Test NFT",
-        description: "Testing"
-      };
+    const metadatas = {
+      image: file,
+      name: "Title of the NFT Test....!!",
+      description: IPFSHASH,
+    };
 
     console.log(address)
-    // const results = await contract.mint(metadatas);
-    // console.log(results)
+    const results = await contract.mint(metadatas);
+    console.log(results)
   };
   return (
     <div className="collection-form">
