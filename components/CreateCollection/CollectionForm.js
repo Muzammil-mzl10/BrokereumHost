@@ -2,13 +2,20 @@ import React, {useState,useEffect} from "react";
 import Link from "next/link";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import { useAddress, useSigner,useContract } from "@thirdweb-dev/react";
+import { useAddress, useSigner,useContract , useStorageUpload } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import { ethers } from "ethers";
 
 
 const CollectionForm = () => {
-const [Contract, setContract] = useState(null);
+  const { mutateAsync: upload } = useStorageUpload({
+    onProgress: (progress) => {
+      console.log(progress);
+    }
+  })
+  
+const [file, setFile] = useState();
+
 const signer = useSigner();
   console.log(signer)
   const { contract } = useContract(
@@ -49,8 +56,10 @@ const signer = useSigner();
   }
   console.log(address);
   const handleChange1 = (e) => {
-    const { name, files } = e.target;
-    setMediaPreview(window.URL.createObjectURL(files[0]));
+    const { name, file } = e.target;
+    console.log(file)
+    console.log(name)
+    setMediaPreview(window.URL.createObjectURL(file[0]));
   };
   
 
@@ -99,29 +108,9 @@ const signer = useSigner();
     .then((result) => {
       setapiData(result)
       console.log(result)
+      console.log(result.features[0].properties.score);
     })
     .catch((error) => console.log("error", error));
-
-    // fetch(`http://46.243.90.203:3000/res_api/parcel_data`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "token": "DNfbHaqajFigz4jPX9B8vnatUduLKZXVwA83WKZG",
-    //   },
-    //   body: {
-    //     lat: formData.coordinatesLat,
-    //     lng: formData.coordinatesLng,
-    //   },
-    // })
-    //   .then((res) => {
-    //     console.log(res);
-    //     res.json();
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => console.log(err));
-
 
   }
   
@@ -133,21 +122,97 @@ const signer = useSigner();
       [name]: value,
     }));
   };
-
+  const uploadToIpfs = async () => {
+   const uploadUrl = await upload({
+     data: [
+       {
+         image: file,
+         propertyData: {
+           properties: {
+             id: apiData.features[0].properties.score,
+             Owner: apiData.features[0].properties.owner,
+             address: {
+               street: "",
+               city: "",
+               canton: "",
+               zip: "",
+               parcel_id: "",
+               coordinates: {
+                 lat: coordinatesLat,
+                 lng: coordinatesLng,
+               },
+             },
+             building: {
+               bldg_constr_year: "",
+               bldg_flats: "",
+               bldg_floors: "",
+               bldg_size: "",
+               bldg_vol: "",
+             },
+             plot: {
+               parcel_area: "",
+               ratio_s: "",
+               ratio_s_free: "",
+               ratio_v: "",
+               ratio_v_free: "",
+               area_max: "",
+               vol_max: "",
+               gfa_now: "",
+               gfa_max: "",
+               cy_min: "",
+             },
+             construction_zone: {
+               cz_abbrev: "",
+               cz_floors_usual: "",
+               cz_height_usual: "",
+               cz_local: "",
+               cz_type: "",
+               cz_util_est: "",
+               cz_util_now: "",
+             },
+             noise: {
+               noise_bahn_night: "",
+               noise_bahn_day: "",
+               noise_street_night: "",
+               noise_street_day: "",
+             },
+             travel: {
+               tt_agglo_pubt: "",
+               tt_agglo_road: "",
+             },
+             vacancies: {
+               vac_all: "",
+               vac_new: "",
+               vac_old: "",
+             },
+             tax: {
+               tax_100k_pa: "",
+               tax_scale:"",
+             },
+           },
+         },
+       },
+     ],
+     options: { uploadWithGatewayUrl: true },
+   });
+   alert(uploadUrl);
+ };
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log(formData);
 
+   
+   uploadToIpfs();
     const metadatas = 
       {
-        name: "Cool NFT",
-        description: "This is a cool NFT"
+        name: "Test NFT",
+        description: "Testing"
       };
 
     console.log(address)
-    const results = await contract.mint(metadatas);
-    console.log(results)
+    // const results = await contract.mint(metadatas);
+    // console.log(results)
   };
   return (
     <div className="collection-form">
@@ -157,9 +222,9 @@ const signer = useSigner();
           <input
             className="profileButton-input"
             type="file"
+            onChange={(e) => setFile(e.target.files[0])}
             name="media"
             accept="image/*, application/pdf"
-            onChange={handleChange1}
           />
         </div>
       </div>
@@ -405,7 +470,8 @@ const signer = useSigner();
             }
           >
             <button
-              disabled={apiData?true:false}
+              type="button"
+              disabled={apiData ? true : false}
               className={apiData ? "btn btn-success" : "btn btn-dark"}
               onClick={fetchAPI}
             >
