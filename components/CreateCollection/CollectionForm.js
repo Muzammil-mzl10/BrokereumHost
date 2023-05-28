@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+ 
 import { ReactComponentElement as Loader } from "../../public/images/loader.svg";
 import {
   useAddress,
   useSigner,
   useContract,
   useCreateDirectListing,
+  Web3Button,
   useStorageUpload,
 } from "@thirdweb-dev/react";
 import { ThirdwebSDK, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
@@ -34,13 +38,13 @@ const CollectionForm = () => {
     "nft-collection"
   );
 
-  const { contract: Marketplace, isLoading: loadingContract } = useContract(
-    "0xb373a88c45d45c01582bd2f46a9ef7141e5f65c0",
+  const { contract: Marketplace } = useContract(
+    "0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0",
     "marketplace-v3"
   );
 
-  const { mutateAsync: createDirectListing } = useCreateDirectListing(Marketplace);
- 
+  const { mutate: createDirectListing } = useCreateDirectListing(Marketplace);
+
   // const sdk = new ThirdwebSDK("mumbai");
   // const Marketplace = useContract(
   //   "0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0",
@@ -86,26 +90,16 @@ const CollectionForm = () => {
     IDunique: "",
     itemName: "",
     propertyType: "",
-    salesDeadline: "",
-    propertySize: "",
-    landPlotSize: "",
     description: "",
     downPayment: "",
     priceType: "",
-    propertyZone: "",
-    listingType: "",
-    utilization: "",
-    volume: "",
-    volumeMax: "",
     coordinatesLng: "",
     coordinatesLat: "",
-    address: "",
-    zipCode: "",
     price: "",
     priceType: "",
-    rooms: "",
-    siteScore: "",
+ 
   });
+  const [NFTmintsuccess, setNFTmintSuccess] = useState(false)
 
   const fetchAPI = () => {
     console.log(docummentfile);
@@ -132,6 +126,16 @@ const CollectionForm = () => {
         setapiData(result);
         console.log(result);
         console.log(result.features[0].properties.score);
+         toast.success("Data Fetched Successfully!", {
+           position: "top-center",
+           autoClose: 5000,
+           hideProgressBar: false,
+           closeOnClick: true,
+           pauseOnHover: true,
+           draggable: true,
+           progress: undefined,
+           theme: "light",
+         });
       })
       .catch((error) => console.log("error", error));
   };
@@ -144,6 +148,16 @@ const CollectionForm = () => {
     }));
   };
   const uploadToIpfs = async () => {
+    toast.info("🦄 Minting started....", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     setLoading(true);
     const uploadUrl = await upload({
       data: [
@@ -244,29 +258,54 @@ const CollectionForm = () => {
         },
       };
       console.log(metadatas);
+      try{
+        const tx = await contract.mint(metadatas)
+        console.log(tx)
+        setLoading(false);
+        setNFTmintSuccess(true)
+        toast("NFT Minted Successfully!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        
+      } catch (err) {
+
+        toast.error("🦄 Error while Minting!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      
       // const tx = await contract.mint(metadatas).prepare(1);
       // const gasCost = await tx.estimateGasCost(); // Estimate the gas cost
       // const simulatedTx = await tx.simulate(); // Simulate the transaction
       // const signedTx = await tx.sign();
-      // const tx = await contract.mint(metadatas)
-      // console.log(tx)
-      // setTokenID(tx.id)
+      
 
-      console.log(tokenID);
       // Data of the listing you want to create
-
-      const tx1 = await createDirectListing({
-        assetContractAddress: "0x7921eC9DF2eacB73d6C3879AB336dfF644536675",
-        tokenId: "12",
-        pricePerToken: "1.5",
-      });
-      const receipt = tx1.receipt; // the transaction receipt
-      const id = tx1.id; // the id of the newly created listing
-      setLoading(false);
-      console.log(id);
-      console.log(receipt);
+      // const txResult = await createDirectListing({
+      //   assetContractAddress: "0x7921ec9df2eacb73d6c3879ab336dff644536675",
+      //   tokenId: "12",
+      //   pricePerToken: "0.1",
+      // });
+      // const receipt = txResult.receipt; // the transaction receipt
+      // const id = txResult.id; // the id of the newly created listing
+      // console.log(id);
+      // console.log(receipt);
     }
-  }, [uploadToIpfs, ipfsHash]);
+  }, [loading, ipfsHash]);
 
   const radioOnchange = (e) => {
     console.log(e.target.value);
@@ -292,56 +331,6 @@ const CollectionForm = () => {
         </div>
       </div>
       <img className="media-preview" src={mediaPreview} />
-      {/* <div className="collection-category">
-        <h3>Choose Item Category</h3>
-        <ul>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Art</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Virtual Worlds</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Trending Cards</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Collectibles</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Music</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Games</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Domains</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">Memes</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/create-collection">
-              <a target="_blank">NFT Gifts</a>
-            </Link>
-          </li>
-        </ul>
-      </div> */}
 
       <form onSubmit={handleSubmit}>
         <div className="row">
@@ -398,11 +387,11 @@ const CollectionForm = () => {
                     <input
                       type="radio"
                       id="fixed-price1"
-                      value={"Sales"}
+                      value={"Sale"}
                       onChange={radioOnchange}
                       name="radio-group1"
                     />
-                    <label htmlFor="fixed-price1">Sales</label>
+                    <label htmlFor="fixed-price1">Sale</label>
                   </p>
                 </div>
               </div>
@@ -438,7 +427,7 @@ const CollectionForm = () => {
               </div>
             </div>
           </div>
-          <div className="col-lg-6">
+          {/* <div className="col-lg-6">
             <div className="checkbox-method-area">
               <div className="form-group col-lg-6 col-md-12">
                 <label>Select Type of Listing</label>
@@ -473,7 +462,8 @@ const CollectionForm = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+
           <div className="col-lg-6">
             <div className="form-group col-lg-6 col-md-12">
               <label>Property Type</label>
@@ -498,29 +488,20 @@ const CollectionForm = () => {
               />
             </div>
           </div>
-          <div className="col-lg-6">
+          {/* <div className="col-lg-6">
             <div className="form-group">
               <label>Price</label>
               <input
                 type="number"
-                value={formData.downPayment}
-                name="downPayment"
+                value={formData.price}
+                name="price"
                 onChange={handleChange}
                 className="form-control"
                 placeholder="0.2 ETH"
               />
             </div>
-          </div>
-          <div className="form-group col-lg-6 col-md-12">
-            <label>Sales Deadline</label>
-            <input
-              type="date"
-              className="form-control col-lg-6 col-md-12"
-              name="salesDeadline"
-              value={formData.salesDeadline}
-              onChange={handleChange}
-            />
-          </div>
+          </div> */}
+          <div className="col-lg-6"></div>
 
           <div className="form-group col-lg-6 col-md-12">
             <label>Latitude</label>
@@ -583,17 +564,27 @@ const CollectionForm = () => {
 
           <div className="col-lg-12 col-md-12">
             <button
-              disabled={!address || !apiData}
+              disabled={!address || !apiData ||NFTmintsuccess}
               type="submit"
               className={
                 address
                   ? !apiData
                     ? "default p-2 bg-gray border-radius-5"
+                    : NFTmintsuccess
+                    ? "btn btn-success"
                     : "default-btn border-radius-5"
                   : "default p-2 bg-gray border-radius-5"
               }
             >
-              {!loading ? "Mint NFT" : <ScaleLoader color="#8D99FF" />}
+              {!loading ? (
+                NFTmintsuccess ? (
+                  "Successfully Published"
+                ) : (
+                  "Publish"
+                )
+              ) : (
+                <ScaleLoader color="#8D99FF" />
+              )}
             </button>
           </div>
           <span className="mt-3" style={{ color: "red" }}>
@@ -605,7 +596,38 @@ const CollectionForm = () => {
               : "Please Connect your Crypto Wallet.....!"}
           </span>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </form>
+      {/* <Web3Button
+        contractAddress={address}
+        action={() =>
+          createDirectListing({
+            assetContractAddress: "0x7921eC9DF2eacB73d6C3879AB336dfF644536675",
+            tokenId: "16",
+            pricePerToken: "0.1",
+            currencyContractAddress:"0x693ea3384f0C1Ad2B58d15623Dc326E2A380e1E0",
+            isReservedListing: false,
+            quantity: "1",
+            startTimestamp: new Date(),
+            endTimestamp: new Date(
+              new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+            ),
+          })
+        }
+      >
+        Create Direct Listing
+      </Web3Button> */}
     </div>
   );
 };

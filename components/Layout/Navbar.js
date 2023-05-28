@@ -8,7 +8,7 @@ const Navbar = () => {
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [sticky, setSticky] = useState(false);
 
-  const walletaAddress = useAddress();
+  const walletAddress = useAddress();
 
 
 
@@ -308,6 +308,14 @@ const Navbar = () => {
                       <a className="nav-link">Contact Us</a>
                     </Link>
                   </li>
+                  {walletAddress ?
+                    <>    
+                    <li className="nav-item">
+                    <Link href="/profile" activeClassName="active">
+                      <a className="nav-link">Profile</a>
+                    </Link>
+                    </li>
+                    </>:""}
                 </ul>
 
                 <div className="others-options">
