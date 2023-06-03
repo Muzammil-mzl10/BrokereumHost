@@ -95,8 +95,7 @@ const CollectionForm = () => {
     priceType: "",
     coordinatesLng: "",
     coordinatesLat: "",
-    price: "",
-    priceType: "",
+    price: ""
  
   });
   const [NFTmintsuccess, setNFTmintSuccess] = useState(false)
@@ -259,8 +258,15 @@ const CollectionForm = () => {
       };
       console.log(metadatas);
       try{
-        const tx = await contract.mint(metadatas)
-        console.log(tx)
+        const tx = await contract.erc721.mint.prepare(metadatas);
+        const gasCost = await tx.estimateGasCost(); // Estimate the gas cost
+        //   const simulatedTx = await tx.simulate(); // Simulate the transaction
+        // const signedTx = await tx.sign();
+        console.log(gasCost)
+        const tx1 = await contract.mint(metadatas)
+        console.log(tx1)
+        // console.log(simulatedTx)
+        // console.log(signedTx)
         setLoading(false);
         setNFTmintSuccess(true)
         toast("NFT Minted Successfully!", {
@@ -275,7 +281,7 @@ const CollectionForm = () => {
         });
         
       } catch (err) {
-
+          console.log(err)
         toast.error("🦄 Error while Minting!", {
           position: "top-center",
           autoClose: 5000,
@@ -288,10 +294,7 @@ const CollectionForm = () => {
         });
       }
       
-      // const tx = await contract.mint(metadatas).prepare(1);
-      // const gasCost = await tx.estimateGasCost(); // Estimate the gas cost
-      // const simulatedTx = await tx.simulate(); // Simulate the transaction
-      // const signedTx = await tx.sign();
+    
       
 
       // Data of the listing you want to create
