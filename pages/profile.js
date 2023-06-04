@@ -3,6 +3,8 @@ import PageBanner from "../components/Common/PageBanner";
 import Footer from "../components/Layout/Footer";
 import Copyright from "../components/Common/Copyright";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import Navbar from "../components/Layout/Navbar";
 import ReactFacebookLogin from "react-facebook-login";
@@ -10,6 +12,7 @@ import GoogleLogin from "react-google-login";
 import { useAddress } from "@thirdweb-dev/react";
 
 const Login = () => {
+  const [file, setFile] = useState();
   const address = useAddress();
   const [formData, setFormData] = useState({
     name: "",
@@ -82,7 +85,9 @@ const Login = () => {
       }));
     }
   };
-
+  const profilePicChange = (e) => {
+  console.log(e)
+}
   const responseFacebook = (e) => {
     console.log("Auth completed");
     console.log(e);
@@ -91,8 +96,77 @@ const Login = () => {
     console.log("Auth completed");
     console.log(e);
     };
-    const formSubmit = () => {
-        console.log(formData)
+  const formSubmit = (e) => {
+    console.log(file)
+    e.preventDefault()
+  
+    console.log(formData)
+    const userData = JSON.stringify({
+      "data": {
+        "userName": formData.name,
+        "Email": formData.email,
+        "profilePicture": file,
+        "userType": {
+          "Broker": formData.Broker,
+          "Buyer": formData.Buyer,
+          "Seller": formData.Seller,
+          "Notaries": formData.Notaries,
+        },
+        "walletAddress": address
+        
+      }
+    })
+    console.log(userData)
+      
+      fetch(
+        `http://localhost:1337/api/brokereum-user`,
+        {
+          method:"POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          
+          body: userData,
+        }
+      ).then((res) => {
+        if (res.ok) {
+          
+          console.log(res)
+          toast.success("Data Saved Successfully!", {
+             position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "light",
+            });
+        } else {
+           toast.error("🦄 Error while Saving!", {
+             position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "light",
+           });
+          }
+      }).catch((err) => {
+        console.log(err)
+        toast.error("🦄 Error while Saving!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
     }
 
   return (
@@ -118,14 +192,10 @@ const Login = () => {
                         <div className="form-group">
                           <label>Profile Picture</label>
                           <input
+                            className="profileButton-input"
                             type="file"
-                            name="profilePic"
-                            onChange={handleChange}
-                            id="profilePic"
-                            className="form-control"
-                            value={formData.profilePic}
-                            accept="image/*,.pdf"
-                            required
+                            onChange={(e) => setFile(e.target.files[0])}
+                            name="media"
                             data-error="Please enter your Profile Picture"
                           />
                         </div>
@@ -197,7 +267,18 @@ const Login = () => {
                           </li>
                         </ul>
                       </div>
-
+                      <ToastContainer
+                        position="top-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                      />
                       {/* <div className="col-lg-12 form-condition">
                         <div className="agree-label">
                           <input type="checkbox" id="chb1" />
@@ -212,7 +293,8 @@ const Login = () => {
 
                       <div className="col-lg-12 col-md-12 text-center">
                         <button
-                          disabled={address}
+                          type="submit"
+                          disabled={!address}
                           className={
                             address
                               ? "default-btn"
