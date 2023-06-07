@@ -11,10 +11,15 @@ import { MediaRenderer } from "@thirdweb-dev/react";
 
 import { useAddress } from "@thirdweb-dev/react";
 import { resetIdCounter, Tab, TabList, TabPanel } from "react-tabs";
+import { Router, useRouter } from "next/router";
 resetIdCounter();
 
 const AuthorProfileArea = () => {
+  const router = useRouter()
   const address = useAddress();
+  if (!address) {
+    router.push("/")
+  }
   //counter calculation
   const [days, setDays] = useState("");
   const [hours, setHours] = useState("");
@@ -59,6 +64,7 @@ const AuthorProfileArea = () => {
   }, []);
 
   const [contract, setcontract] = useState();
+  const [userData, setUserData] = useState();
   const [marketplaceContract, setmarketplaceContract] = useState();
   const [NFT, setNft] = useState();
   const [listings, setlistings] = useState();
@@ -95,6 +101,29 @@ const AuthorProfileArea = () => {
     MarketplaceFetch();
   }, [marketplaceContract]);
 
+  const fetchUserInfo = () => {
+    if (address) {
+      
+      fetch(
+        `http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${address}`,
+        
+        ).then(res => res.json()).then((res) => {
+          console.log(res?.data[0]?.attributes)
+          if (res.data[0]) {
+            
+            setUserData(res.data[0].attributes);
+          } else {
+            router.push('/profile')
+          }
+        })
+      }
+}
+
+  useEffect(() => {
+    fetchUserInfo()
+  },[address])
+
+
   return (
     <>
       <div className="author-profile-area pt-100 pb-70">
@@ -106,19 +135,18 @@ const AuthorProfileArea = () => {
               <div className="author-profile-sidebar  mr-20">
                 <div className="author-user">
                   <img src="../images/author/author-profile.jpg" alt="Images" />
+                  {userData?.Verified ?
                   <i className="ri-check-line"></i>
+                  :""}
                 </div>
 
                 <h3>
-                  <Link href="/author-profile">
-                    <a>Olivia Jenar</a>
-                  </Link>
+                  <a>
+                    {userData?.firstName} {userData?.lastName}
+                  </a>
                 </h3>
-                <span>@Jenar</span>
-                <p>
-                  Description All the Lorem Ipsum generators on the Internet
-                  tend to repeat predefined chunks as necessary
-                </p>
+                <span>{userData?.Email}</span>
+                <p>{userData?.About}</p>
                 <div
                   className="sp-title"
                   style={{ cursor: "pointer" }}
@@ -223,7 +251,10 @@ const AuthorProfileArea = () => {
                           <div className="row justify-content-center">
                             {NFT &&
                               NFT.map((data) => (
-                                <div className="col-lg-4 col-md-6" style={{cursor:"pointer"}}>
+                                <div
+                                  className="col-lg-4 col-md-6"
+                                  style={{ cursor: "pointer" }}
+                                >
                                   <Link href={`/NFT/${data.metadata.id}`}>
                                     <div className="featured-card box-shadow">
                                       <div className="featured-card-img">
