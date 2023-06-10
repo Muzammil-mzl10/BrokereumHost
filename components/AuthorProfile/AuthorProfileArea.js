@@ -134,10 +134,12 @@ const AuthorProfileArea = () => {
             <div className="col-lg-3">
               <div className="author-profile-sidebar  mr-20">
                 <div className="author-user">
-                  <img src="../images/author/author-profile.jpg" alt="Images" />
-                  {userData?.Verified ?
-                  <i className="ri-check-line"></i>
-                  :""}
+                  <img
+                    src={`http://localhost:1337/uploads/${userData?.profilePicHash}.png`}
+                    alt="Images"
+                    style={{maxWidth:"180px !important"}}
+                  />
+                  {userData?.Verified ? <i className="ri-check-line"></i> : ""}
                 </div>
 
                 <h3>

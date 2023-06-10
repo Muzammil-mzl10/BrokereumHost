@@ -259,10 +259,11 @@ const CollectionForm = () => {
       console.log(metadatas);
       try{
         const tx = await contract.erc721.mint.prepare(metadatas);
-        const gasCost = await tx.estimateGasCost(); // Estimate the gas cost
-        //   const simulatedTx = await tx.simulate(); // Simulate the transaction
+        // const gasCost = await tx.estimateGasCost()
         // const signedTx = await tx.sign();
-        console.log(gasCost)
+        const gaslessOptions =  tx.getGaslessOptions();
+        console.log(gaslessOptions)
+    
         const tx1 = await contract.mint(metadatas)
         console.log(tx1)
         // console.log(simulatedTx)

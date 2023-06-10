@@ -36,9 +36,13 @@ function MyApp({ Component, pageProps }) {
         sdkOptions={{
           gasless: {
             openzeppelin: {
+              // relayerForwarderAddress:
+              //   "0x7a8760c038fdcddde027a1beebb045c583fffe0b",
               relayerUrl:
-                "https://api.defender.openzeppelin.com/autotasks/ffa92450-68df-484c-8bac-e6dbd5a82fe4/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/Mw7FQsDb2VrwacKpoDwBz8",
+                "https://api.defender.openzeppelin.com/autotasks/0d75d6f6-db48-4efe-8631-4e3e6f624598/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/2RSWaUL7oi7Pqhz6kXmJvd",
+              // useEOAForwarder: true,
             },
+            experimentalChainlessSupport: true,
           },
         }}
         supportedWallets={[
@@ -46,7 +50,6 @@ function MyApp({ Component, pageProps }) {
             factoryAddress: "0x12553A94e9c1D60c04Cd24b45263c42d7d15d375",
             thirdwebApiKey:
               "ec47c8cd19d2bfc4ccdbcaf0edcac215e55415e2d810f15a291486c29be80811194b693406d96a7dec6dd5822b843c195b2f7096e27709802866536b17d1f639",
-            gasless: true,
             personalWallets: [
               metamaskWallet(),
               localWallet(),

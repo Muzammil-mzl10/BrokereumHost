@@ -7,7 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
+import { ThirdwebSDK , useSDK } from "@thirdweb-dev/react";
 import Multiselect from "multiselect-react-dropdown";
 import Navbar from "../components/Layout/Navbar";
 import ReactFacebookLogin from "react-facebook-login";
@@ -154,6 +155,8 @@ const Login = () => {
     }
   };
 
+  // http://localhost:1337/uploads/Gas_Price_In_GWEI_0aa7fa8011.png
+
   const responseFacebook = (e) => {
     console.log("Auth completed");
     console.log(e);
@@ -161,63 +164,153 @@ const Login = () => {
   const responseGoogle = (e) => {
     console.log("Auth completed");
     console.log(e);
-    };
-  const formSubmit = (e) => {
-    console.log(file)
+  };
+
+
+  const sdk = useSDK()
+  const message = `Terms and Conditions for the Brokereum Real Estate Auction Website
+These Terms and Conditions ("Agreement") govern your use of this real estate auction website ("Platform") and any services provided by or through the Platform. By accessing or using the Platform, you agree to be bound by this Agreement. If you do not agree to these terms, please refrain from using the Platform.
+1. Platform Description and Use
+1.1 The Platform is an online marketplace that facilitates the auctioning of real estate properties leads and handling the real estate reservation process
+1.2 Users may participate in auctions, submit bids, and engage in related activities through the Platform.
+1.3 The Platform utilizes blockchain technology to enhance security, transparency, and integrity of the auction process.
+2. Registration and User Accounts
+2.1 Users must create an account to access the Platform.
+2.2 Users must provide accurate and complete information during registration.
+2.3 Users are responsible for maintaining the confidentiality of their account credentials.
+2.4 Users must promptly notify the Platform of any unauthorized access or use of their account.
+3. Auction Process
+3.1 Properties listed on the Platform are subject to auction.
+3.2 Users may submit bids on available properties during the auction period.
+3.3 The highest bid at the end of the auction period will be deemed the winning bid.
+3.4 The Platform reserves the right to cancel or extend an auction at its discretion.
+4. Blockchain Technology
+4.1 The Platform employs blockchain technology to record and verify auction-related transactions.
+4.2 The use of blockchain enhances security and transparency, but the Platform does not guarantee the complete elimination of risks or errors.
+4.3 Users are responsible for securely managing their blockchain wallets and private keys.
+5. Disclaimers and Limitation of Liability
+5.1 The Platform does not guarantee the accuracy, completeness, or legality of property listings or auction information.
+5.2 The Platform is not responsible for the condition, quality, or title of the properties listed on the Platform.
+5.3 Users participate in auctions at their own risk and acknowledge that the Platform is not liable for any losses, damages, or disputes arising from the auction process.
+5.4 The Platform is not liable for any interruptions, errors, or delays in the operation of the Platform, including but not limited to those caused by technical issues or unforeseen circumstances.
+5.5 The Platform is not liable for any actions, transactions, or engagements conducted between users outside the Platform.
+5.6 Users are solely responsible for verifying the authenticity, legality, and suitability of properties listed on the Platform.
+6. Intellectual Property
+6.1 The Platform and its content are protected by intellectual property rights.
+6.2 Users may not reproduce, distribute, or modify any content on the Platform without prior written permission from the Platform.
+7. Governing Law and Dispute Resolution
+7.1 This Agreement shall be governed by and construed in accordance with the laws of Switzerland.
+7.2 Any disputes arising out of or in connection with this Agreement shall be resolved through arbitration in accordance with the rules of [Arbitration Organization].
+8. Modification and Termination
+8.1 The Platform reserves the right to modify or update this Agreement at any time. Users will be notified of any material changes.
+8.2 The Platform may terminate or suspend user accounts for violations of this Agreement or any unlawful or inappropriate activities.
+9. Miscellaneous
+9.1 If any provision of this Agreement is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.
+9.2 This Agreement constitutes the entire agreement between the user and the Platform, superseding any prior agreements or understandings.
+
+By using the Platform, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.`;
+  
+  
+  
+  const formSubmit = async (e) => {
     e.preventDefault()
+    const signature = await sdk.wallet.sign(message);
+    console.log(signature)
+    console.log(file)
+    console.log(IDDocument)
 
-    console.log(formData)
-    // axios.post("http://localhost:1337/api/upload", file).then((res) => {
+    const file1 = new FormData()
+    file1.append('files', file);
+    
+    const file2 = new FormData()
+    file2.append('files', IDDocument)
+   
+    axios
+    .post("http://localhost:1337/api/upload", file2)
+    .then((resp2) => {
+      axios
+      .post("http://localhost:1337/api/upload", file1)
+      .then((resp1) => {
+            console.log(resp1.data[0]);
+            console.log(resp2.data[0]);
 
-      console.log(res)
-      
-      const userData = JSON.stringify({
-        "data": {
-          "firstName": formData.firstName,
-          "lastName": formData.lastName,
-          "Email": formData.email,
-          "profilePicture": file,
-          "IDDocument": IDDocument,
-          "Website": formData.website,
-          "Address": formData.companyAddress,
-          "Country": formData.country,
-          "Company": formData.companyName,
-          "phoneNumber": formData.phoneNumber,
-          "About": formData.about,
-          "Language": formData.Language,
-          "area": selectedAREA,
-          "walletAddress": address,
-          "userType": {
-            "Broker": formData.Broker,
-            "Buyer": formData.Buyer,
-            "Seller": formData.Seller,
-            "Notaries": formData.Notaries,
-          },
-        },
-      });
-      console.log(userData)
-      fetch(`http://localhost:1337/api/brokereum-user`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-
-        body: userData,
-      })
-        .then((res) => {
-          if (res.ok) {
-            console.log(res);
-            toast.success("Data Saved Successfully!", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
+            const userData = JSON.stringify({
+              "data": {
+                "firstName": formData.firstName,
+                "lastName": formData.lastName,
+                "Email": formData.email,
+                "IDDocument": IDDocument,
+                "profilePicHash": resp1.data[0].hash,
+                "IDDocumentHash": resp2.data[0].hash,
+                "Website": formData.website,
+                "Address": formData.companyAddress,
+                "Country": formData.country,
+                "Company": formData.companyName,
+                "phoneNumber": formData.phoneNumber,
+                "About": formData.about,
+                "Language": formData.Language,
+                "area": selectedAREA,
+                "walletAddress": address,
+                "userType": {
+                  "Broker": formData.Broker,
+                  "Buyer": formData.Buyer,
+                  "Seller": formData.Seller,
+                  "Notaries": formData.Notaries,
+                },
+              },
             });
-          } else {
+            console.log(userData);
+            fetch(`http://localhost:1337/api/brokereum-user`, {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json",
+              },
+
+              body: userData,
+            })
+              .then((res) => {
+                console.log(res)
+                if (res.ok) {
+                  console.log(res);
+                  toast.success("Data Saved Successfully!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                } else {
+                  toast.error("🦄 Error while Saving data!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                toast.error("🦄 Error while Saving!", {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              });
+          })
+          .catch((err) => {
+            console.log(err);
             toast.error("🦄 Error while Saving!", {
               position: "top-center",
               autoClose: 5000,
@@ -228,22 +321,21 @@ const Login = () => {
               progress: undefined,
               theme: "light",
             });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("🦄 Error while Saving!", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
           });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("🦄 Error while Saving!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
         });
-   
+      });
   }
   const areaSelected = (e) => {
     console.log(e)
@@ -253,6 +345,8 @@ const Login = () => {
     setSelectAREA(e)
   };
 
+  const [profilePictureHash ,setProfilePictureHash] = useState()
+  const [IDDocumentHash ,setIDDocumentHash] = useState()
    const fetchUserInfo = () => {
      if (address) {
        fetch(
@@ -263,8 +357,10 @@ const Login = () => {
           
            if (res.data[0]) {
              setUSerDataID(res.data[0].id)
+             setIDDocumentHash(res.data[0].attributes.IDDocumentHash);
+             setProfilePictureHash(res.data[0].attributes.profilePicHash);
              setUserData(res.data[0].attributes);
-             console.log(userData)
+             console.log(res.data[0])
 
            } else {
              setFormData({
@@ -318,15 +414,28 @@ const Login = () => {
 
   const formUpdateSubmit = async(e) => {
      e.preventDefault();
-
+   const file1 = new FormData()
+    file1.append('files', file);
+    
+    const file2 = new FormData()
+    file2.append('files', IDDocument)
+   
+    axios
+    .post("http://localhost:1337/api/upload", file2)
+    .then((resp2) => {
+      axios
+      .post("http://localhost:1337/api/upload", file1)
+      .then((resp1) => {
+            console.log(resp1.data[0]);
+            console.log(resp2.data[0]);
      console.log(formData);
      const userData = JSON.stringify({
        "data": {
          "firstName": formData.firstName,
          "lastName": formData.lastName,
          "Email": formData.email,
-         "profilePicture": file,
-         "IDDocument": IDDocument,
+         "profilePicHash": resp1.data[0].hash,
+         "IDDocumentHash": resp2.data[0].hash,
          "Website": formData.website,
          "Address": formData.companyAddress,
          "Country": formData.country,
@@ -393,6 +502,8 @@ const Login = () => {
            progress: undefined,
            theme: "light",
          });
+       });
+       });
        });
   }
 
@@ -745,7 +856,16 @@ const Login = () => {
                         <div className="row">
                           <div className="col-lg-12 ">
                             <div className="form-group">
-                              <label>Profile Picture</label>
+                              <label>
+                                Profile Picture{" "}
+                                <a
+                                  href={`http://localhost:1337/uploads/${profilePictureHash}.png`}
+                                  target="_blank"
+                                  className="mx-4 fs-bold"
+                                >
+                                  View
+                                </a>
+                              </label>
                               <br />
                               <input
                                 className="profileButton-input"
@@ -980,6 +1100,13 @@ const Login = () => {
                               <label>
                                 Upload ID Document{" "}
                                 <span className="text-danger">*</span>
+                                <a
+                                  href={`http://localhost:1337/uploads/${IDDocumentHash}.pdf`}
+                                  target="_blank"
+                                  className="mx-4 fs-bold"
+                                >
+                                  View
+                                </a>
                               </label>
                               <br />
                               <input
