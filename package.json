@@ -11,10 +11,11 @@
   },
   "dependencies": {
     "@thirdweb-dev/chains": "^0.1.11",
-    "@thirdweb-dev/react": "^3.11.7",
-    "@thirdweb-dev/sdk": "^3.10.10",
+    "@thirdweb-dev/react": "^3.13.1",
+    "@thirdweb-dev/sdk": "^3.10.21",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "caniuse-lite": "^1.0.30001502",
     "draft-convert": "^2.1.13",
     "draft-js": "^0.11.7",
     "ethers": "^5.7.2",

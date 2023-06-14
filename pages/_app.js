@@ -31,25 +31,23 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ThirdwebProvider
-        supportedChainIDs={supportedChainIDs}
-        connectors={connectors}
-        sdkOptions={{
-          gasless: {
-            openzeppelin: {
-              // relayerForwarderAddress:
-              //   "0x7a8760c038fdcddde027a1beebb045c583fffe0b",
-              relayerUrl:
-                "https://api.defender.openzeppelin.com/autotasks/0d75d6f6-db48-4efe-8631-4e3e6f624598/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/2RSWaUL7oi7Pqhz6kXmJvd",
-              // useEOAForwarder: true,
-            },
-            experimentalChainlessSupport: true,
-          },
-        }}
+        // supportedChainIDs={supportedChainIDs}
+        // sdkOptions={{
+        //   gasless: {
+        //     openzeppelin: {
+        //       relayerUrl:
+        //         "https://api.defender.openzeppelin.com/autotasks/0d75d6f6-db48-4efe-8631-4e3e6f624598/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/2RSWaUL7oi7Pqhz6kXmJvd",
+        //     },
+        //     experimentalChainlessSupport: true,
+        //   },
+        // }}
+
         supportedWallets={[
           smartWallet({
-            factoryAddress: "0x12553A94e9c1D60c04Cd24b45263c42d7d15d375",
+            factoryAddress: "0x908b34d67E12ef5B9C5e8CBD5cD78fAe228EeD7B",
+            gasless: true,
             thirdwebApiKey:
-              "ec47c8cd19d2bfc4ccdbcaf0edcac215e55415e2d810f15a291486c29be80811194b693406d96a7dec6dd5822b843c195b2f7096e27709802866536b17d1f639",
+              "00769a973f738369c6fbb0e397abcb23c356ceb6a44d275aae296619eb945b47cd00d4caee7155485391e058c7210708f33d0814592ec6028ad2f92e6ae035e1",
             personalWallets: [
               metamaskWallet(),
               localWallet(),

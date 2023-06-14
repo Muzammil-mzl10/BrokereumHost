@@ -11,7 +11,7 @@ import { MediaRenderer } from "@thirdweb-dev/react";
 
 import { useAddress } from "@thirdweb-dev/react";
 import { resetIdCounter, Tab, TabList, TabPanel } from "react-tabs";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 resetIdCounter();
 
 const AuthorProfileArea = () => {
@@ -135,7 +135,7 @@ const AuthorProfileArea = () => {
               <div className="author-profile-sidebar  mr-20">
                 <div className="author-user">
                   <img
-                    src={`http://localhost:1337/uploads/${userData?.profilePicHash}.png`}
+                    src={`http://localhost:1337${userData?.profilePicHash}`}
                     alt="Images"
                     style={{maxWidth:"180px !important"}}
                   />

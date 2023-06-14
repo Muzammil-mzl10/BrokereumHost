@@ -218,124 +218,135 @@ By using the Platform, you acknowledge that you have read, understood, and agree
     console.log(signature)
     console.log(file)
     console.log(IDDocument)
-
-    const file1 = new FormData()
-    file1.append('files', file);
+    if (signature) {
+      
     
-    const file2 = new FormData()
-    file2.append('files', IDDocument)
+      const file1 = new FormData()
+      file1.append('files', file);
+    
+      const file2 = new FormData()
+      file2.append('files', IDDocument)
    
-    axios
-    .post("http://localhost:1337/api/upload", file2)
-    .then((resp2) => {
       axios
-      .post("http://localhost:1337/api/upload", file1)
-      .then((resp1) => {
-            console.log(resp1.data[0]);
-            console.log(resp2.data[0]);
+        .post("http://localhost:1337/api/upload", file2)
+        .then((resp2) => {
+          axios
+            .post("http://localhost:1337/api/upload", file1)
+            .then((resp1) => {
+              console.log(resp1.data[0]);
+              console.log(resp2.data[0]);
 
-            const userData = JSON.stringify({
-              "data": {
-                "firstName": formData.firstName,
-                "lastName": formData.lastName,
-                "Email": formData.email,
-                "IDDocument": IDDocument,
-                "profilePicHash": resp1.data[0].hash,
-                "IDDocumentHash": resp2.data[0].hash,
-                "Website": formData.website,
-                "Address": formData.companyAddress,
-                "Country": formData.country,
-                "Company": formData.companyName,
-                "phoneNumber": formData.phoneNumber,
-                "About": formData.about,
-                "Language": formData.Language,
-                "area": selectedAREA,
-                "walletAddress": address,
-                "userType": {
-                  "Broker": formData.Broker,
-                  "Buyer": formData.Buyer,
-                  "Seller": formData.Seller,
-                  "Notaries": formData.Notaries,
+              const userData = JSON.stringify({
+                data: {
+                  firstName: formData.firstName,
+                  lastName: formData.lastName,
+                  Email: formData.email,
+                  profilePicHash: resp1.data[0].url,
+                  IDDocumentHash: resp2.data[0].url,
+                  Website: formData.website,
+                  Address: formData.companyAddress,
+                  Country: formData.country,
+                  Company: formData.companyName,
+                  phoneNumber: formData.phoneNumber,
+                  About: formData.about,
+                  Language: formData.Language,
+                  area: selectedAREA,
+                  walletAddress: address,
+                  userType: {
+                    Broker: formData.Broker,
+                    Buyer: formData.Buyer,
+                    Seller: formData.Seller,
+                    Notaries: formData.Notaries,
+                  },
                 },
-              },
-            });
-            console.log(userData);
-            fetch(`http://localhost:1337/api/brokereum-user`, {
-              method: "POST",
-              headers: {
-                "Content-type": "application/json",
-              },
-
-              body: userData,
-            })
-              .then((res) => {
-                console.log(res)
-                if (res.ok) {
-                  console.log(res);
-                  toast.success("Data Saved Successfully!", {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                  });
-                } else {
-                  toast.error("🦄 Error while Saving data!", {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                  });
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-                toast.error("🦄 Error while Saving!", {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "light",
-                });
               });
-          })
-          .catch((err) => {
-            console.log(err);
-            toast.error("🦄 Error while Saving!", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
+              console.log(userData);
+              axios.post(`http://localhost:1337/api/brokereum-user`, userData, {
+                headers: {
+                  "Content-type": "application/json",
+                },
+              })
+                .then((res) => {
+                  console.log(res)
+                  if (res.status==200) {
+                    console.log(res);
+                    toast.success("Data Saved Successfully!", {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light",
+                    });
+                  } else {
+                    toast.error("🦄 Error while Saving data1!", {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light",
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  toast.error("🦄 Error while Saving2!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+              toast.error("🦄 Error while Saving3!", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
             });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("🦄 Error while Saving4!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
           });
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("🦄 Error while Saving!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
         });
-      });
+    }
+    else {
+       toast.error("🦄 Please sign Terms & Conditions", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+    }
   }
   const areaSelected = (e) => {
     console.log(e)
@@ -349,12 +360,13 @@ By using the Platform, you acknowledge that you have read, understood, and agree
   const [IDDocumentHash ,setIDDocumentHash] = useState()
    const fetchUserInfo = () => {
      if (address) {
+       console.log(address)
        fetch(
          `http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${address}`
        )
          .then((res) => res.json())
          .then((res) => {
-          
+          console.log(res)
            if (res.data[0]) {
              setUSerDataID(res.data[0].id)
              setIDDocumentHash(res.data[0].attributes.IDDocumentHash);
@@ -859,7 +871,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                               <label>
                                 Profile Picture{" "}
                                 <a
-                                  href={`http://localhost:1337/uploads/${profilePictureHash}.png`}
+                                  href={`http://localhost:1337${profilePictureHash}`}
                                   target="_blank"
                                   className="mx-4 fs-bold"
                                 >
@@ -1101,7 +1113,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                                 Upload ID Document{" "}
                                 <span className="text-danger">*</span>
                                 <a
-                                  href={`http://localhost:1337/uploads/${IDDocumentHash}.pdf`}
+                                  href={`http://localhost:1337${IDDocumentHash}`}
                                   target="_blank"
                                   className="mx-4 fs-bold"
                                 >

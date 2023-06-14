@@ -4,7 +4,8 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
- 
+import axios from "axios"; 
+
 import { ReactComponentElement as Loader } from "../../public/images/loader.svg";
 import {
   useAddress,
@@ -25,6 +26,7 @@ const CollectionForm = () => {
     },
   });
 
+  const [parcelID , setparcelID] = useState()
   const [loading, setLoading] = useState(false);
   const [tokenID, setTokenID] = useState();
   const [file, setFile] = useState();
@@ -118,23 +120,78 @@ const CollectionForm = () => {
       body: raw,
       redirect: "follow",
     };
+    var requestOptionsGET = {
+      headers: myHeaders,
+      // body: raw,
+    };
 
     fetch("http://46.243.90.203:3000/res_api/parcel_data", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        setapiData(result);
+
+
+        // fetch(`http://46.243.90.203:3000/res_api/signal_data_all`, requestOptionsGET).then(res => res.json())
+        // .then((res) => console.log(res))
+       
+
+      
         console.log(result);
-        console.log(result.features[0].properties.score);
-         toast.success("Data Fetched Successfully!", {
-           position: "top-center",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "light",
-         });
+        console.log(result.features[0].id);
+        setparcelID(result.features[0].id);
+
+        
+        axios
+          .get(
+            `http://localhost:1337/api/parcel-ids/?filters[parcelIDs][$eq]=${result.features[0].id}`,
+            {
+              headers: {
+                "Content-type": "application/json",
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res.data.data.length);
+            if (res.data.data.length>0) {
+               toast.error("🦄 This Property was published before NFT", {
+                 position: "top-center",
+                 autoClose: 5000,
+                 hideProgressBar: false,
+                 closeOnClick: true,
+                 pauseOnHover: true,
+                 draggable: true,
+                 progress: undefined,
+                 theme: "light",
+               });
+            }
+            else {   
+              setapiData(result);
+              toast.success("Data Fetched Successfully!", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("🦄 This Property was published before NFT", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          });
+
+
       })
       .catch((error) => console.log("error", error));
   };
@@ -162,6 +219,7 @@ const CollectionForm = () => {
       data: [
         {
           image: file,
+          parcelID: parcelID,
           propertyData: {
             properties: {
               id: apiData.features[0].properties.score,
@@ -270,7 +328,32 @@ const CollectionForm = () => {
         // console.log(signedTx)
         setLoading(false);
         setNFTmintSuccess(true)
-        toast("NFT Minted Successfully!", {
+        const userData = JSON.stringify({
+          "data": {
+            "parcelIDs": parcelID,
+          },
+        });
+        console.log(userData);
+        axios
+          .post(`http://localhost:1337/api/parcel-ids`, userData, {
+            headers: {
+              "Content-type": "application/json",
+            },
+          })
+          .then((res) => {
+            toast("NFT Minted Successfully!", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }).catch((err) => {
+          console.log(err)
+        toast.error("🦄 Error while Minting!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -280,7 +363,7 @@ const CollectionForm = () => {
           progress: undefined,
           theme: "light",
         });
-        
+      })
       } catch (err) {
           console.log(err)
         toast.error("🦄 Error while Minting!", {

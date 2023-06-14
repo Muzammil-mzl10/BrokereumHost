@@ -3,9 +3,26 @@ import Link from "next/link";
 import { useAddress, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {ethers} from "ethers";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 
+
 const NFTDetailsDescription = ({ NFT }) => {
+   const [provider, setProvider] = useState();
+  const signer = new ethers.Wallet("6a0272bc588c7eea92584db2ae8d24035d93f94bd9e2f14253e8e4d9c5bccd92");
+  
+  // useEffect(() => {
+  //     const connectToProvider = async () => {
+  //       const connectedProvider = new ethers.providers.JsonRpcProvider(
+  //         "https://polygon-mumbai.g.alchemy.com/v2/qn9dx3qezc7yOPnRF7ZJA1atSdIDIcCg"
+  //       );
+  //       await signer.connect(connectedProvider);
+  //       setProvider(connectedProvider);
+  //     };
+
+  //     connectToProvider();
+  //   }, []);
+  
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const address = useAddress();
@@ -21,7 +38,9 @@ const NFTDetailsDescription = ({ NFT }) => {
     setclipboard(true);
   };
 
-  const sdk = new ThirdwebSDK("mumbai");
+
+
+  const sdk = ThirdwebSDK.fromSigner(signer,'mumbai');
   const marketplaceContract = async () => {
     setContract(
       await sdk.getContract(
@@ -39,7 +58,7 @@ const NFTDetailsDescription = ({ NFT }) => {
     console.log(startDate);
     console.log(endDate);
     console.log("List");
-
+  
     // Data of the listing you want to create
     const listing = {
       // address of the contract the asset you want to list is on
