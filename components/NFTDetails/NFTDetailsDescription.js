@@ -7,10 +7,10 @@ import {ethers} from "ethers";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 
 
-const NFTDetailsDescription = ({ NFT }) => {
-   const [provider, setProvider] = useState();
-  const signer = new ethers.Wallet("6a0272bc588c7eea92584db2ae8d24035d93f94bd9e2f14253e8e4d9c5bccd92");
-  
+const NFTDetailsDescription = ({ NFT, ipfsData }) => {
+  const [provider, setProvider] = useState();
+  const signer = new ethers.Wallet(process.env.private_Key);
+
   // useEffect(() => {
   //     const connectToProvider = async () => {
   //       const connectedProvider = new ethers.providers.JsonRpcProvider(
@@ -22,8 +22,9 @@ const NFTDetailsDescription = ({ NFT }) => {
 
   //     connectToProvider();
   //   }, []);
-  
+
   const [dateRange, setDateRange] = useState([null, null]);
+
   const [startDate, endDate] = dateRange;
   const address = useAddress();
   const [formData, setFormData] = useState({
@@ -38,15 +39,9 @@ const NFTDetailsDescription = ({ NFT }) => {
     setclipboard(true);
   };
 
-
-
-  const sdk = ThirdwebSDK.fromSigner(signer,'mumbai');
+  const sdk = ThirdwebSDK.fromSigner(signer, "mumbai");
   const marketplaceContract = async () => {
-    setContract(
-      await sdk.getContract(
-          "0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0"
-      )
-    );
+    setContract(await sdk.getContract(process.env.Marketplace_Contract));
   };
   useEffect(() => {
     marketplaceContract();
@@ -58,11 +53,11 @@ const NFTDetailsDescription = ({ NFT }) => {
     console.log(startDate);
     console.log(endDate);
     console.log("List");
-  
+
     // Data of the listing you want to create
     const listing = {
       // address of the contract the asset you want to list is on
-      assetContractAddress: "0x7921eC9DF2eacB73d6C3879AB336dfF644536675",
+      assetContractAddress: process.env.ERC_Contract,
       // token ID of the asset you want to list
       tokenId: NFT.metadata.id,
       // how many of the asset you want to list
@@ -115,7 +110,6 @@ const NFTDetailsDescription = ({ NFT }) => {
         <h2>Title</h2>
         <p>{NFT.metadata.name}</p>
       </div>
-     
 
       <div className="item-details-price">
         <div className="item-details-title">
@@ -132,7 +126,7 @@ const NFTDetailsDescription = ({ NFT }) => {
           </li>
           <li>
             City
-            <b>Osnabruck</b>
+            <b>: Osnabruck</b>
           </li>
           <li>
             Property Type

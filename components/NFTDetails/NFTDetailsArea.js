@@ -4,6 +4,7 @@ import NFTDetailsHistory from "./NFTDetailsHistory";
 import NFTDetailsUser from "./NFTDetailsUser";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import HashLoader from "react-spinners/HashLoader";
+import OverlayImage from "./Overlay";
 var Carousel = require("react-responsive-carousel").Carousel;
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {
@@ -17,22 +18,43 @@ import {
 // Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
 
-const ItemDetailsArea = ({ tokenID }) => {
+const ItemDetailsArea = ({ tokenID ,  }) => {
   console.log(tokenID);
   const [loading, setLoading] = useState(true);
   const [contract, setContract] = useState();
   const [NFT, setNFT] = useState();
-
+ const [ipfsData, setipfsData] = useState();
   const getContract = async () => {
+    console.log("ENV File",process.env.ERC_Contract)
     const sdk = new ThirdwebSDK("mumbai");
-    setContract(
-      await sdk.getContract("0x7921eC9DF2eacB73d6C3879AB336dfF644536675")
-    );
+    setContract(await sdk.getContract(process.env.ERC_Contract));
   };
 
   useEffect(() => {
     getContract();
   }, []);
+
+  const [satelitleImg, setSateliteImg] = useState()
+  const [worktopoImg, setWorldTopoImg] = useState()
+
+  useEffect(() => {
+   
+      
+      console.log(NFT?.metadata.properties.IPFSHash);
+      fetch(NFT?.metadata.properties.IPFSHash)
+      .then((res) => res.json())
+      .then((res) => {
+        setipfsData(res.propertyData);
+        console.log(res.propertyData);
+        setSateliteImg(res.parcelData.image_urls.satellite_image);
+        setWorldTopoImg(res.parcelData.image_urls.world_topo_image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    
+  }, [NFT])
+  
 
   const fetchNFT = async () => {
     setNFT(await contract.erc721.get(tokenID));
@@ -47,6 +69,7 @@ const ItemDetailsArea = ({ tokenID }) => {
 
   console.log(NFT);
 
+  
   return (
     <>
       <div
@@ -61,7 +84,7 @@ const ItemDetailsArea = ({ tokenID }) => {
             : "item-details-area pt-100 pb-70"
         }
       >
-        {loading ? (
+        {loading && ipfsData == undefined ? (
           <HashLoader className="mt-5" size={150} color="#F14D5D" />
         ) : (
           <div className="container">
@@ -71,23 +94,27 @@ const ItemDetailsArea = ({ tokenID }) => {
                   <div className="item-details-img">
                     <Carousel showArrows={true}>
                       <div>
-                        <img src={NFT.metadata.image} alt="Images" />
+                        <img src={NFT?.metadata.image} alt="Images" />
+                      </div>
+                      {/* <div>
+                        <img
+                          src={ipfsData.image_urls.parcel_image}
+                          alt="Images"
+                        />
+                      </div> */}
+                      <div>
+                        <img src={satelitleImg} alt="Images" />
                       </div>
                       <div>
-                        <img src={NFT.metadata.image} alt="Images" />
+                        <img src={worktopoImg} alt="Images" />
                       </div>
-                      <div>
+                      {/* <OverlayImage
+                        image1={ipfsData?.image_urls.satellite_image}
+                        image2={ipfsData?.image_urls.world_topo_image}
+                      /> */}
+                      {/* <div>
                         <img src={NFT.metadata.image} alt="Images" />
-                      </div>
-                      <div>
-                        <img src={NFT.metadata.image} alt="Images" />
-                      </div>
-                      <div>
-                        <img src={NFT.metadata.image} alt="Images" />
-                      </div>
-                      <div>
-                        <img src={NFT.metadata.image} alt="Images" />
-                      </div>
+                      </div> */}
                     </Carousel>
 
                     {/* <span>
@@ -104,30 +131,7 @@ const ItemDetailsArea = ({ tokenID }) => {
                     <div className="section-title px-2">
                       <div className="fs-5">Description</div>
                       <hr />
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Modi facere, assumenda ratione alias quos illo
-                        commodi dolorem fugiat eaque voluptatem beatae minus
-                        magnam inventore aliquam eum, voluptates molestiae totam
-                        accusamus, accusantium nam unde harum! Culpa earum
-                        ullam, cumque possimus voluptas saepe minus ad modi,
-                        mollitia repellat impedit ipsam quidem vel aliquid
-                        beatae esse eius error? Ut illo incidunt ratione tempore
-                        reprehenderit, voluptatibus quidem cupiditate magnam
-                        animi id eligendi veritatis blanditiis, quisquam
-                      </p>
-                      <p>
-                        Lorem id eligendi veritatis blanditiis, quisquam
-                        quibusdam delectus deleniti, non quaerat fugiat quos
-                        possimus facere odio voluptate? Non deserunt pariatur
-                        neque veniam similique odit fugit voluptas, in earum,
-                        itaque repellat aliquid harum dolor fugiat
-                        quaerat?quibusdam delectus deleniti, non quaerat fugiat
-                        quos possimus facere odio voluptate? Non deserunt
-                        pariatur neque veniam similique odit fugit voluptas, in
-                        earum, itaque repellat aliquid harum dolor fugiat
-                        quaerat?
-                      </p>
+                      <p>{NFT.metadata.description}</p>
                     </div>
                   </div>
                   <div
@@ -139,24 +143,34 @@ const ItemDetailsArea = ({ tokenID }) => {
                   >
                     <div className="d-flex justify-content-between px-2">
                       <div className="fs-5">Address</div>
-                      <button className="btn btn-success h4 ">
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${NFT.metadata.lat},${NFT.metadata.lng}`}
+                        target="_blank"
+                        className="btn btn-success h4 "
+                      >
                         Open in google maps
-                      </button>
+                      </a>
                     </div>
                     <hr />
                     <div className="d-flex justify-content-between mt-5 px-2">
                       <div>
                         <div>
                           Street
-                          <b className="text-primary px-3">: 42 Street</b>
+                          <b className="text-primary px-3">
+                            : {ipfsData?.streetname}
+                          </b>
                         </div>
                         <div className="my-2">
                           City
-                          <b className="text-primary px-3">: Berlin</b>
+                          <b className="text-primary px-3">
+                            : {ipfsData?.cityname}
+                          </b>
                         </div>
                         <div>
                           Canton
-                          <b className="text-primary px-3">: ZH</b>
+                          <b className="text-primary px-3">
+                            : {ipfsData? ipfsData.canton:""}
+                          </b>
                         </div>
                       </div>
                       <div>
@@ -524,7 +538,7 @@ const ItemDetailsArea = ({ tokenID }) => {
                             </div>
                             <div>
                               <div>
-                               Tax Scale
+                                Tax Scale
                                 <b
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
@@ -547,7 +561,7 @@ const ItemDetailsArea = ({ tokenID }) => {
 
               <div className="col-lg-5">
                 <div className="item-details-dsce">
-                  <NFTDetailsDescription NFT={NFT} />
+                  <NFTDetailsDescription ipfsData={ipfsData} NFT={NFT} />
                   {/* <NFTDetailsUser NFT={NFT} /> */}
                 </div>
               </div>

@@ -75,11 +75,9 @@ const AuthorProfileArea = () => {
   };
   useEffect(async () => {
     const sdk = new ThirdwebSDK("mumbai");
-    setcontract(
-      await sdk.getContract("0x7921eC9DF2eacB73d6C3879AB336dfF644536675")
-    );
+    setcontract(await sdk.getContract(process.env.ERC_Contract));
     setmarketplaceContract(
-      await sdk.getContract("0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0")
+      await sdk.getContract(process.env.Marketplace_Contract)
     );
   }, []);
 

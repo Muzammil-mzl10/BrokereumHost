@@ -44,10 +44,9 @@ function MyApp({ Component, pageProps }) {
 
         supportedWallets={[
           smartWallet({
-            factoryAddress: "0x908b34d67E12ef5B9C5e8CBD5cD78fAe228EeD7B",
+            factoryAddress: process.env.factoryAddress,
             gasless: true,
-            thirdwebApiKey:
-              "00769a973f738369c6fbb0e397abcb23c356ceb6a44d275aae296619eb945b47cd00d4caee7155485391e058c7210708f33d0814592ec6028ad2f92e6ae035e1",
+            thirdwebApiKey: process.env.thirdwebApiKey,
             personalWallets: [
               metamaskWallet(),
               localWallet(),

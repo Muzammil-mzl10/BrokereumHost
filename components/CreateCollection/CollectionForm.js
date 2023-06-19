@@ -258,6 +258,8 @@ const CollectionForm = () => {
         image: file,
         name: formData.itemName,
         description: formData.description,
+        lat: formData.coordinatesLat,
+        lng: formData.coordinatesLng,
         properties: {
           IPFSHash: ipfsHash,
           priceType: formData.priceType,
@@ -268,16 +270,12 @@ const CollectionForm = () => {
       };
       console.log(metadatas);
       try{
-        const tx = await contract.erc721.mint.prepare(metadatas);
-        // const gasCost = await tx.estimateGasCost()
-        // const signedTx = await tx.sign();
+        const tx = await contract.erc721.mint.prepare(metadatas); 
         const gaslessOptions =  tx.getGaslessOptions();
-        console.log(gaslessOptions)
-    
+        console.log(gaslessOptions)    
         const tx1 = await contract.mint(metadatas)
         console.log(tx1)
-        // console.log(simulatedTx)
-        // console.log(signedTx)
+
         setLoading(false);
         setNFTmintSuccess(true)
         const userData = JSON.stringify({
