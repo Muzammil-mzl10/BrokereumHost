@@ -1,5 +1,5 @@
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   env: {
     ERC_Contract: process.env.ERC_Contract,
     thirdwebApiKey: process.env.thirdwebApiKey,

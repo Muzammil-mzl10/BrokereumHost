@@ -11,7 +11,7 @@ const ItemDetailsArea = ({tokenID , data}) => {
   const [satelitleImg, setSateliteImg] = useState();
   const [worktopoImg, setWorldTopoImg] = useState();
   const sdk = new ThirdwebSDK("mumbai");
-  console.log(tokenID);
+  // console.log(tokenID);
 
   useEffect(async () => {
     setMarketplaceModule(
@@ -28,14 +28,57 @@ const ItemDetailsArea = ({tokenID , data}) => {
         console.log(res.propertyData);
         setSateliteImg(res.parcelData.image_urls.satellite_image);
         setWorldTopoImg(res.parcelData.image_urls.world_topo_image);
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [data]);
-  console.log(satelitleImg)
+  // console.log(satelitleImg)
   
-  console.log(data);
+const [days, setDays] = useState("");
+const [hours, setHours] = useState("");
+const [minutes, setMinutes] = useState("");
+const [seconds, setSeconds] = useState("");
+
+
+const comingSoonTime = () => {
+  const endTimeInSeconds = data?.endTimeInSeconds; // Set the endTimeInSeconds variable
+  const now = Math.floor(Date.now() / 1000); // Convert milliseconds to seconds
+  const timeLeft = endTimeInSeconds - now;
+
+  if (timeLeft > 0) {
+    const countdays = Math.floor(timeLeft / 86400);
+    const counthours = Math.floor((timeLeft % 86400) / 3600);
+    const countminutes = Math.floor((timeLeft % 3600) / 60);
+    const countseconds = Math.floor(timeLeft % 60);
+
+    setDays(countdays);
+    setHours(counthours);
+    setMinutes(countminutes);
+    setSeconds(countseconds);
+  } else {
+    // Bidding is over
+    setDays(0);
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
+  }
+};
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    comingSoonTime();
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+  };
+}, [data]);
+  
+
+
+
   return (
     <>
       <div className="item-details-area pt-100 pb-70">
@@ -48,11 +91,11 @@ const ItemDetailsArea = ({tokenID , data}) => {
                     src={data.asset.image}
                     alt='Images'
                   /> */}
-                  {
-                    satelitleImg && worktopoImg ? 
-                      
-                  <OverlayImage image1={satelitleImg} image2={worktopoImg} />
-                  :""}
+                  {satelitleImg && worktopoImg ? (
+                    <OverlayImage image1={satelitleImg} image2={worktopoImg} />
+                  ) : (
+                    ""
+                  )}
                   <span>
                     <i className="ri-heart-line"></i> 340
                   </span>
@@ -64,7 +107,14 @@ const ItemDetailsArea = ({tokenID , data}) => {
 
             <div className="col-lg-5">
               <div className="item-details-dsce">
-                <ItemDetailsDescription data={data} ipfsData = {ipfsData} />
+                <ItemDetailsDescription
+                  days={days}
+                  hours={hours}
+                  minutes={minutes}
+                  seconds = {seconds}
+                  data={data}
+                  ipfsData={ipfsData}
+                />
 
                 <ItemDetailsUser />
               </div>

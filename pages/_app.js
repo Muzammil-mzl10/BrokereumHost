@@ -8,7 +8,7 @@ import Head from "next/head";
 import GoTop from "../components/Shared/GoTop";
 import Loader from "../components/Shared/Loader";
 
-import { ThirdwebProvider, coinbaseWallet, localWallet, metamaskWallet, safeWallet, smartWallet, walletConnect } from "@thirdweb-dev/react";
+import { ThirdwebProvider, coinbaseWallet, localWallet, metamaskWallet, safeWallet, smartWallet, walletConnect, useConnect } from "@thirdweb-dev/react";
 import { Gnosis } from "@thirdweb-dev/chains";
 
 
@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ThirdwebProvider
+        // supportedWallets={[useConnect()]}
         // supportedChainIDs={supportedChainIDs}
         // sdkOptions={{
         //   gasless: {
@@ -41,21 +42,8 @@ function MyApp({ Component, pageProps }) {
         //     experimentalChainlessSupport: true,
         //   },
         // }}
-
-        supportedWallets={[
-          smartWallet({
-            factoryAddress: process.env.factoryAddress,
-            gasless: true,
-            thirdwebApiKey: process.env.thirdwebApiKey,
-            personalWallets: [
-              metamaskWallet(),
-              localWallet(),
-              coinbaseWallet(),
-              safeWallet(),
-              walletConnect(),
-            ],
-          }),
-        ]}
+        autoConnect={true}
+        activeChain={"mumbai"}
       >
         <Component {...pageProps} />
       </ThirdwebProvider>

@@ -1,32 +1,56 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useAddress, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  NATIVE_TOKEN_ADDRESS,
+  useSigner,
+  useContractWrite,
+  useContract,
+  Web3Button,
+  coinbaseWallet, localWallet, metamaskWallet, safeWallet, smartWallet, walletConnect 
+} from "@thirdweb-dev/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {ethers} from "ethers";
-import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-
+import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
+import { SmartWallet } from "@thirdweb-dev/wallets";
+import { Goerli, Mumbai } from "@thirdweb-dev/chains";
 
 const NFTDetailsDescription = ({ NFT, ipfsData }) => {
-  const [provider, setProvider] = useState();
-  const signer = new ethers.Wallet(process.env.private_Key);
+  
 
-  // useEffect(() => {
-  //     const connectToProvider = async () => {
-  //       const connectedProvider = new ethers.providers.JsonRpcProvider(
-  //         "https://polygon-mumbai.g.alchemy.com/v2/qn9dx3qezc7yOPnRF7ZJA1atSdIDIcCg"
-  //       );
-  //       await signer.connect(connectedProvider);
-  //       setProvider(connectedProvider);
-  //     };
+  console.log(smartWallet())
+  
 
-  //     connectToProvider();
-  //   }, []);
+// Then, connect the Smart wallet
+
+
+  const address = useAddress()
+ 
+  // const [provider, setProvider] = useState();
+  // const signer = new ethers.Wallet(process.env.private_Key);
+  
+    // useEffect(() => {
+    //     const connectToProvider = async () => {
+    //       const connectedProvider = new ethers.providers.JsonRpcProvider(
+    //         "https://polygon-mumbai.g.alchemy.com/v2/qn9dx3qezc7yOPnRF7ZJA1atSdIDIcCg"
+    //       );
+    //       await signer.wallet.connect(connectedProvider);
+    //       setProvider(connectedProvider);
+    //     };
+  
+    //     connectToProvider();
+    //   }, []);
+  //  const { contract } = useContract(process.env.Marketplace_Contract);
+  //  const { mutateAsync, isLoading, error } = useContractWrite(
+  //    contract,
+  //    (e) => {
+  //      console.log(e)
+  //    }
+  //  );
 
   const [dateRange, setDateRange] = useState([null, null]);
-
   const [startDate, endDate] = dateRange;
-  const address = useAddress();
   const [formData, setFormData] = useState({
     listingType: "Auction",
     pricePerToken: "",
@@ -39,13 +63,26 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     setclipboard(true);
   };
 
-  const sdk = ThirdwebSDK.fromSigner(signer, "mumbai");
+  const signer1 =   useSigner()
+  const signer = useSigner()
   const marketplaceContract = async () => {
+    // const sdk = await ThirdwebSDK.fromWallet(wallet);
+    // const sdk = new ThirdwebSDK("mumbai");
+    // const sdk = ThirdwebSDK.fromPrivateKey(process.env.private_Key, "mumbai");
+    // const signer = new ethers.Wallet(process.env.private_Key);
+    const sdk = ThirdwebSDK.fromSigner(signer,Mumbai);
+
+    console.log(sdk);
+    //  sdk.update_signer(signer1);
     setContract(await sdk.getContract(process.env.Marketplace_Contract));
   };
   useEffect(() => {
     marketplaceContract();
   }, []);
+ 
+    
+
+
 
   const ListForSale = async (e) => {
     e.preventDefault();
@@ -53,7 +90,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     console.log(startDate);
     console.log(endDate);
     console.log("List");
-
+   
     // Data of the listing you want to create
     const listing = {
       // address of the contract the asset you want to list is on
@@ -84,9 +121,9 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
       // address of the currency contract that will be used to pay for the auctioned tokens
       currencyContractAddress: NATIVE_TOKEN_ADDRESS,
       // the minimum bid that will be accepted for the token
-      minimumBidAmount: "1.5",
+      minimumBidAmount: "0.01",
       // how much people would have to bid to instantly buy the asset
-      buyoutBidAmount: "10",
+      buyoutBidAmount: "1",
       // If a bid is made less than these many seconds before expiration, the expiration time is increased by this.
       timeBufferInSeconds: "300", // 5 minutes by default
       // A bid must be at least this much bps greater than the current winning bid
@@ -96,7 +133,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
       // end time of auction
       endTimestamp: endDate,
     };
-
+    console.log(contract)
     const tx = await contract.englishAuctions.createAuction(auction);
     const receipt = tx.receipt; // the transaction receipt
     const id = tx.id; // the id of the newly created listing

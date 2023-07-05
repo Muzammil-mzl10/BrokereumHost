@@ -66,7 +66,9 @@ const FeaturedArea = ({ title, pagination }) => {
   useEffect(async () => {
     console.log(marketplaceContract)
     if (marketplaceContract) { 
-      setAuctionListing(await marketplaceContract.englishAuctions.getAll());
+      setAuctionListing(
+        await marketplaceContract.englishAuctions.getAllValid()
+      );
     }
   }, [marketplaceContract])
 

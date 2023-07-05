@@ -41,10 +41,7 @@ const CollectionForm = () => {
 
   const sdk = new ThirdwebSDK("mumbai");
 
-  const { contract } = useContract(
-    "0x7921eC9DF2eacB73d6C3879AB336dfF644536675",
-    "nft-collection"
-  );
+  const { contract } = useContract(process.env.ERC_Contract, "nft-collection");
 
   const { contract: Marketplace } = useContract(
     "0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0",
