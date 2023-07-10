@@ -160,8 +160,8 @@ const Navbar = () => {
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/authors" activeClassName="active">
-                          <a className="nav-link">Authors</a>
+                        <Link href="/batchUpload" activeClassName="active">
+                          <a className="nav-link">Batch Upload</a>
                         </Link>
                       </li>
 

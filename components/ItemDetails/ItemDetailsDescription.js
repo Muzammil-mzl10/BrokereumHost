@@ -2,17 +2,25 @@ import React, { useState , useEffect} from 'react';
 import Link from 'next/link'
 import { setConfig } from 'next/config';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
-import { Web3Button } from '@thirdweb-dev/react';
+import { Web3Button, useSigner, useAddress } from '@thirdweb-dev/react';
+import { Mumbai } from '@thirdweb-dev/chains';
 import { ethers } from "ethers";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
   const [bidAmount, setBidAmount] = useState()
   const [bidErrorMessage, setBidErrorMessage] = useState(false)
   const [marketplaceModule, setMarketplaceModule] = useState();
+  const [bidComplete, SetBidComplete] = useState(false)
   const [provider, setProvider] = useState();
-  const signer = new ethers.Wallet(process.env.private_Key);
-
-  const sdk = ThirdwebSDK.fromSigner(signer, "mumbai");
+  const [winningBid, setWinningBid]= useState()
+  const [minimumBidVal, setMinimumBidVal] =useState()
+  const signer = useSigner()
+  const sdk = ThirdwebSDK.fromSigner(signer, Mumbai);
+  const Address = useAddress()
+  
   //  const sdk = new ThirdwebSDK("mumbai");
 
    useEffect(async () => {
@@ -22,27 +30,27 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
    }, []);
    useEffect(async () => {
      if (marketplaceModule && data) {
-       let minimumNextBid =
+       console.log(data.id)
+      setMinimumBidVal(
          await marketplaceModule.englishAuctions.getMinimumNextBid(
-           data.id
-         );
-       const winningBid = await marketplaceModule.englishAuctions.getWinningBid(
-         data.id
-       );
-       console.log(winningBid)
-       console.log(minimumNextBid)
+           data?.id
+         ))
+      setWinningBid(await marketplaceModule.englishAuctions.getWinningBid(
+         data?.id
+       ))
       }
-     
-   }, [marketplaceModule]);
-
+      
+    }, [marketplaceModule, data]);
+    
+    console.log(winningBid)
+    console.log(minimumBidVal)
  
 
-  const placeBid =async(e) => {
+  const placeBid = async (e) => {
     e.preventDefault()
-    if (bidAmount >= parseFloat(data?.minimumBidCurrencyValue.displayValue))
-    {
-      setBidErrorMessage(false);
 
+    if (bidAmount >= parseFloat(minimumBidVal.displayValue)) {
+      setBidErrorMessage(false);
       const offer = {
         // address of the contract the asset you want to make an offer for
         assetContractAddress: data.assetContractAddress,
@@ -57,16 +65,40 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
         // Offer valid until
         endTimestamp: new Date(),
       };
-        console.log(data.id)
-      const tx = await marketplaceModule.englishAuctions.makeBid(
-        data.id,
-        bidAmount
-      );
-      console.log(tx)
-     
+      console.log(data.id);
+      try {
+        const tx = await marketplaceModule.englishAuctions.makeBid(
+          data.id,
+          bidAmount
+        );
+        console.log(tx);
+        SetBidComplete(true);
+        toast.success("Your Bid was Successfull....!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } catch (err) {
+        console.log("rejection");
+        toast.error("🦄 Bid was not successfull", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     } else {
-      setBidErrorMessage(true)
-      console.log("Error")
+      setBidErrorMessage(true);
+      console.log("Error");
     }
   } 
   
@@ -77,7 +109,18 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
         <h2>{data?.asset.name}</h2>
         <p>{data?.asset.description}</p>
       </div>
-
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="row">
         <div className="col-lg-6 col-6">
           <div className="item-details-user">
@@ -163,61 +206,55 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
         </div>
         <div className="item-right">
           <h3 className="item-remaining">Highest Bid</h3>
-          <h3 className="item-right-eth">15,00 ETH</h3>
+          <h3 className="item-right-eth">
+            {winningBid?.bidAmountCurrencyValue?.displayValue}{" "}
+            {winningBid?.bidAmountCurrencyValue?.symbol}
+          </h3>
         </div>
       </div>
       <form onSubmit={placeBid}>
-        <div className="col-lg-12 my-3">
-          <div className="form-group">
-            <label>Enter Bidding Amount</label>
-            <input
-              type="float"
-              step="0.01"
-              value={bidAmount}
-              onChange={(e) => setBidAmount(e.target.value)}
-              placeholder={`Minimum Bid Value ${data?.minimumBidCurrencyValue.displayValue}`}
-              name="itemName"
-              className="form-control"
-            />
-          </div>
-        </div>
-        <Web3Button
-          contractAddress={process.env.Marketplace_Contract}
-          action={async () => await placeBid()}
-          // className={styles.btn}
-          onSuccess={() => {
-            toast(`Bid success!`, {
-              icon: "✅",
-              style: toastStyle,
-              position: "bottom-center",
-            });
-          }}
-          onError={(e) => {
-            console.log(e);
-            toast(`Bid failed! Reason: ${e.message}`, {
-              icon: "❌",
-              style: toastStyle,
-              position: "bottom-center",
-            });
-          }}
-        >
-          Place bid
-        </Web3Button>
-        <div className="item-details-btn">
-          <button type="submit" className="default-btn border-radius-50">
-            {" "}
-            Place Bid
-          </button>
-        </div>
-        {bidErrorMessage ? (
-          <span className="text-danger">
-            Enter Amount must be greater than{" "}
-            <span className="fs-bold">
-              {data?.minimumBidCurrencyValue.displayValue}
-            </span>
-          </span>
+        {data?.creatorAddress == Address ? (
+          <span className="fs-bold ">You are the Owner of this NFT</span>
         ) : (
-          ""
+          <>
+            <div className="col-lg-12 my-3">
+              <div className="form-group">
+                <label>Enter Bidding Amount</label>
+                <input
+                  type="float"
+                  step="0.01"
+                  value={bidAmount}
+                  onChange={(e) => setBidAmount(e.target.value)}
+                  placeholder={`Minimum Bid Value ${minimumBidVal?.displayValue} ${minimumBidVal?.symbol}`}
+                  name="itemName"
+                  className="form-control"
+                />
+              </div>
+            </div>
+            <div className="item-details-btn">
+              <button
+                type="submit"
+                className={
+                  bidComplete
+                    ? "btn btn-success w-100 border-radius-50"
+                    : "default-btn border-radius-50"
+                }
+              >
+                {" "}
+                {bidComplete ? "Your Bid was Successfull" : "Place Bid"}
+              </button>
+            </div>
+            {bidErrorMessage ? (
+              <span className="text-danger">
+                Enter Amount must be greater than{" "}
+                <span className="fs-bold">
+                  {data?.minimumBidCurrencyValue.displayValue}
+                </span>
+              </span>
+            ) : (
+              ""
+            )}
+          </>
         )}
       </form>
     </>

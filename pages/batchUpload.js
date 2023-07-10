@@ -11,10 +11,11 @@ const Authors = () => {
     <>
       <Navbar />
       <PageBanner
-        bannerHeading='Our Top Authors'
-        parentTitle='Pages'
+        bannerHeading='Batch Upload Using Our RES API'
+        parentTitle='Batch'
         pageTitle='Authors'
         bg='inner-bg9'
+        
       />
       <AuthorArea/>
       <InvolvedArea />

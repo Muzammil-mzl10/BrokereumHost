@@ -5,6 +5,8 @@ import ItemDetailsUser from './ItemDetailsUser';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import OverlayImage from './Overlay';
 
+
+
 const ItemDetailsArea = ({tokenID , data}) => {
   const [ipfsData, setipfsData] = useState();
   const [marketplaceModule, setMarketplaceModule] = useState();
