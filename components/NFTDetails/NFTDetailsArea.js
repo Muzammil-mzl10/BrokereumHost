@@ -40,14 +40,15 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
   useEffect(() => {
    
       
-      console.log(NFT?.metadata.properties.IPFSHash);
+      console.log(NFT);
       fetch(NFT?.metadata.properties.IPFSHash)
       .then((res) => res.json())
       .then((res) => {
-        setipfsData(res.propertyData);
-        console.log(res.propertyData);
+        setipfsData(res.parcelData);
+        console.log(res);
         setSateliteImg(res.parcelData.image_urls.satellite_image);
         setWorldTopoImg(res.parcelData.image_urls.world_topo_image);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +59,6 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
 
   const fetchNFT = async () => {
     setNFT(await contract.erc721.get(tokenID));
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -169,7 +169,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                         <div>
                           Canton
                           <b className="text-primary px-3">
-                            : {ipfsData? ipfsData.canton:""}
+                            : {ipfsData ? ipfsData.canton : ""}
                           </b>
                         </div>
                       </div>
@@ -180,7 +180,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                             style={{ marginLeft: "65px" }}
                             className="text-primary"
                           >
-                            : 45100
+                            : {ipfsData?.zip}
                           </b>
                         </div>
                         <div className="my-2">
@@ -189,7 +189,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                             style={{ marginLeft: "30px" }}
                             className="text-primary "
                           >
-                            : 4.87665
+                            :
                           </b>
                         </div>
                         <div>
@@ -218,15 +218,21 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                         <div>
                           <div>
                             Bldg Constr Year
-                            <b className="text-primary px-3">: Null</b>
+                            <b className="text-primary px-3">
+                              : {ipfsData?.bldg_constr_year}
+                            </b>
                           </div>
                           <div className="my-2">
                             Bldg Flats
-                            <b className="text-primary px-3">: Null</b>
+                            <b className="text-primary px-3">
+                              : {ipfsData?.bldg_flats}
+                            </b>
                           </div>
                           <div>
                             Bldg Floors
-                            <b className="text-primary px-3">: Null</b>
+                            <b className="text-primary px-3">
+                              : {ipfsData?.bldg_floors}
+                            </b>
                           </div>
                         </div>
                         <div>
@@ -236,7 +242,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                               style={{ marginLeft: "30px" }}
                               className="text-primary"
                             >
-                              : 0
+                              : {ipfsData?.bldg_size}
                             </b>
                           </div>
                           <div className="my-2">
@@ -245,7 +251,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                               style={{ marginLeft: "37px" }}
                               className="text-primary "
                             >
-                              : 0
+                              : {ipfsData?.bldg_vol_gwr}
                             </b>
                           </div>
                         </div>
@@ -274,15 +280,21 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                           <div>
                             <div>
                               Parcel Area
-                              <b className="text-primary px-3">: 2483.74</b>
+                              <b className="text-primary px-3">
+                                : {ipfsData?.parcel_area}
+                              </b>
                             </div>
                             <div className="my-2">
                               Ratio_S
-                              <b className="text-primary px-3">: 0</b>
+                              <b className="text-primary px-3">
+                                : {ipfsData?.ratio_s}
+                              </b>
                             </div>
                             <div>
                               Ratio S Free
-                              <b className="text-primary px-3">: 100</b>
+                              <b className="text-primary px-3">
+                                : {ipfsData?.ratio_s_free}
+                              </b>
                             </div>
                           </div>
                         </AccordionItemPanel>
@@ -300,7 +312,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 0
+                                  : {ipfsData?.ratio_v}
                                 </b>
                               </div>
                               <div className="my-2">
@@ -309,18 +321,18 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "37px" }}
                                   className="text-primary "
                                 >
-                                  : 0
+                                  : {ipfsData?.ratio_v_free}
                                 </b>
                               </div>
                             </div>
                             <div>
                               <div>
-                                Ratio V Free
+                                Ratio U
                                 <b
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 100
+                                  : {ipfsData?.ratio_u}
                                 </b>
                               </div>
                               <div className="my-2">
@@ -329,7 +341,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "37px" }}
                                   className="text-primary "
                                 >
-                                  : 455.4
+                                  : {ipfsData?.area_max}
                                 </b>
                               </div>
                               <div>
@@ -338,7 +350,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 4098.6
+                                  : {ipfsData?.vol_max}
                                 </b>
                               </div>
                             </div>
@@ -369,29 +381,41 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                             <div>
                               <div>
                                 CZ abbreveiation
-                                <b className="text-primary px-3">: K</b>
+                                <b className="text-primary px-3">
+                                  : {ipfsData?.cz_abbrev}
+                                </b>
                               </div>
                               <div className="my-2">
                                 cz_floors_usual
-                                <b className="text-primary px-3">: 3</b>
+                                <b className="text-primary px-3">
+                                  : {ipfsData?.cz_local}
+                                </b>
                               </div>
                               <div>
                                 cz_height_usual
-                                <b className="text-primary px-3">: 8</b>
+                                <b className="text-primary px-3">
+                                  : {ipfsData?.cz_height_usual}
+                                </b>
                               </div>
                             </div>
                             <div>
                               <div>
                                 CZ Local
-                                <b className="text-primary px-3">: Null</b>
+                                <b className="text-primary px-3">
+                                  : {ipfsData?.cz_local}
+                                </b>
                               </div>
                               <div className="my-2">
                                 CZ type
-                                <b className="text-primary px-3">: DOM</b>
+                                <b className="text-primary px-3">
+                                  : {ipfsData?.cz_type}
+                                </b>
                               </div>
                               <div>
                                 CZ Util EST
-                                <b className="text-primary px-3">: 55</b>
+                                <b className="text-primary px-3">
+                                  : {ipfsData?.cz_util_est}
+                                </b>
                               </div>
                             </div>
                           </div>
@@ -410,7 +434,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 10
+                                  : {ipfsData?.noise_bahn_night}
                                 </b>
                               </div>
                               <div className="my-2">
@@ -419,7 +443,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "37px" }}
                                   className="text-primary "
                                 >
-                                  : 15
+                                  : {ipfsData?.noise_bahn_day}
                                 </b>
                               </div>
                             </div>
@@ -430,7 +454,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 60
+                                  : {ipfsData?.noise_street_night}
                                 </b>
                               </div>
                               <div className="my-2">
@@ -439,7 +463,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "37px" }}
                                   className="text-primary "
                                 >
-                                  : 42
+                                  : {ipfsData?.noise_street_day}
                                 </b>
                               </div>
                             </div>
@@ -459,7 +483,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 14
+                                  : {ipfsData?.tt_agglo_pubt}
                                 </b>
                               </div>
                             </div>
@@ -470,7 +494,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 13
+                                  : {ipfsData?.tt_agglo_road}
                                 </b>
                               </div>
                             </div>
@@ -490,7 +514,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 0.17
+                                  : {ipfsData?.vac_all}
                                 </b>
                               </div>
                             </div>
@@ -501,7 +525,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 0.01
+                                  : {ipfsData?.vac_new}
                                 </b>
                               </div>
                             </div>
@@ -512,7 +536,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 0.16
+                                  : {ipfsData?.vac_old}
                                 </b>
                               </div>
                             </div>
@@ -532,7 +556,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 15172
+                                  : {ipfsData?.tax_100k_pa}
                                 </b>
                               </div>
                             </div>
@@ -543,7 +567,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                                   style={{ marginLeft: "30px" }}
                                   className="text-primary"
                                 >
-                                  : 78.1
+                                  : {ipfsData?.tax_scale}
                                 </b>
                               </div>
                             </div>

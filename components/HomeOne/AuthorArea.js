@@ -1,30 +1,43 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 const AuthorArea = () => {
+
+  const [authorData,setAuthorData] = useState()
+
+  const fetchUsersData = () => {
+    fetch("http://localhost:1337/api/brokereum-user").then((res) => res.json())
+      .then((res) => {
+        console.log(res.data)
+        setAuthorData(res.data)
+    })
+  }
+
+  useEffect(() => {
+    fetchUsersData()
+  },[])
   return (
     <>
-      <div className='author-area author-area-bg pt-100 pb-70'>
-        <div className='container'>
-          <div className='row align-items-center'>
-            <div className='col-lg-8'>
-              <div className='section-title'>
+      <div className="author-area author-area-bg pt-100 pb-70">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-8">
+              <div className="section-title">
                 <h2>Top Author</h2>
               </div>
             </div>
 
-            <div className='col-lg-4'>
-              <div className='author-btn text-end'>
-                <Link href='/authors'>
-                  <a className='default-btn border-radius-5'>
-                    Explore More
-                  </a>
+            <div className="col-lg-4">
+              <div className="author-btn text-end">
+                <Link href="/authors">
+                  <a className="default-btn border-radius-5">Explore More</a>
                 </Link>
               </div>
             </div>
           </div>
 
-          <div className='row pt-45 justify-content-center'>
-            <div className='col-lg-3 col-6'>
+          <div className="row pt-45 justify-content-center">
+            {/* <div className='col-lg-3 col-6'>
               <div className='author-card'>
               <Link href='/author-profile'>
                 <a>
@@ -168,60 +181,77 @@ const AuthorArea = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
+            {authorData &&
+              authorData.map((data) => (
+                <div className="col-lg-3 col-6">
+                  <div className="author-card">
+                    <Link href="/author-profile">
+                      <a>
+                        <img
+                          src="../images/author/author-img4.jpg"
+                          alt="Images"
+                        />
+                      </a>
+                    </Link>
+                    <div className="content">
+                      <div className="author-user">
+                        <img
+                          src={`http://localhost:1337${data.attributes.profilePicHash}`}
+                          alt="Images"
+                        />
+                        <i className="ri-check-line"></i>
+                      </div>
 
-            <div className='col-lg-3 col-6'>
-              <div className='author-card'>
-              <Link href='/author-profile'>
-                <a>
-                  <img src='../images/author/author-img4.jpg' alt='Images' />
-                </a></Link>
-                <div className='content'>
-                  <div className='author-user'>
-                    <img src='../images/author/author-user4.jpg' alt='Images' />
-                    <i className='ri-check-line'></i>
-                  </div>
+                      <h3>
+                        <Link href="/author-profile">
+                          <a>{data.attributes.firstName} {data.attributes.lastName}</a>
+                        </Link>
+                      </h3>
+                      <span>@{data.attributes.Email}</span>
 
-                  <h3><Link href='/author-profile'>
-                    <a>Amelia Rosia</a></Link>
-                  </h3>
-                  <span>@Rosia</span>
+                      <div className="author-content">
+                        <div className="content-left">
+                          <span>Followers</span>
+                          <h4>2306</h4>
+                        </div>
 
-                  <div className='author-content'>
-                    <div className='content-left'>
-                      <span>Followers</span>
-                      <h4>2306</h4>
-                    </div>
-
-                    <div className='content-right'>
-                      Follow
-                      <ul className='author-social'>
-                        <li>
-                          <a href='https://www.facebook.com/' target='_blank'>
-                            <i className='ri-facebook-fill'></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href='https://www.instagram.com/' target='_blank'>
-                            <i className='ri-instagram-fill'></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href='https://twitter.com/' target='_blank'>
-                            <i className='ri-twitter-fill'></i>
-                          </a>
-                        </li>
-                      </ul>
+                        <div className="content-right">
+                          Follow
+                          <ul className="author-social">
+                            <li>
+                              <a
+                                href="https://www.facebook.com/"
+                                target="_blank"
+                              >
+                                <i className="ri-facebook-fill"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="https://www.instagram.com/"
+                                target="_blank"
+                              >
+                                <i className="ri-instagram-fill"></i>
+                              </a>
+                            </li>
+                            <li>
+                              <a href="https://twitter.com/" target="_blank">
+                                <i className="ri-twitter-fill"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
 
-        <div className='author-area-shape'>
-          <img src='../images/author/author-shape.png' alt='Images' />
+        <div className="author-area-shape">
+          <img src="../images/author/author-shape.png" alt="Images" />
         </div>
       </div>
     </>

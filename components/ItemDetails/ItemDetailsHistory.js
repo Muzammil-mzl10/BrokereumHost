@@ -1,106 +1,55 @@
+import { useSDK } from '@thirdweb-dev/react';
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import moment from 'moment/moment';
 
-const ItemDetailsHistory = () => {
+const ItemDetailsHistory = ({ data }) => {
+  console.log(data?.id);
+
+  const [prevBids, setPRevBids] = useState()
+  useEffect(() => {
+  fetch(
+    `http://localhost:1337/api/bidding/?filters[listingID][$eq]=${data?.id}`
+  )
+    .then((res) =>  res.json())
+    .then((res) => {
+      console.log(res);
+      setPRevBids(res.data);
+
+    })
+    .then((err) => console.log(err));
+  },[data])
+
   return (
     <>
-      <div className='item-details-content'>
+      <div className="item-details-content">
         <h3>History</h3>
-        <div className='item-details-into'>
-          <div className='row'>
-            <div className='col-lg-12'>
-              <div className='item-details-card'>
-                <div className='item-details-card-img'>
-                  <img
-                    src='../images/Item-details/Item-details2.jpg'
-                    alt='Images'
-                  />
-                  <i className='ri-check-line'></i>
+        <div className="item-details-into">
+          <div className="row">
+            {prevBids &&
+              prevBids.map((data) => (
+                <div className="col-lg-12">
+                  <div className="item-details-card">
+                    <div className="item-details-card-img">
+                      <img
+                        src={`http://localhost:1337/uploads/${data.attributes.userInfo.data.profilePicHash}.png`}
+                        alt="Images"
+                      />
+                      <i className="ri-check-line"></i>
+                    </div>
+                    <div className="item-details-card-content">
+                      <h3>
+                        Bid Placed For <b>{data.attributes.bidAmount} MATIC</b>
+                      </h3>
+                      <span>@{data.attributes.userInfo.data.firstName}</span>
+                    </div>
+                    <div className="work-hours">
+                      {moment(data.attributes.createdAt).fromNow()}
+                    </div>
+                  </div>
                 </div>
-                <div className='item-details-card-content'>
-                  <h3>
-                    Bid Placed For <b>235 ETH</b>
-                  </h3>
-                  <span>@Jack</span>
-                </div>
-                <div className='work-hours'>4 Hours Ago</div>
-              </div>
-            </div>
-
-            <div className='col-lg-12'>
-              <div className='item-details-card'>
-                <div className='item-details-card-img'>
-                  <img
-                    src='../images/Item-details/Item-details3.jpg'
-                    alt='Images'
-                  />
-                  <i className='ri-check-line'></i>
-                </div>
-                <div className='item-details-card-content'>
-                  <h3>
-                    Bid Placed For <b>245 ETH</b>
-                  </h3>
-                  <span>@Henry</span>
-                </div>
-                <div className='work-hours'>2 Hours Ago</div>
-              </div>
-            </div>
-
-            <div className='col-lg-12'>
-              <div className='item-details-card'>
-                <div className='item-details-card-img'>
-                  <img
-                    src='../images/Item-details/Item-details4.jpg'
-                    alt='Images'
-                  />
-                  <i className='ri-check-line'></i>
-                </div>
-                <div className='item-details-card-content'>
-                  <h3>
-                    Bid Placed For <b>215 ETH</b>
-                  </h3>
-                  <span>@Martina</span>
-                </div>
-                <div className='work-hours'>2 Hours Ago</div>
-              </div>
-            </div>
-
-            <div className='col-lg-12'>
-              <div className='item-details-card'>
-                <div className='item-details-card-img'>
-                  <img
-                    src='../images/Item-details/Item-details5.jpg'
-                    alt='Images'
-                  />
-                  <i className='ri-check-line'></i>
-                </div>
-                <div className='item-details-card-content'>
-                  <h3>
-                    Bid Placed For <b>265 ETH</b>
-                  </h3>
-                  <span>@Martina</span>
-                </div>
-                <div className='work-hours'>10 Hours Ago</div>
-              </div>
-            </div>
-
-            <div className='col-lg-12'>
-              <div className='item-details-card'>
-                <div className='item-details-card-img'>
-                  <img
-                    src='../images/Item-details/Item-details6.jpg'
-                    alt='Images'
-                  />
-                  <i className='ri-check-line'></i>
-                </div>
-                <div className='item-details-card-content'>
-                  <h3>
-                    Bid Placed For <b>235 ETH</b>
-                  </h3>
-                  <span>@Martina</span>
-                </div>
-                <div className='work-hours'>8 Hours Ago</div>
-              </div>
-            </div>
+              ))}
           </div>
         </div>
       </div>

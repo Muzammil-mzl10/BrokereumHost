@@ -1,16 +1,24 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from "next/router";
 import Link from 'next/link'
 import { setConfig } from 'next/config';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import { Web3Button, useSigner, useAddress } from '@thirdweb-dev/react';
 import { Mumbai } from '@thirdweb-dev/chains';
 import { ethers } from "ethers";
+import axios from 'axios';
+
+
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
+const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
+  const router = useRouter();
   const [bidAmount, setBidAmount] = useState()
+  const [userData,setUserData] = useState()
+  const [OwnerData,setOwnerData] = useState()
   const [bidErrorMessage, setBidErrorMessage] = useState(false)
   const [marketplaceModule, setMarketplaceModule] = useState();
   const [bidComplete, SetBidComplete] = useState(false)
@@ -23,13 +31,40 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
   
   //  const sdk = new ThirdwebSDK("mumbai");
 
-   useEffect(async () => {
+   const fetchUserInfo = () => {
+     if (Address) {
+       fetch(`http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${Address}`)
+         .then((res) => res.json())
+         .then((res) => {
+           console.log(res?.data[0]?.attributes);
+           if (res.data[0]) {
+             setUserData(res.data[0].attributes);
+           } else {
+             router.push("/profile");
+           }
+         });
+     }
+   };
+   const fetchOWnerInfo = () => {
+       fetch(`http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`)
+         .then((res) => res.json())
+         .then((res) => {
+           console.log(res?.data[0]?.attributes);
+           setOwnerData(res.data[0].attributes);
+         })
+         .catch((err) => console.log(err));
+   };
+
+  useEffect(async () => {
+    fetchUserInfo()
+    fetchOWnerInfo()
      setMarketplaceModule(
        await sdk.getContract(process.env.Marketplace_Contract)
      );
    }, []);
    useEffect(async () => {
      if (marketplaceModule && data) {
+       console.log(userData)
        console.log(data.id)
       setMinimumBidVal(
          await marketplaceModule.englishAuctions.getMinimumNextBid(
@@ -42,8 +77,8 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
       
     }, [marketplaceModule, data]);
     
-    console.log(winningBid)
-    console.log(minimumBidVal)
+    // console.log(winningBid)
+    // console.log(minimumBidVal)
  
 
   const placeBid = async (e) => {
@@ -67,12 +102,43 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
       };
       console.log(data.id);
       try {
+        
         const tx = await marketplaceModule.englishAuctions.makeBid(
           data.id,
           bidAmount
         );
+
+         const enterBidData = JSON.stringify({
+           data: {
+             listingID: data.id,
+             bidAmount: bidAmount,
+             userInfo: {
+               data: userData,
+               address: Address,
+             },
+           },
+         });
+
+         axios
+           .post(`http://localhost:1337/api/bidding`, enterBidData, {
+             headers: {
+               "Content-type": "application/json",
+             },
+           })
+           .then((res) => {
+             console.log("Successfully Uploaded...!!");
+             console.log(res);
+           })
+           .then((err) => {
+             console.log(err);
+           });
+        
         console.log(tx);
         SetBidComplete(true);
+
+        
+
+
         toast.success("Your Bid was Successfull....!", {
           position: "top-center",
           autoClose: 5000,
@@ -84,7 +150,8 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
           theme: "light",
         });
       } catch (err) {
-        console.log("rejection");
+
+        console.log(err);
         toast.error("🦄 Bid was not successfull", {
           position: "top-center",
           autoClose: 5000,
@@ -121,7 +188,7 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
         pauseOnHover
         theme="light"
       />
-      <div className="row">
+      {/* <div className="row">
         <div className="col-lg-6 col-6">
           <div className="item-details-user">
             <h3>Creator</h3>
@@ -154,13 +221,16 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="item-details-price">
         <div className="item-details-title">
-          <h3>Current Price 324 ETH</h3>
-          <p>$1200</p>
-          <span>1/10</span>
+          <h3>
+            Current Price {winningBid?.bidAmountCurrencyValue?.displayValue}{" "}
+            {winningBid?.bidAmountCurrencyValue?.symbol}
+          </h3>
+          {/* <p>$1200</p>
+          <span>1/10</span> */}
         </div>
         <ul>
           <li>
@@ -192,8 +262,10 @@ const ItemDetailsDescription = ({ days,hours,minutes , seconds,data }) => {
         </div>
 
         <div className="content">
-          <h3>Jecob Martin</h3>
-          <span>Item Owner</span>
+          <h3>
+            {OwnerData?.firstName} {OwnerData?.lastName}
+          </h3>
+          <span>{OwnerData?.Email}</span>
         </div>
       </div>
 

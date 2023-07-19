@@ -65,6 +65,7 @@ const Navbar = () => {
         </div>
 
         <div
+          
           className={
             showMenu
               ? "show desktop-nav desktop-nav-one nav-area"
@@ -72,7 +73,9 @@ const Navbar = () => {
           }
         >
           <div className="container-fluid">
-            <nav className="navbar navbar-expand-md navbar-light ">
+            <nav
+              className="navbar navbar-expand-md navbar-light "
+            >
               <Link href="/">
                 <a className="navbar-brand" style={{ width: "12rem" }}>
                   <img src="../images/footer-logo2.png" alt="Logo" />
@@ -103,7 +106,7 @@ const Navbar = () => {
                     </a>
                   </li>
 
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <a href="#" className="nav-link ">
                       Discover
                       <i className="ri-arrow-down-s-line"></i>
@@ -130,7 +133,7 @@ const Navbar = () => {
                         </Link>
                       </li>
                     </ul>
-                  </li>
+                  </li> */}
 
                   <li className="nav-item">
                     <Link href="/activity" activeClassName="active">
@@ -171,19 +174,19 @@ const Navbar = () => {
                         </Link>
                       </li>
 
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link href="/team" activeClassName="active">
                           <a className="nav-link">Team</a>
                         </Link>
-                      </li>
+                      </li> */}
 
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link href="/testimonials" activeClassName="active">
                           <a className="nav-link">Testimonials</a>
                         </Link>
-                      </li>
+                      </li> */}
 
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <a href="#" className="nav-link">
                           User
                           <i className="ri-arrow-down-s-line"></i>
@@ -208,7 +211,7 @@ const Navbar = () => {
                             </Link>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
 
                       <li className="nav-item">
                         <Link href="/terms-condition" activeClassName="active">
@@ -222,17 +225,17 @@ const Navbar = () => {
                         </Link>
                       </li>
 
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link href="/404" activeClassName="active">
                           <a className="nav-link">404 Page</a>
                         </Link>
-                      </li>
+                      </li> */}
 
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link href="/coming-soon" activeClassName="active">
                           <a className="nav-link">Coming Soon</a>
                         </Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </li>
 
@@ -308,14 +311,17 @@ const Navbar = () => {
                       <a className="nav-link">Contact Us</a>
                     </Link>
                   </li>
-                  {walletAddress ?
-                    <>    
-                    <li className="nav-item">
-                    <Link href="/profile" activeClassName="active">
-                      <a className="nav-link">Profile</a>
-                    </Link>
-                    </li>
-                    </>:""}
+                  {walletAddress ? (
+                    <>
+                      <li className="nav-item">
+                        <Link href="/profile" activeClassName="active">
+                          <a className="nav-link">Profile</a>
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </ul>
 
                 <div className="others-options">

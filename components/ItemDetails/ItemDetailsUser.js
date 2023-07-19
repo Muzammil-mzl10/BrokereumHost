@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ItemDetailsUser = () => {
+
   return (
     <>
       <div className='item-details-user-area'>

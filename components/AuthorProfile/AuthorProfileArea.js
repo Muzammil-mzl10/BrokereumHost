@@ -133,7 +133,7 @@ const AuthorProfileArea = () => {
               <div className="author-profile-sidebar  mr-20">
                 <div className="author-user">
                   <img
-                    src={`http://localhost:1337${userData?.profilePicHash}`}
+                    src={`http://localhost:1337/uploads/${userData?.profilePicHash}`.png}
                     alt="Images"
                     style={{maxWidth:"180px !important"}}
                   />

@@ -369,6 +369,12 @@ By using the Platform, you acknowledge that you have read, understood, and agree
           console.log(res)
            if (res.data[0]) {
              setUSerDataID(res.data[0].id)
+              setFile(
+                `http://localhost:1337${res.data[0].attributes.profilePicHash}`
+              );
+              setIDDocument(
+                `http://localhost:1337${res.data[0].attributes.IDDocumentHash}`
+              );
              setIDDocumentHash(res.data[0].attributes.IDDocumentHash);
              setProfilePictureHash(res.data[0].attributes.profilePicHash);
              setUserData(res.data[0].attributes);
@@ -884,7 +890,6 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                                 type="file"
                                 onChange={(e) => setFile(e.target.files[0])}
                                 name="media"
-                                data-error="Please enter your Profile Picture"
                               />
                             </div>
                           </div>
@@ -1127,9 +1132,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                                 onChange={(e) =>
                                   setIDDocument(e.target.files[0])
                                 }
-                                name="media"
-                                required
-                                data-error="Please enter your ID Document"
+                                name="media"         
                               />
                             </div>
                           </div>

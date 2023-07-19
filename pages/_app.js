@@ -8,7 +8,7 @@ import Head from "next/head";
 import GoTop from "../components/Shared/GoTop";
 import Loader from "../components/Shared/Loader";
 
-import { ThirdwebProvider, coinbaseWallet, localWallet, metamaskWallet, safeWallet, smartWallet, walletConnect, useConnect } from "@thirdweb-dev/react";
+import { ThirdwebProvider, coinbaseWallet, localWallet, metamaskWallet, paperWallet,safeWallet, smartWallet, walletConnect, useConnect } from "@thirdweb-dev/react";
 import { Gnosis } from "@thirdweb-dev/chains";
 
 
@@ -44,6 +44,21 @@ function MyApp({ Component, pageProps }) {
         // }}
         autoConnect={true}
         activeChain={"mumbai"}
+        supportedWallets={[
+          smartWallet({
+            factoryAddress: process.env.factoryAddress,
+            thirdwebApiKey: process.env.thirdwebApiKey,
+            gasless: true,
+            personalWallets: [
+              metamaskWallet(),
+              paperWallet({ clientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d" }),
+              localWallet({ persist: true }),
+              coinbaseWallet(),
+              safeWallet(),
+              walletConnect(),
+            ],
+          }),
+        ]}
       >
         <Component {...pageProps} />
       </ThirdwebProvider>

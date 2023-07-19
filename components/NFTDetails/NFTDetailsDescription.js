@@ -19,35 +19,9 @@ import { Goerli, Mumbai } from "@thirdweb-dev/chains";
 const NFTDetailsDescription = ({ NFT, ipfsData }) => {
   
 
-  console.log(smartWallet())
-  
-
-// Then, connect the Smart wallet
-
-
+  console.log(ipfsData)
   const address = useAddress()
  
-  // const [provider, setProvider] = useState();
-  // const signer = new ethers.Wallet(process.env.private_Key);
-  
-    // useEffect(() => {
-    //     const connectToProvider = async () => {
-    //       const connectedProvider = new ethers.providers.JsonRpcProvider(
-    //         "https://polygon-mumbai.g.alchemy.com/v2/qn9dx3qezc7yOPnRF7ZJA1atSdIDIcCg"
-    //       );
-    //       await signer.wallet.connect(connectedProvider);
-    //       setProvider(connectedProvider);
-    //     };
-  
-    //     connectToProvider();
-    //   }, []);
-  //  const { contract } = useContract(process.env.Marketplace_Contract);
-  //  const { mutateAsync, isLoading, error } = useContractWrite(
-  //    contract,
-  //    (e) => {
-  //      console.log(e)
-  //    }
-  //  );
 
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -63,17 +37,11 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     setclipboard(true);
   };
 
-  const signer1 =   useSigner()
+
   const signer = useSigner()
   const marketplaceContract = async () => {
-    // const sdk = await ThirdwebSDK.fromWallet(wallet);
-    // const sdk = new ThirdwebSDK("mumbai");
-    // const sdk = ThirdwebSDK.fromPrivateKey(process.env.private_Key, "mumbai");
-    // const signer = new ethers.Wallet(process.env.private_Key);
     const sdk = ThirdwebSDK.fromSigner(signer,Mumbai);
-
     console.log(sdk);
-    //  sdk.update_signer(signer1);
     setContract(await sdk.getContract(process.env.Marketplace_Contract));
   };
   useEffect(() => {
