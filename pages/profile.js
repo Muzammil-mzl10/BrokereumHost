@@ -16,9 +16,15 @@ import GoogleLogin from "react-google-login";
 import { useAddress } from "@thirdweb-dev/react";
 import axios from "axios";
 
+
+
 const Login = () => {
+ 
+  
+
+
   const [file, setFile] = useState();
-   const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState();
   const [IDDocument, setIDDocument] = useState();
   const address = useAddress();
   const [area, setarea] = useState([
@@ -431,98 +437,97 @@ By using the Platform, you acknowledge that you have read, understood, and agree
 
 
   const formUpdateSubmit = async(e) => {
-     e.preventDefault();
-   const file1 = new FormData()
-    file1.append('files', file);
-    
-    const file2 = new FormData()
-    file2.append('files', IDDocument)
+    e.preventDefault();
+
+  
    
-    axios
-    .post("http://localhost:1337/api/upload", file2)
-    .then((resp2) => {
-      axios
-      .post("http://localhost:1337/api/upload", file1)
-      .then((resp1) => {
-            console.log(resp1.data[0]);
-            console.log(resp2.data[0]);
-     console.log(formData);
-     const userData = JSON.stringify({
-       "data": {
-         "firstName": formData.firstName,
-         "lastName": formData.lastName,
-         "Email": formData.email,
-         "profilePicHash": resp1.data[0].hash,
-         "IDDocumentHash": resp2.data[0].hash,
-         "Website": formData.website,
-         "Address": formData.companyAddress,
-         "Country": formData.country,
-         "Company": formData.companyName,
-         "phoneNumber": formData.phoneNumber,
-         "About": formData.about,
-         "Language": formData.Language,
-         "area": selectedAREA,
-         "walletAddress": address,
-         "userType": {
-           "Broker": formData.Broker,
-           "Buyer": formData.Buyer,
-           "Seller": formData.Seller,
-           "Notaries": formData.Notaries,
-         },
-       },
-     });
-     console.log(userData);
-     axios
-       .put(
-         `http://localhost:1337/api/brokereum-user/${userDataID}`,
-         userData,
-         {
-           headers: {
-             "Content-type": "application/json",
-           },
-         }
-       )
-       .then((res) => {
-         
-         if (res.status==200) {
-           toast.success("Data Updated Successfully!", {
-             position: "top-center",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-             theme: "light",
-           });
-         } else {
-           toast.error("🦄 Error while Updating!", {
-             position: "top-center",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-             theme: "light",
-           });
-         }
-       })
-       .catch((err) => {
-         console.log(err);
-         toast.error("🦄 Error while Saving!", {
-           position: "top-center",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "light",
-         });
-       });
-       });
-       });
+
+    const file1 = new FormData();
+    file1.append("files", file);
+
+    const file2 = new FormData();
+    file2.append("files", IDDocument);
+
+    axios.post("http://localhost:1337/api/upload", file2).then((resp2) => {
+      axios.post("http://localhost:1337/api/upload", file1).then((resp1) => {
+        console.log(resp1.data[0]);
+        console.log(resp2.data[0]);
+        console.log(formData);
+        const userData = JSON.stringify({
+          data: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            Email: formData.email,
+            profilePicHash: resp1.data[0].hash,
+            IDDocumentHash: resp2.data[0].hash,
+            Website: formData.website,
+            Address: formData.companyAddress,
+            Country: formData.country,
+            Company: formData.companyName,
+            phoneNumber: formData.phoneNumber,
+            About: formData.about,
+            Language: formData.Language,
+            area: selectedAREA,
+            walletAddress: address,
+            userType: {
+              Broker: formData.Broker,
+              Buyer: formData.Buyer,
+              Seller: formData.Seller,
+              Notaries: formData.Notaries,
+            },
+          },
+        });
+        console.log(userData);
+        axios
+          .put(
+            `http://localhost:1337/api/brokereum-user/${userDataID}`,
+            userData,
+            {
+              headers: {
+                "Content-type": "application/json",
+              },
+            }
+          )
+          .then((res) => {
+            if (res.status == 200) {
+              toast.success("Data Updated Successfully!", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            } else {
+              toast.error("🦄 Error while Updating!", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("🦄 Error while Saving!", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          });
+      });
+    });
   }
 
 

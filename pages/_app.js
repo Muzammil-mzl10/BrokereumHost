@@ -8,8 +8,8 @@ import Head from "next/head";
 import GoTop from "../components/Shared/GoTop";
 import Loader from "../components/Shared/Loader";
 
-import { ThirdwebProvider, coinbaseWallet, localWallet, metamaskWallet, paperWallet,safeWallet, smartWallet, walletConnect, useConnect } from "@thirdweb-dev/react";
-import { Gnosis } from "@thirdweb-dev/chains";
+import { ThirdwebProvider, coinbaseWallet, localWallet, metamaskWallet, paperWallet,safeWallet, smartWallet,ChainId, walletConnect, useConnect } from "@thirdweb-dev/react";
+import { Gnosis, Mumbai } from "@thirdweb-dev/chains";
 
 
 const supportedChainIDs = [1,3,4,5];
@@ -31,24 +31,22 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ThirdwebProvider
-        // supportedWallets={[useConnect()]}
-        // supportedChainIDs={supportedChainIDs}
-        // sdkOptions={{
-        //   gasless: {
-        //     openzeppelin: {
-        //       relayerUrl:
-        //         "https://api.defender.openzeppelin.com/autotasks/0d75d6f6-db48-4efe-8631-4e3e6f624598/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/2RSWaUL7oi7Pqhz6kXmJvd",
-        //     },
-        //     experimentalChainlessSupport: true,
-        //   },
-        // }}
-        autoConnect={true}
         activeChain={"mumbai"}
+        autoConnect={true}
+        sdkOptions={{
+          gasless: {
+            openzeppelin: {
+              relayerUrl:
+                "https://api.defender.openzeppelin.com/autotasks/16d7ca5d-5132-4c3b-86bb-a381e37e9dc8/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/5uDQeW3qK6A51PAQoPTHxP",
+            },
+          },
+        }}
         supportedWallets={[
           smartWallet({
             factoryAddress: process.env.factoryAddress,
             thirdwebApiKey: process.env.thirdwebApiKey,
             gasless: true,
+            
             personalWallets: [
               metamaskWallet(),
               paperWallet({ clientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d" }),
@@ -58,6 +56,7 @@ function MyApp({ Component, pageProps }) {
               walletConnect(),
             ],
           }),
+          
         ]}
       >
         <Component {...pageProps} />

@@ -6,6 +6,7 @@ module.exports = {
     factoryAddress: process.env.factoryAddress,
     Marketplace_Contract: process.env.Marketplace_Contract,
     private_Key: process.env.private_Key,
+    SECRET_RECOVERY_PHRASE: process.env.SECRET_RECOVERY_PHRASE,
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if

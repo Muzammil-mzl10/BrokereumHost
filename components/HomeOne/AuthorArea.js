@@ -186,7 +186,7 @@ const AuthorArea = () => {
               authorData.map((data) => (
                 <div className="col-lg-3 col-6">
                   <div className="author-card">
-                    <Link href="/author-profile">
+                    <Link href={`/${data.attributes.walletAddress}`}>
                       <a>
                         <img
                           src="../images/author/author-img4.jpg"
@@ -204,8 +204,11 @@ const AuthorArea = () => {
                       </div>
 
                       <h3>
-                        <Link href="/author-profile">
-                          <a>{data.attributes.firstName} {data.attributes.lastName}</a>
+                        <Link href={`/${data.attributes.walletAddress}`}>
+                          <a>
+                            {data.attributes.firstName}{" "}
+                            {data.attributes.lastName}
+                          </a>
                         </Link>
                       </h3>
                       <span>@{data.attributes.Email}</span>

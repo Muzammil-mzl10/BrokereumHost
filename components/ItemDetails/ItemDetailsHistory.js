@@ -33,7 +33,7 @@ const ItemDetailsHistory = ({ data }) => {
                   <div className="item-details-card">
                     <div className="item-details-card-img">
                       <img
-                        src={`http://localhost:1337/uploads/${data.attributes.userInfo.data.profilePicHash}.png`}
+                        src={`http://localhost:1337${data.attributes.userInfo.data.profilePicHash}`}
                         alt="Images"
                       />
                       <i className="ri-check-line"></i>

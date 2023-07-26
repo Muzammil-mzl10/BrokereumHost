@@ -10,9 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mailchain/sdk": "^0.23.0",
     "@thirdweb-dev/chains": "^0.1.11",
     "@thirdweb-dev/react": "^3.14.9",
     "@thirdweb-dev/sdk": "^3.10.29",
+    "@xmtp/xmtp-js": "^10.1.0",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "caniuse-lite": "^1.0.30001502",

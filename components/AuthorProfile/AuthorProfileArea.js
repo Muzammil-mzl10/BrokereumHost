@@ -27,6 +27,9 @@ const AuthorProfileArea = () => {
   const [seconds, setSeconds] = useState("");
   const [Clipboard, setclipboard] = useState(false);
 
+  const [totalPages, setTotalPages] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+
   const comingSoonTime = () => {
     let endTime = new Date("December 23, 2021 17:00:00 PDT");
     let endTimeParse = Date.parse(endTime) / 1000;
@@ -65,6 +68,7 @@ const AuthorProfileArea = () => {
 
   const [contract, setcontract] = useState();
   const [userData, setUserData] = useState();
+  const [fullNFTdata,setFullNFTData] =useState()
   const [marketplaceContract, setmarketplaceContract] = useState();
   const [NFT, setNft] = useState();
   const [listings, setlistings] = useState();
@@ -81,9 +85,32 @@ const AuthorProfileArea = () => {
     );
   }, []);
 
+  function getPageFromArray(dataArray, currentPage, itemsPerPage) {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return dataArray.slice(startIndex, endIndex);
+  }
+  useEffect(() => {
+    if (fullNFTdata) { 
+      const data = getPageFromArray(fullNFTdata, currentPage, 9)
+      console.log(data)
+      setNft(data)
+    }
+  },[currentPage])
+
   useEffect(async () => {
     if (contract) {
-      setNft(await contract.erc721.getOwned(address));
+      const data = await contract.erc721.getOwned(address)
+      setFullNFTData(data);
+      let numberofpages = Math.ceil(data.length / 9)
+      console.log(numberofpages)
+      setTotalPages(Array.from(
+        { length: numberofpages },
+        (_, index) => index + 1
+      ))
+      console.log(totalPages)
+      const fileteredarray = getPageFromArray(data, currentPage, 9)
+      setNft(fileteredarray)
       setloading(false);
     }
   }, [contract, setcontract, address]);
@@ -133,9 +160,12 @@ const AuthorProfileArea = () => {
               <div className="author-profile-sidebar  mr-20">
                 <div className="author-user">
                   <img
-                    src={`http://localhost:1337/uploads/${userData?.profilePicHash}`.png}
+                    src={
+                      `http://localhost:1337/uploads/${userData?.profilePicHash}`
+                        .png
+                    }
                     alt="Images"
-                    style={{maxWidth:"180px !important"}}
+                    style={{ maxWidth: "180px !important" }}
                   />
                   {userData?.Verified ? <i className="ri-check-line"></i> : ""}
                 </div>
@@ -1866,16 +1896,24 @@ const AuthorProfileArea = () => {
                     <a href="#" className="prev page-numbers">
                       <i className="ri-arrow-left-s-line"></i>
                     </a>
-
-                    <span className="page-numbers current" aria-current="page">
-                      1
-                    </span>
-                    <a href="#" className="page-numbers">
-                      2
-                    </a>
-                    <a href="#" className="page-numbers">
-                      3
-                    </a>
+                    {totalPages.map((data, index) => (
+                      <span
+                        style={{ marginLeft: "5px", marginBottom:"20px" }}
+                        className="page-numbers current"
+                        aria-current="page"
+                        onClick={()=>setCurrentPage(data)}
+                      >
+                        <span
+                          className={
+                            data == currentPage
+                              ? data>21? "btn btn-danger mt-2":"btn btn-danger"
+                              : data>21? "mt-2 btn btn-primary":"btn btn-primary"
+                          }
+                        >
+                          {data}
+                        </span>
+                      </span>
+                    ))}
 
                     <a href="#" className="next page-numbers">
                       <i className="ri-arrow-right-s-line"></i>

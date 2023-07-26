@@ -318,6 +318,11 @@ const Navbar = () => {
                           <a className="nav-link">Profile</a>
                         </Link>
                       </li>
+                      <li className="nav-item">
+                        <Link href="/chat" activeClassName="active">
+                          <a className="nav-link">Chat</a>
+                        </Link>
+                      </li>
                     </>
                   ) : (
                     ""
