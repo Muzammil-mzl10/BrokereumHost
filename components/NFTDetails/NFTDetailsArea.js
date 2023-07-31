@@ -26,7 +26,9 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
  const [ipfsData, setipfsData] = useState();
   const getContract = async () => {
     console.log("ENV File",process.env.ERC_Contract)
-    const sdk = new ThirdwebSDK("mumbai");
+    const sdk = new ThirdwebSDK("mumbai", {
+      clientId: process.env.thirdweb_CLIENTID,
+    });
     setContract(await sdk.getContract(process.env.ERC_Contract));
   };
 

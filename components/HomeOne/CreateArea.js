@@ -6,7 +6,7 @@ const CreateArea = () => {
       <div className='create-area pt-100 pb-70'>
         <div className='container'>
           <div className='section-title text-center'>
-            <h2>Create And Sell Your NFTs</h2>
+            <h2>Create And Sell Your Property</h2>
           </div>
 
           <div className='row align-items-center pt-45'>
@@ -60,10 +60,10 @@ const CreateArea = () => {
                         alt='Images'
                       />
                       <h3><Link href='/help-center'>
-                        <a> Add Your NFTs</a></Link>
+                        <a> Add Your Property NFTs</a></Link>
                       </h3>
                       <p>
-                        Upload your work (image, video, audio, or 3D art), add a
+                        Upload your property Images add a
                         title and description, and customize your NFTs
                       </p>
                     </div>

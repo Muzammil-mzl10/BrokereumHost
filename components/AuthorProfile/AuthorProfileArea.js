@@ -17,9 +17,12 @@ resetIdCounter();
 const AuthorProfileArea = () => {
   const router = useRouter()
   const address = useAddress();
-  if (!address) {
-    router.push("/")
-  }
+  useEffect(() => {
+    
+    if (!address) {
+      router.push("/")
+    }
+  },[router])
   //counter calculation
   const [days, setDays] = useState("");
   const [hours, setHours] = useState("");
@@ -78,7 +81,9 @@ const AuthorProfileArea = () => {
     setclipboard(true);
   };
   useEffect(async () => {
-    const sdk = new ThirdwebSDK("mumbai");
+    const sdk = new ThirdwebSDK("mumbai", {
+      clientId: process.env.thirdweb_CLIENTID,
+    });
     setcontract(await sdk.getContract(process.env.ERC_Contract));
     setmarketplaceContract(
       await sdk.getContract(process.env.Marketplace_Contract)
@@ -130,7 +135,7 @@ const AuthorProfileArea = () => {
     if (address) {
       
       fetch(
-        `http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${address}`,
+        `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${address}`,
         
         ).then(res => res.json()).then((res) => {
           console.log(res?.data[0]?.attributes)
@@ -161,7 +166,7 @@ const AuthorProfileArea = () => {
                 <div className="author-user">
                   <img
                     src={
-                      `http://localhost:1337/uploads/${userData?.profilePicHash}`
+                      `${process.env.STRAPI_URL_PROD}/uploads/${userData?.profilePicHash}`
                         .png
                     }
                     alt="Images"

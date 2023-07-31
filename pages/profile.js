@@ -161,7 +161,7 @@ const Login = () => {
     }
   };
 
-  // http://localhost:1337/uploads/Gas_Price_In_GWEI_0aa7fa8011.png
+  // ${process.env.STRAPI_URL_PROD}/uploads/Gas_Price_In_GWEI_0aa7fa8011.png
 
   const responseFacebook = (e) => {
     console.log("Auth completed");
@@ -234,10 +234,10 @@ By using the Platform, you acknowledge that you have read, understood, and agree
       file2.append('files', IDDocument)
    
       axios
-        .post("http://localhost:1337/api/upload", file2)
+        .post(`${process.env.STRAPI_URL_PROD}/api/upload`, file2)
         .then((resp2) => {
           axios
-            .post("http://localhost:1337/api/upload", file1)
+            .post(`${process.env.STRAPI_URL_PROD}/api/upload`, file1)
             .then((resp1) => {
               console.log(resp1.data[0]);
               console.log(resp2.data[0]);
@@ -267,7 +267,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                 },
               });
               console.log(userData);
-              axios.post(`http://localhost:1337/api/brokereum-user`, userData, {
+              axios.post(`${process.env.STRAPI_URL_PROD}/api/brokereum-user`, userData, {
                 headers: {
                   "Content-type": "application/json",
                 },
@@ -368,7 +368,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
      if (address) {
        console.log(address)
        fetch(
-         `http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${address}`
+         `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${address}`
        )
          .then((res) => res.json())
          .then((res) => {
@@ -376,10 +376,10 @@ By using the Platform, you acknowledge that you have read, understood, and agree
            if (res.data[0]) {
              setUSerDataID(res.data[0].id)
               setFile(
-                `http://localhost:1337${res.data[0].attributes.profilePicHash}`
+                `${process.env.STRAPI_URL_PROD}${res.data[0].attributes.profilePicHash}`
               );
               setIDDocument(
-                `http://localhost:1337${res.data[0].attributes.IDDocumentHash}`
+                `${process.env.STRAPI_URL_PROD}${res.data[0].attributes.IDDocumentHash}`
               );
              setIDDocumentHash(res.data[0].attributes.IDDocumentHash);
              setProfilePictureHash(res.data[0].attributes.profilePicHash);
@@ -448,8 +448,8 @@ By using the Platform, you acknowledge that you have read, understood, and agree
     const file2 = new FormData();
     file2.append("files", IDDocument);
 
-    axios.post("http://localhost:1337/api/upload", file2).then((resp2) => {
-      axios.post("http://localhost:1337/api/upload", file1).then((resp1) => {
+    axios.post(`${process.env.STRAPI_URL_PROD}/api/upload`, file2).then((resp2) => {
+      axios.post(`${process.env.STRAPI_URL_PROD}/api/upload`, file1).then((resp1) => {
         console.log(resp1.data[0]);
         console.log(resp2.data[0]);
         console.log(formData);
@@ -480,7 +480,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
         console.log(userData);
         axios
           .put(
-            `http://localhost:1337/api/brokereum-user/${userDataID}`,
+            `${process.env.STRAPI_URL_PROD}/api/brokereum-user/${userDataID}`,
             userData,
             {
               headers: {
@@ -882,7 +882,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                               <label>
                                 Profile Picture{" "}
                                 <a
-                                  href={`http://localhost:1337${profilePictureHash}`}
+                                  href={`${process.env.STRAPI_URL_PROD}${profilePictureHash}`}
                                   target="_blank"
                                   className="mx-4 fs-bold"
                                 >
@@ -1123,7 +1123,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                                 Upload ID Document{" "}
                                 <span className="text-danger">*</span>
                                 <a
-                                  href={`http://localhost:1337${IDDocumentHash}`}
+                                  href={`${process.env.STRAPI_URL_PROD}${IDDocumentHash}`}
                                   target="_blank"
                                   className="mx-4 fs-bold"
                                 >

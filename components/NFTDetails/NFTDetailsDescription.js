@@ -14,7 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {ethers} from "ethers";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import { SmartWallet } from "@thirdweb-dev/wallets";
-import { Goerli, Mumbai } from "@thirdweb-dev/chains";
+import { Mumbai } from "@thirdweb-dev/chains";
 
 const NFTDetailsDescription = ({ NFT, ipfsData }) => {
   
@@ -40,7 +40,9 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
 
   const signer = useSigner()
   const marketplaceContract = async () => {
-    const sdk = ThirdwebSDK.fromSigner(signer,Mumbai);
+    const sdk = ThirdwebSDK.fromSigner(signer, "mumbai", {
+      clientId: process.env.thirdweb_CLIENTID,
+    });
     console.log(sdk);
     setContract(await sdk.getContract(process.env.Marketplace_Contract));
   };

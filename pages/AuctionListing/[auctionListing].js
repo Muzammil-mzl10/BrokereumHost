@@ -12,7 +12,9 @@ const auctionListing = () => {
     const router = useRouter();
     const [marketplaceModule, setMarketplaceModule] = useState()
     const [listingData , setListingData] = useState()
-    const sdk = new ThirdwebSDK("mumbai");
+    const sdk = new ThirdwebSDK("mumbai", {
+      clientId: process.env.thirdweb_CLIENTID,
+    });
     console.log(router.query.auctionListing);
 
     useEffect(async() => {

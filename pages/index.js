@@ -18,13 +18,13 @@ const Index = () => {
     <>
       <Navbar />
       <BannerArea />
-      <TrendingArea />
-      <TopSeller />
-      <AuctionArea />
-      <FeaturedArea title="Featured Assets" />
+      {/* <TrendingArea /> */}
+      {/* <TopSeller /> */}
+      {/* <AuctionArea /> */}
+      <FeaturedArea title="Live Auctions" />
       <CreateArea />
       <AuthorArea />
-      <CollectionsArea />
+      {/* <CollectionsArea /> */}
       <Footer />
       <Copyright />
     </>

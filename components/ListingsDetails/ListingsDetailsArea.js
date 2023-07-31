@@ -23,7 +23,9 @@ const ItemDetailsArea = ({ tokenID }) => {
   const [ipfsData, setipfsData] = useState();
    const [marketplaceModule, setMarketplaceModule] = useState();
    const [NFT, setNFT] = useState();
-   const sdk = new ThirdwebSDK("mumbai");
+   const sdk = new ThirdwebSDK("mumbai", {
+     clientId: process.env.thirdweb_CLIENTID,
+   });
    console.log(tokenID);
 
    useEffect(async () => {

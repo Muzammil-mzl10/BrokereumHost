@@ -56,7 +56,9 @@ const FeaturedArea = ({ title, pagination }) => {
 
   const [marketplaceContract, setMarketplaceContract] = useState()
   const [AuctionListing , setAuctionListing] = useState()
-  const sdk = new ThirdwebSDK("mumbai");
+  const sdk = new ThirdwebSDK("mumbai", {
+    clientId: process.env.thirdweb_CLIENTID,
+  });
 
   useEffect(async() => {
     setMarketplaceContract(

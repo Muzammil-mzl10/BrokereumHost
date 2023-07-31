@@ -23,7 +23,9 @@ const ItemDetailsArea = ({tokenID , data}) => {
   const [marketplaceModule, setMarketplaceModule] = useState();
   const [satelitleImg, setSateliteImg] = useState();
   const [worktopoImg, setWorldTopoImg] = useState();
-  const sdk = new ThirdwebSDK("mumbai");
+  const sdk = new ThirdwebSDK("mumbai", {
+    clientId: process.env.thirdweb_CLIENTID,
+  });
   // console.log(tokenID);
 
   useEffect(async () => {
@@ -79,7 +81,7 @@ const comingSoonTime = () => {
   }
 };
 
-console.log(data)
+// console.log(data)
   useEffect(() => {
   const interval = setInterval(() => {
     comingSoonTime();

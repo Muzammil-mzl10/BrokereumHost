@@ -39,7 +39,9 @@ const CollectionForm = () => {
   // const [Marketplace, setContract] = useState();
   const [docummentfile, setdocumentFile] = useState([]);
 
-  const sdk = new ThirdwebSDK("mumbai");
+  const sdk = new ThirdwebSDK("mumbai", {
+    clientId: process.env.thirdweb_CLIENTID,
+  });
 
   const { contract } = useContract(process.env.ERC_Contract, "nft-collection");
 
@@ -145,7 +147,7 @@ const CollectionForm = () => {
         
         axios
           .get(
-            `http://localhost:1337/api/parcel-ids/?filters[parcelIDs][$eq]=${result.features[0].id}`,
+            `${process.env.STRAPI_URL_PROD}/api/parcel-ids/?filters[parcelIDs][$eq]=${result.features[0].id}`,
             {
               headers: {
                 "Content-type": "application/json",
@@ -282,7 +284,7 @@ const CollectionForm = () => {
         });
         console.log(userData);
         axios
-          .post(`http://localhost:1337/api/parcel-ids`, userData, {
+          .post(`${process.env.STRAPI_URL_PROD}/api/parcel-ids`, userData, {
             headers: {
               "Content-type": "application/json",
             },

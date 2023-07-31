@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }) {
             
             personalWallets: [
               metamaskWallet(),
-              paperWallet({ clientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d" }),
+              paperWallet({ paperClientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d" }),
               localWallet({ persist: true }),
               coinbaseWallet(),
               safeWallet(),

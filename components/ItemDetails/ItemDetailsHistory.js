@@ -5,12 +5,12 @@ import { useEffect } from 'react';
 import moment from 'moment/moment';
 
 const ItemDetailsHistory = ({ data }) => {
-  console.log(data?.id);
+  // console.log(data?.id);
 
   const [prevBids, setPRevBids] = useState()
   useEffect(() => {
   fetch(
-    `http://localhost:1337/api/bidding/?filters[listingID][$eq]=${data?.id}`
+    `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
   )
     .then((res) =>  res.json())
     .then((res) => {
@@ -33,7 +33,7 @@ const ItemDetailsHistory = ({ data }) => {
                   <div className="item-details-card">
                     <div className="item-details-card-img">
                       <img
-                        src={`http://localhost:1337${data.attributes.userInfo.data.profilePicHash}`}
+                        src={`${process.env.STRAPI_URL_PROD}${data.attributes.userInfo.data.profilePicHash}`}
                         alt="Images"
                       />
                       <i className="ri-check-line"></i>

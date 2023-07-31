@@ -16,7 +16,9 @@ const AuthorArea = () => {
 
   const signer = useSigner()
   const getNFTColleciton = async () => {
-    const sdk = ThirdwebSDK.fromSigner(signer, "mumbai");
+    const sdk = ThirdwebSDK.fromSigner(signer, "mumbai", {
+      clientId: process.env.thirdweb_CLIENTID,
+    });
     setContract(await sdk.getContract(process.env.ERC_Contract))
   }
   

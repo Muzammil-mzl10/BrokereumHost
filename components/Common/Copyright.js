@@ -9,9 +9,9 @@ const Copyright = () => {
 						<div className="col-lg-8">
 							<div className="copy-right-text">
 								<p>
-									© 2021 Gible. All Rights Reserved by{" "}
+									© 2023 . All Rights Reserved by{" "}
 									<a href="https://hibootstrap.com/">
-										HiBootstrap
+										Brokereum
 									</a>
 								</p>
 

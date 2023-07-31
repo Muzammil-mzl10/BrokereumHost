@@ -39,7 +39,9 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     setclipboard(true);
   };
 
-  const sdk = ThirdwebSDK.fromSigner(signer, "mumbai");
+  const sdk = ThirdwebSDK.fromSigner(signer, "mumbai", {
+    clientId: process.env.thirdweb_CLIENTID,
+  });
   const marketplaceContract = async () => {
     setContract(await sdk.getContract(process.env.Marketplace_Contract));
   };

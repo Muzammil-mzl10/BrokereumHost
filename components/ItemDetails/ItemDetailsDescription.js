@@ -26,14 +26,20 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const [winningBid, setWinningBid]= useState()
   const [minimumBidVal, setMinimumBidVal] =useState()
   const signer = useSigner()
-  const sdk = ThirdwebSDK.fromSigner(signer, Mumbai);
+ 
   const Address = useAddress()
   
+  useEffect(() => {
+    if (!Address) {
+      router.push("/");
+    }
+  }, [router]);
+
   //  const sdk = new ThirdwebSDK("mumbai");
 
    const fetchUserInfo = () => {
      if (Address) {
-       fetch(`http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${Address}`)
+       fetch(`${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${Address}`)
          .then((res) => res.json())
          .then((res) => {
            console.log(res?.data[0]?.attributes);
@@ -46,7 +52,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
      }
    };
    const fetchOWnerInfo = () => {
-       fetch(`http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`)
+       fetch(`${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`)
          .then((res) => res.json())
          .then((res) => {
            console.log(res?.data[0]?.attributes);
@@ -55,12 +61,20 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
          .catch((err) => console.log(err));
    };
 
+  useEffect(async() => {
+    if (Mumbai && ThirdwebSDK && signer) {
+      const sdk = ThirdwebSDK.fromSigner(signer, Mumbai, {
+        clientId: process.env.thirdweb_CLIENTID,
+      });
+      setMarketplaceModule(
+        await sdk.getContract(process.env.Marketplace_Contract)
+      );
+    }
+  }, [Mumbai, ThirdwebSDK, signer]);
+
   useEffect(async () => {
     fetchUserInfo()
     fetchOWnerInfo()
-     setMarketplaceModule(
-       await sdk.getContract(process.env.Marketplace_Contract)
-     );
    }, []);
    useEffect(async () => {
      if (marketplaceModule && data) {
@@ -120,7 +134,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
          });
 
          axios
-           .post(`http://localhost:1337/api/bidding`, enterBidData, {
+           .post(`${process.env.STRAPI_URL_PROD}/api/bidding`, enterBidData, {
              headers: {
                "Content-type": "application/json",
              },

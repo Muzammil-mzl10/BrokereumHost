@@ -6,7 +6,7 @@ const AuthorArea = () => {
   const [authorData,setAuthorData] = useState()
 
   const fetchUsersData = () => {
-    fetch("http://localhost:1337/api/brokereum-user").then((res) => res.json())
+    fetch(`${process.env.STRAPI_URL_PROD}/api/brokereum-user`).then((res) => res.json())
       .then((res) => {
         console.log(res.data)
         setAuthorData(res.data)
@@ -197,7 +197,7 @@ const AuthorArea = () => {
                     <div className="content">
                       <div className="author-user">
                         <img
-                          src={`http://localhost:1337${data.attributes.profilePicHash}`}
+                          src={`${process.env.STRAPI_URL_PROD}${data.attributes.profilePicHash}`}
                           alt="Images"
                         />
                         <i className="ri-check-line"></i>

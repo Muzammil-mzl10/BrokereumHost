@@ -8,13 +8,14 @@ import { Mumbai } from "@thirdweb-dev/chains";
 
 const AuctionListings = ({ data }) => {
   //  const signer = useSigner();
+  console.log(data)
   const [Bidders,setBidders] = useState()
   const [OwnerData,setOWnerData] = useState()
   const [MinimumBidVal, setMinimumBidVal] = useState();
   const [WinningBid, setWinningBid] = useState();
   const [marketplaceContract , setMarketplaceContract] = useState()
    const fetchOWnerInfo = () => {
-     fetch( `http://localhost:1337/api/brokereum-user/?filters[walletAddress][$eq]=${data.creatorAddress}`)
+     fetch( `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data.creatorAddress}`)
        .then((res) => res.json())
        .then((res) => {
          console.log(res?.data[0]?.attributes);
@@ -24,7 +25,7 @@ const AuctionListings = ({ data }) => {
   };
    const fetchBidder = () => {
      fetch(
-       `http://localhost:1337/api/bidding/?filters[listingID][$eq]=${data?.id}`
+       `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
      )
        .then((res) => res.json())
        .then((res) => {
@@ -39,7 +40,9 @@ const AuctionListings = ({ data }) => {
         console.log(data)
         fetchOWnerInfo()
         fetchBidder()
-        const sdk = new ThirdwebSDK("mumbai")
+        const sdk = new ThirdwebSDK("mumbai", {
+          clientId: process.env.thirdweb_CLIENTID,
+        });
         setMarketplaceContract(
           await sdk.getContract(process.env.Marketplace_Contract)
           )
