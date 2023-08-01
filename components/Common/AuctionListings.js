@@ -8,7 +8,7 @@ import { Mumbai } from "@thirdweb-dev/chains";
 
 const AuctionListings = ({ data }) => {
   //  const signer = useSigner();
-  console.log(data)
+  // console.log(data)
   const [Bidders,setBidders] = useState()
   const [OwnerData,setOWnerData] = useState()
   const [MinimumBidVal, setMinimumBidVal] = useState();
@@ -50,9 +50,9 @@ const AuctionListings = ({ data }) => {
   
   useEffect(async () => {
     if (marketplaceContract && data) {
-      console.log(data.id);
+      // console.log(data.id);
      const minimum = await marketplaceContract.englishAuctions.getMinimumNextBid(data?.id)
-      console.log(minimum)
+      // console.log(minimum)
        setMinimumBidVal(minimum)
       setWinningBid(
         await marketplaceContract.englishAuctions.getWinningBid(data?.id)

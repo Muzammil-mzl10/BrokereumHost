@@ -10,6 +10,7 @@ module.exports = {
     thirdweb_CLIENTID: process.env.thirdweb_CLIENTID,
     thirdweb_SecretKey: process.env.thirdweb_SecretKey,
     STRAPI_URL_PROD: process.env.STRAPI_URL_PROD,
+    STRAPI_URL_UPLOAD_PROD: process.env.STRAPI_URL_UPLOAD_PROD,
   },
   eslint: {
     // Warning: This allows production builds to successfully complete even if

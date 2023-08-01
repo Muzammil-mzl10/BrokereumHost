@@ -19,10 +19,6 @@ import axios from "axios";
 
 
 const Login = () => {
- 
-  
-
-
   const [file, setFile] = useState();
   const [userData, setUserData] = useState();
   const [IDDocument, setIDDocument] = useState();
@@ -55,12 +51,12 @@ const Login = () => {
     "ZG",
     "ZH",
   ]);
-  const [userDataID, setUSerDataID] = useState()
+  const [userDataID, setUSerDataID] = useState();
 
-  const [selectedAREA , setSelectAREA] = useState([])
+  const [selectedAREA, setSelectAREA] = useState([]);
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName:"",
+    lastName: "",
     email: "",
     phoneNumber: "",
     companyName: "",
@@ -74,21 +70,10 @@ const Login = () => {
     walletAddress: address,
     country: "",
     Language: "",
-    IDDocument:""
+    IDDocument: "",
   });
-  const options = [
-    "Germany",
-    "France",
-    "SwitZerland",
-    "Norway",
-    "Spain",
-  ];
-  const Languageoptions = [
-    "EN",
-    "DE",
-    "FR",
-    "IT"
-  ];
+  const options = ["Germany", "France", "SwitZerland", "Norway", "Spain"];
+  const Languageoptions = ["EN", "DE", "FR", "IT"];
 
   const countryTypeChange = (e) => {
     console.log(e);
@@ -161,7 +146,7 @@ const Login = () => {
     }
   };
 
-  // ${process.env.STRAPI_URL_PROD}/uploads/Gas_Price_In_GWEI_0aa7fa8011.png
+  // ${process.env.STRAPI_URL_UPLOAD_PROD}/uploads/Gas_Price_In_GWEI_0aa7fa8011.png
 
   const responseFacebook = (e) => {
     console.log("Auth completed");
@@ -172,8 +157,7 @@ const Login = () => {
     console.log(e);
   };
 
-
-  const sdk = useSDK()
+  const sdk = useSDK();
   const message = `Terms and Conditions for the Brokereum Real Estate Auction Website
 These Terms and Conditions ("Agreement") govern your use of this real estate auction website ("Platform") and any services provided by or through the Platform. By accessing or using the Platform, you agree to be bound by this Agreement. If you do not agree to these terms, please refrain from using the Platform.
 1. Platform Description and Use
@@ -215,66 +199,67 @@ These Terms and Conditions ("Agreement") govern your use of this real estate auc
 9.2 This Agreement constitutes the entire agreement between the user and the Platform, superseding any prior agreements or understandings.
 
 By using the Platform, you acknowledge that you have read, understood, and agreed to these Terms and Conditions.`;
-  
-  
-  
+
   const formSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const signature = await sdk.wallet.sign(message);
-    console.log(signature)
-    console.log(file)
-    console.log(IDDocument)
+    console.log(signature);
+    console.log(file);
+    console.log(IDDocument);
     if (signature) {
-      
-    
-      const file1 = new FormData()
-      file1.append('files', file);
-    
-      const file2 = new FormData()
-      file2.append('files', IDDocument)
-   
+      const file1 = new FormData();
+      file1.append("files", file);
+
+      const file2 = new FormData();
+      file2.append("files", IDDocument);
+
       axios
-        .post(`${process.env.STRAPI_URL_PROD}/api/upload`, file2)
+        .post(`${process.env.STRAPI_URL_UPLOAD_PROD}/api/upload`, file2)
         .then((resp2) => {
           axios
-            .post(`${process.env.STRAPI_URL_PROD}/api/upload`, file1)
+            .post(`${process.env.STRAPI_URL_UPLOAD_PROD}/api/upload`, file1)
             .then((resp1) => {
               console.log(resp1.data[0]);
               console.log(resp2.data[0]);
 
               const userData = JSON.stringify({
-                data: {
-                  firstName: formData.firstName,
-                  lastName: formData.lastName,
-                  Email: formData.email,
-                  profilePicHash: resp1.data[0].url,
-                  IDDocumentHash: resp2.data[0].url,
-                  Website: formData.website,
-                  Address: formData.companyAddress,
-                  Country: formData.country,
-                  Company: formData.companyName,
-                  phoneNumber: formData.phoneNumber,
-                  About: formData.about,
-                  Language: formData.Language,
-                  area: selectedAREA,
-                  walletAddress: address,
-                  userType: {
-                    Broker: formData.Broker,
-                    Buyer: formData.Buyer,
-                    Seller: formData.Seller,
-                    Notaries: formData.Notaries,
+                "data": {
+                  "firstName": formData.firstName,
+                  "lastName": formData.lastName,
+                  "Email": formData.email,
+                  "profilePicHash": resp1.data[0].url,
+                  "IDDocumentHash": resp2.data[0].url,
+                  "Website": formData.website,
+                  "Address": formData.companyAddress,
+                  "Country": formData.country,
+                  "Company": formData.companyName,
+                  "phoneNumber": formData.phoneNumber,
+                  "About": formData.about,
+                  "Language": formData.Language,
+                  "area": selectedAREA,
+                  "walletAddress": address,
+                  "userType": {
+                    "Broker": formData.Broker,
+                    "Buyer": formData.Buyer,
+                    "Seller": formData.Seller,
+                    "Notaries": formData.Notaries,
                   },
                 },
               });
               console.log(userData);
-              axios.post(`${process.env.STRAPI_URL_PROD}/api/brokereum-user`, userData, {
-                headers: {
-                  "Content-type": "application/json",
-                },
-              })
+              axios
+                .post(
+                  `${process.env.STRAPI_URL_PROD}/api/brokereum-user`,
+                  userData,
+                  {
+                    headers: {
+                      "Content-type": "application/json",
+                    },
+                  }
+                )
                 .then((res) => {
-                  console.log(res)
-                  if (res.status==200) {
+                  console.log(res);
+                  if (res.status == 200) {
                     console.log(res);
                     toast.success("Data Saved Successfully!", {
                       position: "top-center",
@@ -340,107 +325,101 @@ By using the Platform, you acknowledge that you have read, understood, and agree
             theme: "light",
           });
         });
+    } else {
+      toast.error("🦄 Please sign Terms & Conditions", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-    else {
-       toast.error("🦄 Please sign Terms & Conditions", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
-    }
-  }
+  };
   const areaSelected = (e) => {
-    console.log(e)
-     setSelectAREA(e)
-  }
+    console.log(e);
+    setSelectAREA(e);
+  };
   const areaRemoved = (e) => {
-    setSelectAREA(e)
+    setSelectAREA(e);
   };
 
-  const [profilePictureHash ,setProfilePictureHash] = useState()
-  const [IDDocumentHash ,setIDDocumentHash] = useState()
-   const fetchUserInfo = () => {
-     if (address) {
-       console.log(address)
-       fetch(
-         `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${address}`
-       )
-         .then((res) => res.json())
-         .then((res) => {
-          console.log(res)
-           if (res.data[0]) {
-             setUSerDataID(res.data[0].id)
-              setFile(
-                `${process.env.STRAPI_URL_PROD}${res.data[0].attributes.profilePicHash}`
-              );
-              setIDDocument(
-                `${process.env.STRAPI_URL_PROD}${res.data[0].attributes.IDDocumentHash}`
-              );
-             setIDDocumentHash(res.data[0].attributes.IDDocumentHash);
-             setProfilePictureHash(res.data[0].attributes.profilePicHash);
-             setUserData(res.data[0].attributes);
-             console.log(res.data[0])
-
-           } else {
-             setFormData({
-               firstName: "",
-               lastName: "",
-               email: "",
-               phoneNumber: "",
-               companyName: "",
-               website: "",
-               companyAddress: "",
-               about: "",
-               Broker: "",
-               Buyer: "",
-               Seller: "",
-               Notaries: "",
-               walletAddress: address,
-               country: "",
-               Language: "",
-               IDDocument: ""
-             })
-             setUserData();
-           }
-         });
-     }
+  const [profilePictureHash, setProfilePictureHash] = useState();
+  const [IDDocumentHash, setIDDocumentHash] = useState();
+  const fetchUserInfo = () => {
+    if (address) {
+      console.log(address);
+      fetch(
+        `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${address}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.data[0]) {
+            setUSerDataID(res.data[0].id);
+            setFile(
+              `${process.env.STRAPI_URL_PROD}${res.data[0].attributes.profilePicHash}`
+            );
+            setIDDocument(
+              `${process.env.STRAPI_URL_PROD}${res.data[0].attributes.IDDocumentHash}`
+            );
+            setIDDocumentHash(res.data[0].attributes.IDDocumentHash);
+            setProfilePictureHash(res.data[0].attributes.profilePicHash);
+            setUserData(res.data[0].attributes);
+            console.log(res.data[0]);
+          } else {
+            setFormData({
+              firstName: "",
+              lastName: "",
+              email: "",
+              phoneNumber: "",
+              companyName: "",
+              website: "",
+              companyAddress: "",
+              about: "",
+              Broker: "",
+              Buyer: "",
+              Seller: "",
+              Notaries: "",
+              walletAddress: address,
+              country: "",
+              Language: "",
+              IDDocument: "",
+            });
+            setUserData();
+          }
+        });
+    }
   };
-  
+
   useEffect(() => {
     if (userData) {
       setSelectAREA(userData.area);
       setFormData({
         firstName: userData?.firstName,
         lastName: userData?.lastName,
-         email: userData?.Email,
-         phoneNumber: userData?.phoneNumber,
-         companyName: userData?.Company,
-         website: userData?.Website,
-         companyAddress: userData?.Address,
-         about: userData?.About,
-         Broker: userData?.userType.Broker,
-         Buyer: userData?.userType.Buyer,
-         Seller: userData?.userType.Seller,
-         Notaries: userData?.userType.Notaries,
-         walletAddress: address,
-         country: userData?.Country,
-         Language: userData?.Language,
-         IDDocument: "",
-       });
-      }
-  },[userData])
+        email: userData?.Email,
+        phoneNumber: userData?.phoneNumber,
+        companyName: userData?.Company,
+        website: userData?.Website,
+        companyAddress: userData?.Address,
+        about: userData?.About,
+        Broker: userData?.userType.Broker,
+        Buyer: userData?.userType.Buyer,
+        Seller: userData?.userType.Seller,
+        Notaries: userData?.userType.Notaries,
+        walletAddress: address,
+        country: userData?.Country,
+        Language: userData?.Language,
+        IDDocument: "",
+      });
+    }
+  }, [userData]);
 
-
-  const formUpdateSubmit = async(e) => {
+  const formUpdateSubmit = async (e) => {
     e.preventDefault();
-
-  
-   
 
     const file1 = new FormData();
     file1.append("files", file);
@@ -448,92 +427,95 @@ By using the Platform, you acknowledge that you have read, understood, and agree
     const file2 = new FormData();
     file2.append("files", IDDocument);
 
-    axios.post(`${process.env.STRAPI_URL_PROD}/api/upload`, file2).then((resp2) => {
-      axios.post(`${process.env.STRAPI_URL_PROD}/api/upload`, file1).then((resp1) => {
-        console.log(resp1.data[0]);
-        console.log(resp2.data[0]);
-        console.log(formData);
-        const userData = JSON.stringify({
-          data: {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            Email: formData.email,
-            profilePicHash: resp1.data[0].hash,
-            IDDocumentHash: resp2.data[0].hash,
-            Website: formData.website,
-            Address: formData.companyAddress,
-            Country: formData.country,
-            Company: formData.companyName,
-            phoneNumber: formData.phoneNumber,
-            About: formData.about,
-            Language: formData.Language,
-            area: selectedAREA,
-            walletAddress: address,
-            userType: {
-              Broker: formData.Broker,
-              Buyer: formData.Buyer,
-              Seller: formData.Seller,
-              Notaries: formData.Notaries,
-            },
-          },
-        });
-        console.log(userData);
+    axios
+      .post(`${process.env.STRAPI_URL_UPLOAD_PROD}/api/upload`, file2)
+      .then((resp2) => {
         axios
-          .put(
-            `${process.env.STRAPI_URL_PROD}/api/brokereum-user/${userDataID}`,
-            userData,
-            {
-              headers: {
-                "Content-type": "application/json",
+          .post(`${process.env.STRAPI_URL_UPLOAD_PROD}/api/upload`, file1)
+          .then((resp1) => {
+            console.log(resp1.data[0]);
+            console.log(resp2.data[0]);
+            console.log(formData);
+            const userData = JSON.stringify({
+              data: {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                Email: formData.email,
+                profilePicHash: resp1.data[0].hash,
+                IDDocumentHash: resp2.data[0].hash,
+                Website: formData.website,
+                Address: formData.companyAddress,
+                Country: formData.country,
+                Company: formData.companyName,
+                phoneNumber: formData.phoneNumber,
+                About: formData.about,
+                Language: formData.Language,
+                area: selectedAREA,
+                walletAddress: address,
+                userType: {
+                  Broker: formData.Broker,
+                  Buyer: formData.Buyer,
+                  Seller: formData.Seller,
+                  Notaries: formData.Notaries,
+                },
               },
-            }
-          )
-          .then((res) => {
-            if (res.status == 200) {
-              toast.success("Data Updated Successfully!", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-            } else {
-              toast.error("🦄 Error while Updating!", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-            toast.error("🦄 Error while Saving!", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
             });
+            console.log(userData);
+            axios
+              .put(
+                `${process.env.STRAPI_URL_PROD}/api/brokereum-user/${userDataID}`,
+                userData,
+                {
+                  headers: {
+                    "Content-type": "application/json",
+                  },
+                }
+              )
+              .then((res) => {
+                if (res.status == 200) {
+                  toast.success("Data Updated Successfully!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                } else {
+                  toast.error("🦄 Error while Updating!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                toast.error("🦄 Error while Saving!", {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              });
           });
       });
-    });
-  }
+  };
 
-
-   useEffect(() => {
-     fetchUserInfo();
-   }, [address]);
+  useEffect(() => {
+    fetchUserInfo();
+  }, [address]);
 
   return (
     <>
@@ -1137,7 +1119,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                                 onChange={(e) =>
                                   setIDDocument(e.target.files[0])
                                 }
-                                name="media"         
+                                name="media"
                               />
                             </div>
                           </div>
