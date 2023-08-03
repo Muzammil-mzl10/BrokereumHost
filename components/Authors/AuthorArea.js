@@ -20,8 +20,22 @@ const AuthorArea = () => {
       clientId: process.env.thirdweb_CLIENTID,
     });
     setContract(await sdk.getContract(process.env.ERC_Contract))
+    
   }
   
+  // useEffect(async() => {
+  //   if (contract) {
+  //    const data =  await contract.roles.get(
+  //      "minter"
+  //      )
+  //     console.log(data[0])
+  //     console.log(walletAddress)
+  //     if (data[0] !== walletAddress) {
+  //       const tx = await contract.roles.grant("minter",walletAddress);
+  //     }
+  //   }
+  // },[contract])
+
   useEffect(() => {
     getNFTColleciton()
   },[])
@@ -35,6 +49,8 @@ const AuthorArea = () => {
 
    const uploadToIpfs = async (data) => {
 
+     
+     
      const uploadUrl = await upload({
        data: [
          {
@@ -117,10 +133,10 @@ const AuthorArea = () => {
           console.log(ipfsHash)
           let data1 = {
             image: data.properties.image_urls.satellite_image,
-            name: "Name of the property",
-            description: "Description",
-            lat: "47.649482",
-            lng: "9.160064",
+            name: data.properties?.owner[0]?.address,
+            description: data.properties.name,
+            lat: data.properties.address.coordinates.lat,
+            lng: data.properties.address.coordinates.lng,
             properties: {
               IPFSHash: ipfsHash,
               priceType: "formData.priceType",
@@ -128,7 +144,7 @@ const AuthorArea = () => {
               downPayment: "formData.downPayment",
               propertyType: "formData.propertyType",
             },
-          }
+          };
           setmetadata((prevValue)=> [...prevValue , data1])
         })
         console.log(metadata)

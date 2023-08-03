@@ -46,7 +46,6 @@ function MyApp({ Component, pageProps }) {
             factoryAddress: process.env.factoryAddress,
             thirdwebApiKey: process.env.thirdwebApiKey,
             gasless: true,
-            
             personalWallets: [
               metamaskWallet(),
               paperWallet({ paperClientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d" }),

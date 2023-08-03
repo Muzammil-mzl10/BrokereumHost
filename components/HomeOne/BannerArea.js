@@ -53,14 +53,34 @@ const BannerArea = () => {
           <div className="row align-items-center">
             <div className="col-lg-6">
               <div className="banner-content">
-                <span>Buying & Selling NFT World</span>
-                <h1>Discover, Collect, and Sell Extraordinary NFTs</h1>
+                <span className='text-white' style={{fontSize:"30px", fontWeight:"bolder"}}>Selling Real Estate Redefined</span>
+
+                <ul style={{color:"whitesmoke"}} className=''>
+                  <li>
+                    Use Smart contracts for real estate negotiations and
+                    auctions
+                  </li>
+                  <li>Reduce the influence of intermediaries</li>
+                  <li>Sell real estate within hours not months </li>
+                  <li>
+                    Benefit from all types of brokerage models: fixed-price,
+                    variable-price, zero-price Discover, Collect, and Sell
+                    Extraordinary NFTs{" "}
+                  </li>
+                </ul>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  aliquam etiam rhoncus aenean a iaculis aliquet rhoncus sed.
-                  Accumsan sit consequat, sodales consectetur. Egestas
-                  scelerisque ut dui sed nulla morbi quam eget luctus. In a vel
-                  morbi sed nisi.
+                  Are you tired of the complexities and delays in real estate
+                  transactions? Introducing Brokereum, the game-changing
+                  smart-contract platform in real estate brokerage.
+                </p>
+                <p>
+                  With our tamper-proof blockchain-powered platform and
+                  self-executing smart contracts, buying and selling property
+                  becomes faster, more secure, and efficient.
+                </p>
+                <p>
+                  Say hello to transparent auctions and fair price discovery
+                  with reduced transaction costs.
                 </p>
                 <div
                   className=""
@@ -84,12 +104,15 @@ const BannerArea = () => {
                         <ConnectWallet
                           theme="dark"
                           style={{ padding: "15px 15px 15px 15px" }}
-                          btnTitle="Connect Wallet"
+                          btnTitle="Login"
                         />
                       </a>
                     </>
                   ) : (
-                    <a className="default-btn two border-radius-5" style={{marginLeft:"20px", cursor:"pointer"}}>
+                    <a
+                      className="default-btn two border-radius-5"
+                      style={{ marginLeft: "20px", cursor: "pointer" }}
+                    >
                       Connected Successfully
                     </a>
                   )}

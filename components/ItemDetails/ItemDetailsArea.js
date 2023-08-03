@@ -170,19 +170,19 @@ const comingSoonTime = () => {
                           <div>
                             Street
                             <b className="text-primary px-3">
-                              : {ipfsData?.streetname}
+                              : {ipfsData?.address?.street}
                             </b>
                           </div>
                           <div className="my-2">
                             City
                             <b className="text-primary px-3">
-                              : {ipfsData?.cityname}
+                              : {ipfsData?.address?.city}
                             </b>
                           </div>
                           <div>
                             Canton
                             <b className="text-primary px-3">
-                              : {ipfsData ? ipfsData.canton : ""}
+                              : {ipfsData ? ipfsData?.address?.canton : ""}
                             </b>
                           </div>
                         </div>
@@ -193,7 +193,7 @@ const comingSoonTime = () => {
                               style={{ marginLeft: "65px" }}
                               className="text-primary"
                             >
-                              : {ipfsData?.zip}
+                              : {ipfsData?.address?.zip}
                             </b>
                           </div>
                           <div className="my-2">
@@ -202,7 +202,7 @@ const comingSoonTime = () => {
                               style={{ marginLeft: "30px" }}
                               className="text-primary "
                             >
-                              :
+                              : {data?.asset.lat}
                             </b>
                           </div>
                           <div>
@@ -211,7 +211,7 @@ const comingSoonTime = () => {
                               style={{ marginLeft: "20px" }}
                               className="text-primary "
                             >
-                              : 8.542125
+                              : {data?.asset.lng}
                             </b>
                           </div>
                         </div>
@@ -232,19 +232,19 @@ const comingSoonTime = () => {
                             <div>
                               Bldg Constr Year
                               <b className="text-primary px-3">
-                                : {ipfsData?.bldg_constr_year}
+                                : {ipfsData?.building?.bldg_constr_year}
                               </b>
                             </div>
                             <div className="my-2">
                               Bldg Flats
                               <b className="text-primary px-3">
-                                : {ipfsData?.bldg_flats}
+                                : {ipfsData?.building?.bldg_flats}
                               </b>
                             </div>
                             <div>
                               Bldg Floors
                               <b className="text-primary px-3">
-                                : {ipfsData?.bldg_floors}
+                                : {ipfsData?.building?.bldg_floors}
                               </b>
                             </div>
                           </div>
@@ -255,7 +255,7 @@ const comingSoonTime = () => {
                                 style={{ marginLeft: "30px" }}
                                 className="text-primary"
                               >
-                                : {ipfsData?.bldg_size}
+                                : {ipfsData?.building?.bldg_size}
                               </b>
                             </div>
                             <div className="my-2">
@@ -264,7 +264,7 @@ const comingSoonTime = () => {
                                 style={{ marginLeft: "37px" }}
                                 className="text-primary "
                               >
-                                : {ipfsData?.bldg_vol_gwr}
+                                : {ipfsData?.building?.bldg_vol}
                               </b>
                             </div>
                           </div>
@@ -294,19 +294,19 @@ const comingSoonTime = () => {
                               <div>
                                 Parcel Area
                                 <b className="text-primary px-3">
-                                  : {ipfsData?.parcel_area}
+                                  : {ipfsData?.plot?.parcel_area}
                                 </b>
                               </div>
                               <div className="my-2">
                                 Ratio_S
                                 <b className="text-primary px-3">
-                                  : {ipfsData?.ratio_s}
+                                  : {ipfsData?.plot?.ratio_s}
                                 </b>
                               </div>
                               <div>
                                 Ratio S Free
                                 <b className="text-primary px-3">
-                                  : {ipfsData?.ratio_s_free}
+                                  : {ipfsData?.plot?.ratio_s_free}
                                 </b>
                               </div>
                             </div>
@@ -325,7 +325,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.ratio_v}
+                                    : {ipfsData?.plot?.ratio_v}
                                   </b>
                                 </div>
                                 <div className="my-2">
@@ -334,27 +334,27 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "37px" }}
                                     className="text-primary "
                                   >
-                                    : {ipfsData?.ratio_v_free}
+                                    : {ipfsData?.plot?.ratio_v_free}
                                   </b>
                                 </div>
-                              </div>
-                              <div>
                                 <div>
-                                  Ratio U
+                                  Ratio S Free
                                   <b
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.ratio_u}
+                                    : {ipfsData?.plot?.ratio_s_free}
                                   </b>
                                 </div>
+                              </div>
+                              <div>
                                 <div className="my-2">
                                   Area Max
                                   <b
                                     style={{ marginLeft: "37px" }}
                                     className="text-primary "
                                   >
-                                    : {ipfsData?.area_max}
+                                    : {ipfsData?.plot?.area_max}
                                   </b>
                                 </div>
                                 <div>
@@ -363,7 +363,16 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.vol_max}
+                                    : {ipfsData?.plot?.vol_max}
+                                  </b>
+                                </div>
+                                <div>
+                                  Ratio S
+                                  <b
+                                    style={{ marginLeft: "30px" }}
+                                    className="text-primary"
+                                  >
+                                    : {ipfsData?.plot?.ratio_s}
                                   </b>
                                 </div>
                               </div>
@@ -395,19 +404,27 @@ const comingSoonTime = () => {
                                 <div>
                                   CZ abbreveiation
                                   <b className="text-primary px-3">
-                                    : {ipfsData?.cz_abbrev}
+                                    : {ipfsData?.construction_zone?.cz_abbrev}
                                   </b>
                                 </div>
                                 <div className="my-2">
-                                  cz_floors_usual
+                                  CZ Floors Usual
                                   <b className="text-primary px-3">
-                                    : {ipfsData?.cz_local}
+                                    :{" "}
+                                    {
+                                      ipfsData?.construction_zone
+                                        ?.cz_floors_usual
+                                    }
                                   </b>
                                 </div>
                                 <div>
-                                  cz_height_usual
+                                  CZ Height Usual
                                   <b className="text-primary px-3">
-                                    : {ipfsData?.cz_height_usual}
+                                    :{" "}
+                                    {
+                                      ipfsData?.construction_zone
+                                        ?.cz_height_usual
+                                    }
                                   </b>
                                 </div>
                               </div>
@@ -415,19 +432,19 @@ const comingSoonTime = () => {
                                 <div>
                                   CZ Local
                                   <b className="text-primary px-3">
-                                    : {ipfsData?.cz_local}
+                                    : {ipfsData?.construction_zone?.cz_local}
                                   </b>
                                 </div>
                                 <div className="my-2">
                                   CZ type
                                   <b className="text-primary px-3">
-                                    : {ipfsData?.cz_type}
+                                    : {ipfsData?.construction_zone?.cz_type}
                                   </b>
                                 </div>
                                 <div>
                                   CZ Util EST
                                   <b className="text-primary px-3">
-                                    : {ipfsData?.cz_util_est}
+                                    : {ipfsData?.construction_zone?.cz_util_est}
                                   </b>
                                 </div>
                               </div>
@@ -447,7 +464,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.noise_bahn_night}
+                                    : {ipfsData?.noise?.noise_bahn_night}
                                   </b>
                                 </div>
                                 <div className="my-2">
@@ -456,7 +473,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "37px" }}
                                     className="text-primary "
                                   >
-                                    : {ipfsData?.noise_bahn_day}
+                                    : {ipfsData?.noise?.noise_bahn_day}
                                   </b>
                                 </div>
                               </div>
@@ -467,7 +484,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.noise_street_night}
+                                    : {ipfsData?.noise?.noise_street_night}
                                   </b>
                                 </div>
                                 <div className="my-2">
@@ -476,7 +493,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "37px" }}
                                     className="text-primary "
                                   >
-                                    : {ipfsData?.noise_street_day}
+                                    : {ipfsData?.noise?.noise_street_day}
                                   </b>
                                 </div>
                               </div>
@@ -496,7 +513,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.tt_agglo_pubt}
+                                    : {ipfsData?.travel?.tt_agglo_pubt}
                                   </b>
                                 </div>
                               </div>
@@ -507,7 +524,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.tt_agglo_road}
+                                    : {ipfsData?.travel?.tt_agglo_road}
                                   </b>
                                 </div>
                               </div>
@@ -527,7 +544,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.vac_all}
+                                    : {ipfsData?.vacancies?.vac_all}
                                   </b>
                                 </div>
                               </div>
@@ -538,7 +555,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.vac_new}
+                                    : {ipfsData?.vacancies?.vac_new}
                                   </b>
                                 </div>
                               </div>
@@ -549,7 +566,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.vac_old}
+                                    : {ipfsData?.vacancies?.vac_old}
                                   </b>
                                 </div>
                               </div>
@@ -569,7 +586,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.tax_100k_pa}
+                                    : {ipfsData?.tax?.tax_100k_pa}
                                   </b>
                                 </div>
                               </div>
@@ -580,7 +597,7 @@ const comingSoonTime = () => {
                                     style={{ marginLeft: "30px" }}
                                     className="text-primary"
                                   >
-                                    : {ipfsData?.tax_scale}
+                                    : {ipfsData?.tax?.tax_scale}
                                   </b>
                                 </div>
                               </div>

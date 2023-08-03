@@ -101,9 +101,12 @@ const Navbar = () => {
               >
                 <ul className="navbar-nav m-auto">
                   <li className="nav-item">
-                    <a href="#" className="nav-link active">
+                    <Link href="/" activeClassName="active">
+
+                    <a  className="nav-link active">
                       Home
                     </a>
+                    </Link>
                   </li>
 
                   {/* <li className="nav-item">
@@ -158,7 +161,7 @@ const Navbar = () => {
                           href="/create-collection"
                           activeClassName="active"
                         >
-                          <a className="nav-link">Create Collection</a>
+                          <a className="nav-link">Mint Property</a>
                         </Link>
                       </li>
 

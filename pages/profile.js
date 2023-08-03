@@ -72,7 +72,7 @@ const Login = () => {
     Language: "",
     IDDocument: "",
   });
-  const options = ["Germany", "France", "SwitZerland", "Norway", "Spain"];
+  const options = ["Germany", "France", "Switzerland", "Norway", "Spain"];
   const Languageoptions = ["EN", "DE", "FR", "IT"];
 
   const countryTypeChange = (e) => {
@@ -441,9 +441,9 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                 firstName: formData.firstName,
                 lastName: formData.lastName,
                 Email: formData.email,
-                profilePicHash: resp1.data[0].hash,
-                IDDocumentHash: resp2.data[0].hash,
-                Website: formData.website,
+                profilePicHash: resp1.data[0].url,
+                IDDocumentHash: resp2.data[0].url,
+                  Website: formData.website,
                 Address: formData.companyAddress,
                 Country: formData.country,
                 Company: formData.companyName,

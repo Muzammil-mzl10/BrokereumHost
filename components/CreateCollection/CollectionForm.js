@@ -117,6 +117,7 @@ const CollectionForm = () => {
     var raw = JSON.stringify({
       lat: parseFloat(formData.coordinatesLat),
       lng: parseFloat(formData.coordinatesLng),
+      structure:"tree"
     });
 
     var requestOptions = {
@@ -141,13 +142,13 @@ const CollectionForm = () => {
 
       
         console.log(result);
-        console.log(result.features[0].id);
-        setparcelID(result.features[0].id);
+        console.log(result.address.parcel_id);
+        setparcelID(result.address.parcel_id);
 
         
         axios
           .get(
-            `${process.env.STRAPI_URL_PROD}/api/parcel-ids/?filters[parcelIDs][$eq]=${result.features[0].id}`,
+            `${process.env.STRAPI_URL_PROD}/api/parcel-ids/?filters[parcelIDs][$eq]=${result.address.parcel_id}`,
             {
               headers: {
                 "Content-type": "application/json",
@@ -155,42 +156,42 @@ const CollectionForm = () => {
             }
           )
           .then((res) => {
-            console.log(res.data.data.length);
-            if (res.data.data.length>0) {
-               toast.error("🦄 This Property was published before NFT", {
-                 position: "top-center",
-                 autoClose: 5000,
-                 hideProgressBar: false,
-                 closeOnClick: true,
-                 pauseOnHover: true,
-                 draggable: true,
-                 progress: undefined,
-                 theme: "light",
-               });
-            }
-            else {   
+            console.log(res);
+            if (res.data.data.length > 0) {
+              toast.error("🦄 This Property was published before NFT", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            } else {
+              console.log(result);
               setapiData(result);
-                  setImg1(
-                    result.features[0].properties.image_urls.satellite_image
-                  );
-                  setImg2(
-                    result.features[0].properties.image_urls.world_topo_image
-                  );
+              setImg1(
+                result.image_urls.satellite_image
+              );
+              setImg2(
+                result.image_urls.world_topo_image
+              );
 
-                  console.log(
-                    result.features[0].properties.image_urls.world_topo_image
-                  );
+              console.log(
+                result.image_urls.world_topo_image
+              );
               toast.success("Data Fetched Successfully!", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            }
           })
           .catch((err) => {
             console.log(err);
@@ -236,7 +237,7 @@ const CollectionForm = () => {
         {
           image: file,
           parcelID: parcelID,
-          parcelData: apiData.features[0].properties,
+          parcelData: apiData,
         },
       ],
       options: { uploadWithGatewayUrl: true },

@@ -122,9 +122,14 @@ const AuthorProfileArea = () => {
 
   const MarketplaceFetch = async () => {
     if (marketplaceContract) {
-      const data = await marketplaceContract.directListings.getAll();
-      setlistings(data);
-      console.log(data);
+      try {
+        
+        const data = await marketplaceContract.directListings.getAll();
+        setlistings(data);
+        console.log(data);
+      } catch (err) {
+        console.log(err)
+      }
     }
   };
   useEffect(async () => {
