@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAddress, ConnectWallet } from "@thirdweb-dev/react";
-import { useWalletConnect } from "@thirdweb-dev/react";
+import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
+import AuctionListings from "../Common/AuctionListingsMain";
+
+
 const BannerArea = () => {
   //counter calculation
   const [days, setDays] = useState('');
@@ -46,6 +49,38 @@ const BannerArea = () => {
     }, 1000);
   }, []);
 
+
+  
+  const [marketplaceContract, setMarketplaceContract] = useState();
+  const [AuctionListing, setAuctionListing] = useState();
+  const sdk = new ThirdwebSDK("mumbai", {
+    clientId: process.env.thirdweb_CLIENTID,
+  });
+
+  useEffect(async () => {
+    setMarketplaceContract(
+      await sdk.getContract(process.env.Marketplace_Contract)
+    );
+  }, []);
+  useEffect(async () => {
+    console.log(marketplaceContract);
+    if (marketplaceContract) {
+      try {
+        setAuctionListing(
+          await marketplaceContract.englishAuctions.getAllValid()
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [marketplaceContract]);
+
+
+
+
+
+
+
   return (
     <>
       <div className="banner-area">
@@ -53,34 +88,24 @@ const BannerArea = () => {
           <div className="row align-items-center">
             <div className="col-lg-6">
               <div className="banner-content">
-                <span className='text-white' style={{fontSize:"30px", fontWeight:"bolder"}}>Selling Real Estate Redefined</span>
+                <p className="h1 text-danger fw-bold">
+                  Reshape Real Estate Selling
+                </p>
 
-                <ul style={{color:"whitesmoke"}} className=''>
-                  <li>
-                    Use Smart contracts for real estate negotiations and
-                    auctions
-                  </li>
+                <ul style={{ color: "whitesmoke" }} className="h3">
+                  <li>Use Smart contracts for real estate auctions</li>
                   <li>Reduce the influence of intermediaries</li>
-                  <li>Sell real estate within hours not months </li>
-                  <li>
-                    Benefit from all types of brokerage models: fixed-price,
-                    variable-price, zero-price Discover, Collect, and Sell
-                    Extraordinary NFTs{" "}
-                  </li>
+                  <li>Avoid delays in real estate transactions</li>
+                  <li>Sell real estate within hours not months</li>
                 </ul>
-                <p>
-                  Are you tired of the complexities and delays in real estate
-                  transactions? Introducing Brokereum, the game-changing
-                  smart-contract platform in real estate brokerage.
+                <p className="mt-5">
+                  Introducing Brokereum, the game-changing platform with
+                  tamper-proof smart contracts. Make buying and selling property
+                  faster, more efficient, and more secure.
                 </p>
                 <p>
-                  With our tamper-proof blockchain-powered platform and
-                  self-executing smart contracts, buying and selling property
-                  becomes faster, more secure, and efficient.
-                </p>
-                <p>
-                  Say hello to transparent auctions and fair price discovery
-                  with reduced transaction costs.
+                  Benefit from fair price discovery with heavily reduced
+                  transaction costs.
                 </p>
                 <div
                   className=""
@@ -122,134 +147,13 @@ const BannerArea = () => {
 
             <div className="col-lg-6">
               <div className="banner-card-area">
-                <div className="row">
-                  <div className="col-lg-6 col-sm-6">
-                    <div className="banner-card">
-                      <div className="banner-card-img">
-                        <img
-                          src="../images/home-one/home-one-img1.jpg"
-                          alt="Images"
-                        />
-                        <div className="banner-card-content">
-                          <div className="card-left">
-                            <span>Start Bid</span>
-                            <h3>15,00 ETH</h3>
-                          </div>
-                          <div className="card-right">
-                            <h3>Remaining Time</h3>
-                            <div
-                              className="timer-text"
-                              data-countdown="2021/10/10"
-                            >
-                              {days}:{hours}:{minutes}:{seconds}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="content">
-                        <div className="banner-user-list">
-                          <div className="banner-user-list-img">
-                            <Link href="/author-profile">
-                              <a>
-                                <img
-                                  src="../images/home-one/home-one-user1.jpg"
-                                  alt="Images"
-                                />
-                              </a>
-                            </Link>
-                            <i className="ri-check-line"></i>
-                          </div>
-                          <h3>
-                            <Link href="/author-profile">
-                              <a>Flowers in Concrete</a>
-                            </Link>
-                          </h3>
-                          <span>
-                            Created by
-                            <Link href="/author-profile">
-                              <a>@Evelyn</a>
-                            </Link>
-                          </span>
-                        </div>
-                        <Link href="/author-profile">
-                          <a className="banner-user-btn">
-                            <i className="ri-arrow-right-line"></i>
-                          </a>
-                        </Link>
-                        <button
-                          type="button"
-                          className="default-btn border-radius-5"
-                        >
-                          Place Bid
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-6 col-sm-6">
-                    <div className="banner-card banner-card-mt">
-                      <div className="banner-card-img">
-                        <img
-                          src="../images/home-one/home-one-img2.jpg"
-                          alt="Images"
-                        />
-                        <div className="banner-card-content">
-                          <div className="card-left">
-                            <span>Start Bid</span>
-                            <h3>11,00 ETH</h3>
-                          </div>
-                          <div className="card-right">
-                            <h3>Remaining Time</h3>
-                            <div
-                              className="timer-text"
-                              data-countdown="2021/09/09"
-                            >
-                              {days}:{hours}:{minutes}:{seconds}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="content">
-                        <div className="banner-user-list">
-                          <div className="banner-user-list-img">
-                            <Link href="/author-profile">
-                              <a>
-                                <img
-                                  src="../images/home-one/home-one-user2.jpg"
-                                  alt="Images"
-                                />
-                              </a>
-                            </Link>
-                            <i className="ri-check-line"></i>
-                          </div>
-                          <h3>
-                            <Link href="/author-profile">
-                              <a>Walking on Air</a>
-                            </Link>
-                          </h3>
-                          <span>
-                            Created by
-                            <Link href="/author-profile">
-                              <a>@Adison</a>
-                            </Link>
-                          </span>
-                        </div>
-                        <Link href="/author-profile">
-                          <a className="banner-user-btn">
-                            <i className="ri-arrow-right-line"></i>
-                          </a>
-                        </Link>
-                        <button
-                          type="button"
-                          className="default-btn border-radius-5"
-                        >
-                          Place Bid
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                <div className="d-flex flex-lg-row flex-column justify-content-center">
+                  {AuctionListing &&
+                    AuctionListing.map((data, index) =>
+                      index < 3 ? (
+                        <AuctionListings data={data} key={index} />
+                      ) : null
+                    )}
                 </div>
               </div>
             </div>

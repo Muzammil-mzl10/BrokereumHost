@@ -8,7 +8,7 @@ import { Mumbai } from "@thirdweb-dev/chains";
 
 const AuctionListings = ({ data }) => {
   //  const signer = useSigner();
-  // console.log(data)
+  console.log(data)
   const [Bidders,setBidders] = useState()
   const [OwnerData,setOWnerData] = useState()
   const [MinimumBidVal, setMinimumBidVal] = useState();
@@ -105,9 +105,9 @@ const AuctionListings = ({ data }) => {
   }, []);
 
   return (
-    <div className="col-lg-3 col-md-6">
+    <div style={{marginRight:"20px"}} className="col-lg-6 col-md-6 col-12">
       <div className="featured-item">
-        <div className="featured-item-img">
+        <div className="featured-item-img d-flex justify-content-center align-items-center">
           <a>
             <img src={data.asset.image} alt="Images" />
           </a>

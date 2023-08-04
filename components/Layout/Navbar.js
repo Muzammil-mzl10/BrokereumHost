@@ -56,7 +56,7 @@ const Navbar = () => {
               <div className="logo">
                 <Link href="/">
                   <a>
-                    <img src="../images/logo-2.png" alt="logo" />
+                    <img style={{height:"60px", width:"150px"}} src="../images/logo.png" alt="logo" />
                   </a>
                 </Link>
               </div>
@@ -361,7 +361,7 @@ const Navbar = () => {
               className="dot-menu dot-menu-mt"
               onClick={() => toggleWallet()}
             >
-              <div className="circle-inner">
+              <div style={{marginTop:"-7px"}} className="circle-inner">
                 <div className="circle circle-one"></div>
                 <div className="circle circle-two"></div>
                 <div className="circle circle-three"></div>
