@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios"; 
 import Overlay from "./Overlay"
 
-
+import { Mumbai } from "@thirdweb-dev/chains";
 import { ReactComponentElement as Loader } from "../../public/images/loader.svg";
 import {
   
@@ -31,52 +31,35 @@ const CollectionForm = () => {
 
   const [img1 , setImg1] = useState()
   const [img2 , setImg2] = useState()
-
+  const [adminContract, setAdminContract] = useState();
   const [parcelID , setparcelID] = useState()
   const [loading, setLoading] = useState(false);
   const [tokenID, setTokenID] = useState();
   const [file, setFile] = useState();
-  // const [Marketplace, setContract] = useState();
+  const [contract,setContract] = useState()
   const [docummentfile, setdocumentFile] = useState([]);
+  const signer = useSigner()
 
-  const sdk = new ThirdwebSDK("mumbai", {
-    clientId: process.env.thirdweb_CLIENTID,
-  });
 
-  const { contract } = useContract(process.env.ERC_Contract, "nft-collection");
+  // const { contract } = useContract(process.env.ERC_Contract, "nft-collection");
+  useEffect(async () => {
+    if (Mumbai && ThirdwebSDK && signer) {
+      const sdk = ThirdwebSDK.fromSigner(signer, Mumbai, {
+        clientId: process.env.thirdweb_CLIENTID,
+      });
+      setContract(await sdk.getContract(process.env.ERC_Contract));
+      getAdminNFTContract()
+    }
+  }, [Mumbai, ThirdwebSDK, signer]);
 
-  const { contract: Marketplace } = useContract(
-    "0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0",
-    "marketplace-v3"
-  );
+ const getAdminNFTContract = async () => {
+   const sdk = ThirdwebSDK.fromPrivateKey(process.env.private_Key, "mumbai", {
+     clientId: process.env.thirdweb_CLIENTID,
+   });
+   setAdminContract(await sdk.getContract(process.env.ERC_Contract));
+ };
 
-  const { mutate: createDirectListing } = useCreateDirectListing(Marketplace);
-
-  // const sdk = new ThirdwebSDK("mumbai");
-  // const Marketplace = useContract(
-  //   "0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0",
-  //   "marketplace-v3"
-  // );
-
-  // useEffect(() => {
-  //    fetchContract();
-  //  }, []);
-
-  //  const fetchContract = async () => {
-  //    try {
-  //      const sdk = new ThirdwebSDK("mumbai");
-  //      const fetchedContract = await sdk.getContract(
-  //        "0xB373A88c45d45c01582Bd2f46a9EF7141E5f65c0","marketplace-v3"
-
-  //      );
-  //      setContract(fetchedContract);
-  //      console.log(fetchedContract);
-  //    } catch (error) {
-  //      console.error("Error fetching contract:", error);
-  //    }
-  //  };
-
-  const [mediaPreview, setMediaPreview] = React.useState("");
+  const [mediaPreview, setMediaPreview] = useState("");
   const [apiData, setapiData] = useState();
   const [ipfsHash, setIPFSHASH] = useState();
   const options = [
@@ -220,6 +203,7 @@ const CollectionForm = () => {
     }));
   };
   const uploadToIpfs = async () => {
+    console.log(contract)
     toast.info("🦄 Minting started....", {
       position: "top-center",
       autoClose: 5000,
@@ -269,13 +253,20 @@ const CollectionForm = () => {
         },
       };
       console.log(metadatas);
-      try{
-        const tx = await contract.erc721.mint.prepare(metadatas); 
-        const gaslessOptions =  tx.getGaslessOptions();
-        console.log(gaslessOptions)    
-        const tx1 = await contract.mint(metadatas)
-        console.log(tx1)
-
+      try {
+        
+         const rolesAndMembers = await adminContract.roles.getAll();
+         console.log(rolesAndMembers);
+         const data = await adminContract.roles.grant("minter", address);
+         console.log(data);
+        if (data) {
+          
+          const tx = await contract.erc721.mint(metadatas); 
+          // const gaslessOptions =  tx.getGaslessOptions();
+          // console.log(gaslessOptions)    
+          // const tx1 = await contract.mint(metadatas)
+          console.log(tx)
+          
         setLoading(false);
         setNFTmintSuccess(true)
         const userData = JSON.stringify({
@@ -285,12 +276,12 @@ const CollectionForm = () => {
         });
         console.log(userData);
         axios
-          .post(`${process.env.STRAPI_URL_PROD}/api/parcel-ids`, userData, {
-            headers: {
-              "Content-type": "application/json",
-            },
-          })
-          .then((res) => {
+        .post(`${process.env.STRAPI_URL_PROD}/api/parcel-ids`, userData, {
+          headers: {
+            "Content-type": "application/json",
+          },
+        })
+        .then((res) => {
             toast("NFT Minted Successfully!", {
               position: "top-center",
               autoClose: 5000,
@@ -314,9 +305,10 @@ const CollectionForm = () => {
           theme: "light",
         });
       })
-      } catch (err) {
-          console.log(err)
-        toast.error("🦄 Error while Minting!", {
+    }
+    } catch (err) {
+      console.log(err)
+      toast.error("🦄 Error while Minting!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -328,7 +320,7 @@ const CollectionForm = () => {
         });
       }
       
-    
+      
       
 
       // Data of the listing you want to create

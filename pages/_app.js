@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <ThirdwebProvider
+        clientId={process.env.thirdweb_CLIENTID}
         activeChain={"mumbai"}
         autoConnect={true}
         sdkOptions={{
@@ -48,14 +49,15 @@ function MyApp({ Component, pageProps }) {
             gasless: true,
             personalWallets: [
               metamaskWallet(),
-              paperWallet({ paperClientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d" }),
+              paperWallet({
+                paperClientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d",
+              }),
               localWallet({ persist: true }),
               coinbaseWallet(),
               safeWallet(),
               walletConnect(),
             ],
           }),
-          
         ]}
       >
         <Component {...pageProps} />

@@ -9,6 +9,7 @@ import { Goerli, Mumbai } from "@thirdweb-dev/chains";
 
 const AuthorArea = () => {
   const [contract, setContract] = useState()
+  const [adminContract,setAdminContract] = useState()
   const [lengthIPFS, setlengthIPFS] = useState(1)
   const [metadata,setmetadata] = useState([])
 
@@ -20,7 +21,12 @@ const AuthorArea = () => {
       clientId: process.env.thirdweb_CLIENTID,
     });
     setContract(await sdk.getContract(process.env.ERC_Contract))
-    
+  }
+  const getAdminNFTContract = async () => {
+    const sdk = ThirdwebSDK.fromPrivateKey(process.env.private_Key, "mumbai", {
+      clientId: process.env.thirdweb_CLIENTID,
+    });
+    setAdminContract(await sdk.getContract(process.env.ERC_Contract))
   }
   
   // useEffect(async() => {
@@ -38,10 +44,11 @@ const AuthorArea = () => {
 
   useEffect(() => {
     getNFTColleciton()
+    getAdminNFTContract()
   },[])
 
 
-  const { mutateAsync: upload } = useStorageUpload({
+  const { mutateAsync: upload } = useStorageUpload( {
     onProgress: (progress) => {
       console.log(progress);
     },
@@ -69,20 +76,25 @@ const AuthorArea = () => {
     console.log(metadata)
     if (metadata.length == lengthIPFS) {
       console.log("Finally the time has come.....!!")
-      try{
-        
-        const tx = await contract.erc721.mintBatchTo(walletAddress, metadata);
-        console.log(tx)
-        toast.success("Batch Minted Successfully!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+      try {  
+        const rolesAndMembers = await adminContract.roles.getAll();
+        console.log(rolesAndMembers)
+        const data = await  adminContract.roles.grant("minter", walletAddress);
+        console.log(data)
+        if (data) {
+          const tx = await contract.erc721.mintBatchTo(walletAddress, metadata);
+          console.log(tx)
+          toast.success("Batch Minted Successfully!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
         });
+      }
       } catch (Err) {
         console.log(Err)
         toast.error("🦄 Error while batch minting", {
