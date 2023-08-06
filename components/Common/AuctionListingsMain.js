@@ -151,7 +151,7 @@ const AuctionListings = ({ data }) => {
                 <>
                   {Bidders.map((data, index) => (
                     
-                      index<4?
+                      index<3?
                     <li>
                       <img
                         src={`${process.env.STRAPI_URL_PROD}${data.attributes?.userInfo?.data?.profilePicHash}`}

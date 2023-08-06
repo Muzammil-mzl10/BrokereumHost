@@ -150,7 +150,7 @@ const BannerArea = () => {
                 <div className="d-flex flex-lg-row flex-column justify-content-center">
                   {AuctionListing &&
                     AuctionListing.map((data, index) =>
-                      index < 3 ? (
+                      index < 2 ? (
                         <AuctionListings data={data} key={index} />
                       ) : null
                     )}
