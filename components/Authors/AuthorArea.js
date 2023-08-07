@@ -145,8 +145,8 @@ const AuthorArea = () => {
           console.log(ipfsHash)
           let data1 = {
             image: data.properties.image_urls.satellite_image,
-            name: data.properties?.owner[0]?.address,
-            description: data.properties.name,
+            name: data.properties?.name,
+            description: data.properties?.description,
             lat: data.properties.address.coordinates.lat,
             lng: data.properties.address.coordinates.lng,
             properties: {
