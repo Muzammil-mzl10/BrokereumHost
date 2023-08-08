@@ -28,6 +28,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
   const [formData, setFormData] = useState({
     listingType: "Auction",
     pricePerToken: "",
+    bidoutPrice:"",
   });
   const [Clipboard, setclipboard] = useState(false);
   const [contract, setContract] = useState();
@@ -137,8 +138,8 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
   return (
     <>
       <div className="section-title">
-        <h2>Title</h2>
-        <p>{NFT.metadata.name}</p>
+        <h2>{NFT.metadata.name}</h2>
+        <p>{NFT.metadata.description}</p>
       </div>
 
       <div className="item-details-price">
@@ -146,17 +147,13 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
           <h3>Information Regarding this Property</h3>
         </div>
         <ul>
-          <li>
-            Size
-            <b>: 3000 x 3000</b>
-          </li>
-          <li>
+          {/* <li>
             Created
             <b>: 08 July, 2021</b>
-          </li>
+          </li> */}
           <li>
             City
-            <b>: Osnabruck</b>
+            <b>: {ipfsData.address.city}</b>
           </li>
           <li>
             Property Type
@@ -242,7 +239,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
           </div>
           <div className="col-lg-12 mb-4">
             <div className="form-group">
-              <label>Price of the Property</label>
+              <label>Reserve Price</label>
               <input
                 type="number"
                 value={formData.pricePerToken}
@@ -251,10 +248,20 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
                 className="form-control"
               />
             </div>
+            <div className="form-group mt-3">
+              <label>Bidout Price</label>
+              <input
+                type="number"
+                value={formData.bidoutPrice}
+                name="bidoutPrice"
+                onChange={handleChange}
+                className="form-control"
+              />
+            </div>
           </div>
           <div className="col-lg-12">
             <div className="">
-              <label>Listing for specific date</label>
+              <label>Listing from/to</label>
               <DatePicker
                 selectsRange={true}
                 startDate={startDate}
