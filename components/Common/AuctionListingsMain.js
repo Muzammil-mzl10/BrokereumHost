@@ -8,7 +8,7 @@ import { Mumbai } from "@thirdweb-dev/chains";
 
 const AuctionListings = ({ data }) => {
   //  const signer = useSigner();
-  console.log(data)
+  // console.log(data)
   const [Bidders,setBidders] = useState()
   const [OwnerData,setOWnerData] = useState()
   const [MinimumBidVal, setMinimumBidVal] = useState();

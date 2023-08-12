@@ -266,7 +266,35 @@ const CollectionForm = () => {
           // console.log(gaslessOptions)    
           // const tx1 = await contract.mint(metadatas)
           console.log(tx)
-          
+          if (tx) {
+           const activityAdd = JSON.stringify({
+             data: {
+               Name: "Mint",
+               address: address,
+               Data: {
+                 data: tx.receipt,
+               },
+             },
+           });
+            axios
+              .post(
+                `${process.env.STRAPI_URL_PROD}/api/activities`,
+                activityAdd,
+                {
+                  headers: {
+                    "Content-type": "application/json",
+                  },
+                }
+              )
+              .then((res) => {
+                console.log("Successfully Uploaded...!!");
+                console.log(res);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+         
+
         setLoading(false);
         setNFTmintSuccess(true)
         const userData = JSON.stringify({
@@ -305,6 +333,7 @@ const CollectionForm = () => {
           theme: "light",
         });
       })
+    }
     }
     } catch (err) {
       console.log(err)

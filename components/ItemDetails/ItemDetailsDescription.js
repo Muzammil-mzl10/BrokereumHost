@@ -22,7 +22,6 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const [bidErrorMessage, setBidErrorMessage] = useState(false)
   const [marketplaceModule, setMarketplaceModule] = useState();
   const [bidComplete, SetBidComplete] = useState(false)
-  const [provider, setProvider] = useState();
   const [winningBid, setWinningBid]= useState()
   const [minimumBidVal, setMinimumBidVal] =useState()
   const signer = useSigner()
@@ -100,20 +99,6 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
     if (bidAmount >= parseFloat(minimumBidVal.displayValue)) {
       setBidErrorMessage(false);
-      const offer = {
-        // address of the contract the asset you want to make an offer for
-        assetContractAddress: data.assetContractAddress,
-        // token ID of the asset you want to buy
-        tokenId: data.tokenId,
-        // how many of the asset you want to buy
-        quantity: 1,
-        // address of the currency contract that you offer to pay in
-        currencyContractAddress: data.currencyContractAddress,
-        // Total price you offer to pay for the mentioned token(s)
-        totalPrice: bidAmount,
-        // Offer valid until
-        endTimestamp: new Date(),
-      };
       console.log(data.id);
       try {
         
@@ -122,8 +107,11 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           bidAmount
         );
 
-         const enterBidData = JSON.stringify({
-           data: {
+        console.log(tx.receipt);
+        if (tx) {
+          
+          const enterBidData = JSON.stringify({
+            data: {
              listingID: data.id,
              bidAmount: bidAmount,
              userInfo: {
@@ -132,6 +120,15 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
              },
            },
          });
+          const activityAdd = JSON.stringify({
+            data: {
+              Name: "Bid",
+              address: Address,
+              Data: {
+                data: tx.receipt,
+              },
+            },
+          });
 
          axios
            .post(`${process.env.STRAPI_URL_PROD}/api/bidding`, enterBidData, {
@@ -143,17 +140,27 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
              console.log("Successfully Uploaded...!!");
              console.log(res);
            })
-           .then((err) => {
+           .catch((err) => {
+             console.log(err);
+           });
+          
+         axios
+           .post(`${process.env.STRAPI_URL_PROD}/api/activities`, activityAdd, {
+             headers: {
+               "Content-type": "application/json",
+             },
+           })
+           .then((res) => {
+             console.log("Successfully Uploaded...!!");
+             console.log(res);
+           })
+           .catch((err) => {
              console.log(err);
            });
         
-        console.log(tx);
-        SetBidComplete(true);
-
-        
-
-
-        toast.success("Your Bid was Successfull....!", {
+           SetBidComplete(true);
+               
+           toast.success("Your Bid was Successfull....!", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -163,6 +170,18 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           progress: undefined,
           theme: "light",
         });
+        } else {
+           toast.error("🦄 Bid was not successfull", {
+             position: "top-center",
+             autoClose: 5000,
+             hideProgressBar: false,
+             closeOnClick: true,
+             pauseOnHover: true,
+             draggable: true,
+             progress: undefined,
+             theme: "light",
+           });
+      }
       } catch (err) {
 
         console.log(err);
