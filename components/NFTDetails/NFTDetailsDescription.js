@@ -15,13 +15,25 @@ import {ethers} from "ethers";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import { SmartWallet } from "@thirdweb-dev/wallets";
 import { Mumbai } from "@thirdweb-dev/chains";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
+import { route } from "next/dist/server/router";
+import axios from "axios";
 
 const NFTDetailsDescription = ({ NFT, ipfsData }) => {
   
+  const router = useRouter()
 
   console.log(ipfsData)
   const address = useAddress()
  
+  useEffect(() => {
+    if (!address) {
+      router.push("/")
+    }
+  },[])
+
 
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
@@ -48,8 +60,11 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     setContract(await sdk.getContract(process.env.Marketplace_Contract));
   };
   useEffect(() => {
-    marketplaceContract();
-  }, []);
+    if (ThirdwebSDK, address) {
+      
+      marketplaceContract();
+    }
+  }, [ThirdwebSDK, address]);
  
     
 
@@ -105,11 +120,62 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
       endTimestamp: endDate,
     };
     console.log(contract)
-    const tx = await contract.englishAuctions.createAuction(auction);
-    const receipt = tx.receipt; // the transaction receipt
-    const id = tx.id; // the id of the newly created listing
-    console.log(receipt);
-    console.log(id);
+    try {
+      
+    
+      const tx = await contract.englishAuctions.createAuction(auction);
+      if (tx) {
+        const activityAdd = JSON.stringify({
+          data: {
+            Name: "Listing",
+            address: address,
+            Data: {
+              data: tx.receipt,
+            },
+          },
+        });
+        axios
+          .post(`${process.env.STRAPI_URL_PROD}/api/activities`, activityAdd, {
+            headers: {
+              "Content-type": "application/json",
+            },
+          })
+          .then((res) => {
+            console.log("Successfully Uploaded...!!");
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+          toast.success("Property listed Successfully!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+      }
+      const receipt = tx.receipt; // the transaction receipt
+      const id = tx.id; // the id of the newly created listing
+      console.log(receipt);
+      console.log(id);
+    }
+    catch (err) {
+      console.log(err)
+       toast.error("🦄 Error while listing the Property", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+    }
   };
 
   const handleChange = (e) => {
@@ -137,6 +203,18 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
 
   return (
     <>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="section-title">
         <h2>{NFT.metadata.name}</h2>
         <p>{NFT.metadata.description}</p>
