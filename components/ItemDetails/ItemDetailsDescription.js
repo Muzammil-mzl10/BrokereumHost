@@ -23,9 +23,9 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const [marketplaceModule, setMarketplaceModule] = useState();
   const [bidComplete, SetBidComplete] = useState(false)
   const [winningBid, setWinningBid]= useState()
-  const [minimumBidVal, setMinimumBidVal] =useState()
+  const [minimumBidVal, setMinimumBidVal] = useState()
+  const [ipfsData, setipfsData] = useState();
   const signer = useSigner()
- 
   const Address = useAddress()
   
   useEffect(() => {
@@ -33,6 +33,20 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       router.push("/");
     }
   }, [router]);
+
+   useEffect(() => {
+     console.log(data?.asset.properties.IPFSHash);
+     fetch(data?.asset.properties.IPFSHash)
+       .then((res) => res.json())
+       .then((res) => {
+         setipfsData(res.parcelData);
+         console.log(res.parcelData);
+       })
+       .catch((err) => {
+         console.log(err);
+       });
+   }, [data]);
+
 
   //  const sdk = new ThirdwebSDK("mumbai");
 
@@ -119,11 +133,14 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                address: Address,
              },
            },
-         });
+          });
+          
           const activityAdd = JSON.stringify({
             data: {
               Name: "Bid",
               address: Address,
+              ListID: parseInt(data.id),
+              imgHash: ipfsData.image_urls.satellite_image,
               Data: {
                 data: tx.receipt,
               },
@@ -207,7 +224,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     <>
       <div className="section-title">
         <h2>{data?.asset.name}</h2>
-        <p>{data?.asset.description}</p>
+        <p>{ipfsData?.address?.street}</p>
       </div>
       <ToastContainer
         position="top-center"

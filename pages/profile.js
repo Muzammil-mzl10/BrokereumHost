@@ -827,7 +827,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                             </div>
                           </div>
 
-                          <div className="login-with-account w-24 d-flex justify-content-center align-items-center">
+                          {/* <div className="login-with-account w-24 d-flex justify-content-center align-items-center">
                             <ul>
                               <li>
                                 <ReactFacebookLogin
@@ -846,11 +846,11 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                                   style={{
                                     padding: "5px 13px 5px 13px !important;",
                                   }}
-                                  // onFailure={responseGoogle}
+                                 
                                 />
                               </li>
                             </ul>
-                          </div>
+                          </div> */}
                         </div>
                       </form>
                     </>

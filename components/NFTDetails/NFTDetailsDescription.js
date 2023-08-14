@@ -22,10 +22,8 @@ import { route } from "next/dist/server/router";
 import axios from "axios";
 
 const NFTDetailsDescription = ({ NFT, ipfsData }) => {
-  
-  const router = useRouter()
 
-  console.log(ipfsData)
+  const router = useRouter()
   const address = useAddress()
  
   useEffect(() => {
@@ -125,15 +123,19 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     
       const tx = await contract.englishAuctions.createAuction(auction);
       if (tx) {
-        const activityAdd = JSON.stringify({
-          data: {
-            Name: "Listing",
-            address: address,
-            Data: {
-              data: tx.receipt,
+
+          const activityAdd = JSON.stringify({
+            data: {
+              Name: "List",
+              address: address,
+              ListID: NFT.metadata.id,
+              imgHash: ipfsData.image_urls.satellite_image,
+              Data: {
+                data: tx.receipt,
+              },
             },
-          },
-        });
+          });
+        
         axios
           .post(`${process.env.STRAPI_URL_PROD}/api/activities`, activityAdd, {
             headers: {

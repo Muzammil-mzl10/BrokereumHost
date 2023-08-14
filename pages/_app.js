@@ -8,7 +8,25 @@ import Head from "next/head";
 import GoTop from "../components/Shared/GoTop";
 import Loader from "../components/Shared/Loader";
 
-import { ThirdwebProvider, coinbaseWallet, localWallet, metamaskWallet, paperWallet,safeWallet, smartWallet,ChainId, walletConnect, useConnect } from "@thirdweb-dev/react";
+import {
+  ThirdwebProvider,
+  ConnectWallet,
+  trustWallet,
+  zerionWallet,
+  bloctoWallet,
+  magicLink,
+  frameWallet,
+  rainbowWallet,
+  coinbaseWallet,
+  localWallet,
+  metamaskWallet,
+  paperWallet,
+  safeWallet,
+  smartWallet,
+  ChainId,
+  walletConnect,
+  useConnect,
+} from "@thirdweb-dev/react";
 import { Gnosis, Mumbai } from "@thirdweb-dev/chains";
 
 
@@ -54,8 +72,12 @@ function MyApp({ Component, pageProps }) {
               }),
               localWallet({ persist: true }),
               coinbaseWallet(),
-              safeWallet(),
               walletConnect(),
+              // rainbowWallet(),
+              // zerionWallet(),
+             
+              // frameWallet(),
+              trustWallet(),
             ],
           }),
         ]}

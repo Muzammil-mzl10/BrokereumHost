@@ -39,13 +39,22 @@ const ActivityArea = () => {
                   ?.reverse()
                   .map((data) => (
                     <div className="col-lg-12">
-                      <div className="activity-card">
-                        <div className="activity-img">
-                          <img
-                            src="../images/activity/activity-img1.jpg"
-                            alt="Images"
-                          />
-                        </div>
+                      <div
+                        className="activity-card"
+                        style={{ cursor: "pointer" }}
+                      >
+                        <Link
+                          href={
+                            data.attributes.Name == "Bid" ||
+                            data.attributes.Name == "List"
+                              ? `/AuctionListing/${data.attributes.ListID}`
+                              : `/NFT/${data.attributes.ListID}`
+                          }
+                        >
+                          <div className="activity-img">
+                            <img src={data.attributes.imgHash} alt="Images" />
+                          </div>
+                        </Link>
 
                         <div className="activity-content">
                           <p>
@@ -76,7 +85,13 @@ const ActivityArea = () => {
                               -10
                             )}
                           </h3>
-                          <span style={{fontWeight:"bold", fontSize:"20px"}} >{data.attributes.Name} a Property</span>
+                          <span
+                            style={{ fontWeight: "bold", fontSize: "20px" }}
+                          >
+                            {data.attributes.Name}{" "}
+                            {data.attributes.Name == "Bid" ? "for" : null} a
+                            Property
+                          </span>
                         </div>
 
                         <div className="activity-btn">
@@ -85,11 +100,11 @@ const ActivityArea = () => {
                             href={`https://mumbai.polygonscan.com/tx/${data.attributes.Data.data.transactionHash}`}
                           >
                             <a target="_blank" rel="noopener noreferrer">
-                            <i
-                              style={{ cursor: "pointer" }}
-                              class="ri-arrow-up-circle-fill"
-                            ></i>
-                             </a>
+                              <i
+                                style={{ cursor: "pointer" }}
+                                class="ri-arrow-up-circle-fill"
+                              ></i>
+                            </a>
                           </Link>
                         </div>
                       </div>

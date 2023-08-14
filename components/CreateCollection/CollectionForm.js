@@ -6,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios"; 
 import Overlay from "./Overlay"
-
 import { Mumbai } from "@thirdweb-dev/chains";
 import { ReactComponentElement as Loader } from "../../public/images/loader.svg";
 import {
@@ -266,11 +265,14 @@ const CollectionForm = () => {
           // console.log(gaslessOptions)    
           // const tx1 = await contract.mint(metadatas)
           console.log(tx)
+          console.log(parseInt(tx.id._hex, 16));
           if (tx) {
            const activityAdd = JSON.stringify({
              data: {
                Name: "Mint",
                address: address,
+               ListID: parseInt(tx.id._hex, 16),
+               imgHash: img1,
                Data: {
                  data: tx.receipt,
                },

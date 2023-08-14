@@ -83,7 +83,7 @@ const BannerArea = () => {
 
   return (
     <>
-      <div className="banner-area">
+      <div className="banner-area-three">
         <div className="container-fluid">
           <div className="row align-items-center">
             <div className="col-lg-6">
