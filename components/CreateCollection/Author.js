@@ -14,7 +14,7 @@ const Author = () => {
         </div>
 
         <h3>
-          <Link href="/author-profile">
+          <Link legacyBehavior href="/author-profile">
             <a>Olivia Jenar</a>
           </Link>
         </h3>

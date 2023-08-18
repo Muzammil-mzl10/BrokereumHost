@@ -62,6 +62,7 @@ function MyApp({ Component, pageProps }) {
         }}
         supportedWallets={[
           smartWallet({
+            
             factoryAddress: process.env.factoryAddress,
             thirdwebApiKey: process.env.thirdwebApiKey,
             gasless: true,

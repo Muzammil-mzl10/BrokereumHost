@@ -29,7 +29,7 @@ const AuthorArea = () => {
 
             <div className="col-lg-4">
               <div className="author-btn text-end">
-                <Link href="/authors">
+                <Link legacyBehavior href="/authors">
                   <a className="default-btn border-radius-5">Explore More</a>
                 </Link>
               </div>
@@ -39,7 +39,7 @@ const AuthorArea = () => {
           <div className="row pt-45 justify-content-center">
             {/* <div className='col-lg-3 col-6'>
               <div className='author-card'>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a>
                   <img src='../images/author/author-img1.jpg' alt='Images' />
                 </a>
@@ -50,7 +50,7 @@ const AuthorArea = () => {
                     <i className='ri-check-line'></i>
                   </div>
 
-                  <h3><Link href='/author-profile'>
+                  <h3><Link legacyBehavior href='/author-profile'>
                     <a>Olivia Jenar</a></Link>
                   </h3>
                   <span>@Jenar</span>
@@ -88,7 +88,7 @@ const AuthorArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='author-card'>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a>
                   <img src='../images/author/author-img2.jpg' alt='Images' />
                 </a>
@@ -99,7 +99,7 @@ const AuthorArea = () => {
                     <i className='ri-check-line'></i>
                   </div>
 
-                  <h3><Link href='/author-profile'>
+                  <h3><Link legacyBehavior href='/author-profile'>
                     <a>James Parker</a></Link>
                   </h3>
                   <span>@Parker</span>
@@ -137,7 +137,7 @@ const AuthorArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='author-card'>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a>
                   <img src='../images/author/author-img3.jpg' alt='Images' />
                 </a></Link>
@@ -147,7 +147,7 @@ const AuthorArea = () => {
                     <i className='ri-check-line'></i>
                   </div>
 
-                  <h3><Link href='/author-profile'>
+                  <h3><Link legacyBehavior href='/author-profile'>
                     <a>Lucas Adison</a></Link>
                   </h3>
                   <span>@Adison</span>
@@ -186,7 +186,7 @@ const AuthorArea = () => {
               authorData.map((data) => (
                 <div className="col-lg-3 col-6">
                   <div className="author-card">
-                    <Link href={`/${data.attributes.walletAddress}`}>
+                    <Link legacyBehavior href={`/${data.attributes.walletAddress}`}>
                       <a>
                         <img
                           src="../images/author/author-img4.jpg"
@@ -204,7 +204,7 @@ const AuthorArea = () => {
                       </div>
 
                       <h3>
-                        <Link href={`/${data.attributes.walletAddress}`}>
+                        <Link legacyBehavior href={`/${data.attributes.walletAddress}`}>
                           <a>
                             {data.attributes.firstName}{" "}
                             {data.attributes.lastName}

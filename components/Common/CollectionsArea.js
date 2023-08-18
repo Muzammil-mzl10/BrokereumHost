@@ -12,7 +12,7 @@ const CollectionsArea = () => {
           <div className='row pt-45'>
             <div className='col-lg-3 col-6'>
               <div className='collections-card'>
-                <Link href='/collection'>
+                <Link legacyBehavior href='/collection'>
                   <a>
                     <img
                       src='../images/collections/collections-img1.png'
@@ -29,7 +29,7 @@ const CollectionsArea = () => {
                   </div>
                   <h3>
                     
-                    <Link href='/collection'>
+                    <Link legacyBehavior href='/collection'>
                       <a>Wrapped Cryptopunks</a>
                     </Link>
                   </h3>
@@ -40,7 +40,7 @@ const CollectionsArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='collections-card'>
-                <Link href='/collection'>
+                <Link legacyBehavior href='/collection'>
                   <a>
                     <img
                       src='../images/collections/collections-img2.png'
@@ -57,7 +57,7 @@ const CollectionsArea = () => {
                   </div>
                   <h3>
                     
-                    <Link href='/collection'>
+                    <Link legacyBehavior href='/collection'>
                       <a>Art Blocks</a>
                     </Link>
                   </h3>
@@ -68,7 +68,7 @@ const CollectionsArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='collections-card'>
-                <Link href='/collection'>
+                <Link legacyBehavior href='/collection'>
                   <a>
                     <img
                       src='../images/collections/collections-img3.png'
@@ -85,7 +85,7 @@ const CollectionsArea = () => {
                   </div>
                   <h3>
                     
-                    <Link href='/collection'>
+                    <Link legacyBehavior href='/collection'>
                       <a>Hashmasks</a>
                     </Link>
                   </h3>
@@ -96,7 +96,7 @@ const CollectionsArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='collections-card'>
-                <Link href='/collection'>
+                <Link legacyBehavior href='/collection'>
                   <a>
                     <img
                       src='../images/collections/collections-img4.png'
@@ -113,7 +113,7 @@ const CollectionsArea = () => {
                   </div>
                   <h3>
                     
-                    <Link href='/collection'>
+                    <Link legacyBehavior href='/collection'>
                       <a>Inventory</a>
                     </Link>
                   </h3>

@@ -57,7 +57,7 @@ const InvolvedArea = () => {
                 <h3>
                   Become A <b>Creator</b>
                 </h3>
-                <Link href='/register'>
+                <Link legacyBehavior href='/register'>
                   <a className='default-btn'>
                     Register
                   </a>
@@ -73,7 +73,7 @@ const InvolvedArea = () => {
                 <h3>
                   Become A <b>Charity Partner</b>
                 </h3>
-                <Link href='/create-collection'>
+                <Link legacyBehavior href='/create-collection'>
                   <a className='default-btn'>
                     Express Interest
                   </a>
@@ -89,7 +89,7 @@ const InvolvedArea = () => {
                 <h3>
                   Reach Out To <b>Our Team</b>
                 </h3>
-                <Link href='/contact'>
+                <Link legacyBehavior href='/contact'>
                   <a className='default-btn'>
                     Contact Now
                   </a>

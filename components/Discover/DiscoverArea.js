@@ -61,7 +61,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img1.jpg'
@@ -79,7 +79,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Industrial Revolution</a>
                         </Link>
                       </h3>
@@ -89,7 +89,7 @@ const DiscoverArea = () => {
                           <h4>Bid 80 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -98,7 +98,7 @@ const DiscoverArea = () => {
                         </Link>
                       </div>
 
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -116,7 +116,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img2.jpg'
@@ -138,7 +138,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>I Love In The Air</a>
                         </Link>
                       </h3>
@@ -148,7 +148,7 @@ const DiscoverArea = () => {
                           <h4>Bid 70 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -156,7 +156,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -174,7 +174,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img3.jpg'
@@ -196,7 +196,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Become On Nature</a>
                         </Link>
                       </h3>
@@ -206,7 +206,7 @@ const DiscoverArea = () => {
                           <h4>Bid 80 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -214,7 +214,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -232,7 +232,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img3.jpg'
@@ -250,7 +250,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Twilight Fracture City</a>
                         </Link>
                       </h3>
@@ -260,7 +260,7 @@ const DiscoverArea = () => {
                           <h4>Bid 90 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -268,7 +268,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -286,7 +286,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img4.jpg'
@@ -304,7 +304,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Walking On Air</a>
                         </Link>
                       </h3>
@@ -314,7 +314,7 @@ const DiscoverArea = () => {
                           <h4>Bid 80 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -322,7 +322,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -340,7 +340,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img6.jpg'
@@ -358,7 +358,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Supper Nuemorphism</a>
                         </Link>
                       </h3>
@@ -368,7 +368,7 @@ const DiscoverArea = () => {
                           <h4>Bid 90 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -376,7 +376,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -394,7 +394,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img7.jpg'
@@ -412,7 +412,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Dark-light Angel</a>
                         </Link>
                       </h3>
@@ -422,7 +422,7 @@ const DiscoverArea = () => {
                           <h4>Bid 100 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -430,7 +430,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -448,7 +448,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img8.jpg'
@@ -466,7 +466,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Exe Dream Hight</a>
                         </Link>
                       </h3>
@@ -476,7 +476,7 @@ const DiscoverArea = () => {
                           <h4>Bid 90 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -484,7 +484,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >
@@ -502,7 +502,7 @@ const DiscoverArea = () => {
                 <div className='col-lg-4 col-md-6'>
                   <div className='featured-card box-shadow'>
                     <div className='featured-card-img'>
-                      <Link href='item-details'>
+                      <Link legacyBehavior href='item-details'>
                         <a>
                           <img
                             src='../images/featured/featured-img9.jpg'
@@ -520,7 +520,7 @@ const DiscoverArea = () => {
 
                     <div className='content'>
                       <h3>
-                        <Link href='item-details'>
+                        <Link legacyBehavior href='item-details'>
                           <a>Art Of The Infinity</a>
                         </Link>
                       </h3>
@@ -530,7 +530,7 @@ const DiscoverArea = () => {
                           <h4>Bid 70 ETH </h4>
                         </div>
 
-                        <Link href='/item-details'>
+                        <Link legacyBehavior href='/item-details'>
                           <a
                             className='featured-content-btn'
                           >
@@ -538,7 +538,7 @@ const DiscoverArea = () => {
                           </a>
                         </Link>
                       </div>
-                      <Link href='/author-profile'>
+                      <Link legacyBehavior href='/author-profile'>
                         <a
                           className='featured-user-option'
                         >

@@ -26,20 +26,20 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img1.jpg' alt='Images' />
                     </a>
                   </Link>
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user1.jpg' alt='Images' />
                         <span>Created by @Adison</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Artwork
                     </a>
@@ -48,7 +48,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         Announcing Our $100m Raise, Led By A16z
                       </a>
@@ -65,21 +65,21 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img2.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user2.jpg' alt='Images' />
                         <span>Created by @Evelyn</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Digital
                     </a>
@@ -88,7 +88,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         Edition365: A Portrait Of The Year That Changed Everything
                       </a>
@@ -105,21 +105,21 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img3.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user3.jpg' alt='Images' />
                         <span>Created by @Julian</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Creative
                     </a>
@@ -128,7 +128,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         Christie’s Ended Up Selling For $69 Million In Nft
                         Marketplace
@@ -146,21 +146,21 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img4.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user4.jpg' alt='Images' />
                         <span>Created by @Evelyn</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Artist
                     </a>
@@ -169,7 +169,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         Artist Interview: Arran Schonberg (Divergence_art)
                       </a>
@@ -186,21 +186,21 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img5.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user5.jpg' alt='Images' />
                         <span>Created by @Emilia</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Online
                     </a>
@@ -209,7 +209,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         12 Curated Works For Cadaf On Online
                       </a>
@@ -226,21 +226,21 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img6.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user6.jpg' alt='Images' />
                         <span>Created by @Emilia</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Artist
                     </a>
@@ -249,7 +249,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         The Biggest Drop In Times Square Since New Years Eve
                       </a>
@@ -266,22 +266,22 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img7.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user7.jpg' alt='Images' />
                         <span>Created by @Emilia</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
-                    <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
+                    <Link legacyBehavior  href='/tags'>
                       <a className='blog-tag-btn'>
                         Digitals
                       </a>
@@ -291,7 +291,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         Daz 3d, The Digitals And A Groundbreaking NFT
                       </a>
@@ -308,21 +308,21 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img8.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user8.jpg' alt='Images' />
                         <span>Created by @Daniel</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Photograph
                     </a>
@@ -331,7 +331,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         The Journey Of A Never Seen Before Photograph
                       </a>
@@ -348,21 +348,21 @@ const BlogOne = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card box-shadow'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior  href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img9.jpg' alt='Images' />
                     </a>
                   </Link>
 
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior  href='/author-profile'>
                       <a className='blog-user-option'>
                         <img src='../images/blog/blog-user9.jpg' alt='Images' />
                         <span>Created by @Anvi</span>
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior  href='/tags'>
                     <a className='blog-tag-btn'>
                       Art
                     </a>
@@ -371,7 +371,7 @@ const BlogOne = () => {
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior  href='/blog-details'>
                       <a>
                         Dazn’s Face The Fearless: Highlights From Canelo’s{' '}
                       </a>

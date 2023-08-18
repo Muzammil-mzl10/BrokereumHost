@@ -27,7 +27,7 @@ const CreateArea = () => {
                       />
                       <h3>
                         {" "}
-                        <Link href="/add-wallet">
+                        <Link legacyBehavior href="/add-wallet">
                           <a>Authenticate and Log-In</a>
                         </Link>
                       </h3>
@@ -46,7 +46,7 @@ const CreateArea = () => {
                         alt="Images"
                       />
                       <h3>
-                        <Link href="/create-collection">
+                        <Link legacyBehavior href="/create-collection">
                           <a>Edit Your Profile</a>
                         </Link>
                       </h3>
@@ -64,7 +64,7 @@ const CreateArea = () => {
                         alt="Images"
                       />
                       <h3>
-                        <Link href="/help-center">
+                        <Link legacyBehavior href="/help-center">
                           <a>Add Your Real Estate</a>
                         </Link>
                       </h3>
@@ -84,7 +84,7 @@ const CreateArea = () => {
                         alt="Images"
                       />
                       <h3>
-                        <Link href="/activity">
+                        <Link legacyBehavior href="/activity">
                           <a>List Property For Sale</a>
                         </Link>
                       </h3>

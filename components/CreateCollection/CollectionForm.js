@@ -41,15 +41,21 @@ const CollectionForm = () => {
 
 
   // const { contract } = useContract(process.env.ERC_Contract, "nft-collection");
-  useEffect(async () => {
+ useEffect(() => {
+  async function fetchContractAndAdminNFTContract() {
     if (Mumbai && ThirdwebSDK && signer) {
       const sdk = ThirdwebSDK.fromSigner(signer, Mumbai, {
         clientId: process.env.thirdweb_CLIENTID,
       });
-      setContract(await sdk.getContract(process.env.ERC_Contract));
-      getAdminNFTContract()
+      const ercContract = await sdk.getContract(process.env.ERC_Contract);
+      setContract(ercContract);
+      getAdminNFTContract();
     }
-  }, [Mumbai, ThirdwebSDK, signer]);
+  }
+
+  fetchContractAndAdminNFTContract();
+}, [Mumbai, ThirdwebSDK, signer]);
+
 
  const getAdminNFTContract = async () => {
    const sdk = ThirdwebSDK.fromPrivateKey(process.env.private_Key, "mumbai", {
@@ -116,18 +122,9 @@ const CollectionForm = () => {
     fetch("http://46.243.90.203:3000/res_api/parcel_data", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-
-
-        // fetch(`http://46.243.90.203:3000/res_api/signal_data_all`, requestOptionsGET).then(res => res.json())
-        // .then((res) => console.log(res))
-       
-
-      
         console.log(result);
         console.log(result.address.parcel_id);
-        setparcelID(result.address.parcel_id);
-
-        
+        setparcelID(result.address.parcel_id);       
         axios
           .get(
             `${process.env.STRAPI_URL_PROD}/api/parcel-ids/?filters[parcelIDs][$eq]=${result.address.parcel_id}`,
@@ -235,137 +232,131 @@ const CollectionForm = () => {
 
     uploadToIpfs();
   };
-  useEffect(async () => {
-    if (ipfsHash && loading) {
-      const metadatas = {
-        image: file,
-        name: formData.itemName,
-        description: formData.description,
-        lat: formData.coordinatesLat,
-        lng: formData.coordinatesLng,
-        properties: {
-          IPFSHash: ipfsHash,
-          priceType: formData.priceType,
-          salesDeadline: formData.salesDeadline,
-          downPayment: formData.downPayment,
-          propertyType: formData.propertyType,
-        },
-      };
-      console.log(metadatas);
-      try {
-        
-         const rolesAndMembers = await adminContract.roles.getAll();
-         console.log(rolesAndMembers);
-         const data = await adminContract.roles.grant("minter", address);
-         console.log(data);
-        if (data) {
-          
-          const tx = await contract.erc721.mint(metadatas); 
-          // const gaslessOptions =  tx.getGaslessOptions();
-          // console.log(gaslessOptions)    
-          // const tx1 = await contract.mint(metadatas)
-          console.log(tx)
-          console.log(parseInt(tx.id._hex, 16));
-          if (tx) {
-           const activityAdd = JSON.stringify({
-             data: {
-               Name: "Mint",
-               address: address,
-               ListID: parseInt(tx.id._hex, 16),
-               imgHash: img1,
-               Data: {
-                 data: tx.receipt,
-               },
-             },
-           });
-            axios
-              .post(
-                `${process.env.STRAPI_URL_PROD}/api/activities`,
-                activityAdd,
-                {
-                  headers: {
-                    "Content-type": "application/json",
+  useEffect(() => {
+    async function mintNFTAndHandleActivity() {
+      if (ipfsHash && loading) {
+        const metadatas = {
+          image: file,
+          name: formData.itemName,
+          description: formData.description,
+          lat: formData.coordinatesLat,
+          lng: formData.coordinatesLng,
+          properties: {
+            IPFSHash: ipfsHash,
+            priceType: formData.priceType,
+            salesDeadline: formData.salesDeadline,
+            downPayment: formData.downPayment,
+            propertyType: formData.propertyType,
+          },
+        };
+
+        try {
+          const rolesAndMembers = await adminContract.roles.getAll();
+          console.log(rolesAndMembers);
+          const data = await adminContract.roles.grant("minter", address);
+          console.log(data);
+          if (data) {
+            const tx = await contract.erc721.mint(metadatas);
+            console.log(tx);
+            console.log(parseInt(tx.id._hex, 16));
+
+            if (tx) {
+              const activityAdd = JSON.stringify({
+                data: {
+                  Name: "Mint",
+                  address: address,
+                  ListID: parseInt(tx.id._hex, 16),
+                  imgHash: img1,
+                  Data: {
+                    data: tx.receipt,
                   },
-                }
-              )
-              .then((res) => {
-                console.log("Successfully Uploaded...!!");
-                console.log(res);
-              })
-              .catch((err) => {
-                console.log(err);
+                },
               });
-         
 
-        setLoading(false);
-        setNFTmintSuccess(true)
-        const userData = JSON.stringify({
-          "data": {
-            "parcelIDs": parcelID,
-          },
-        });
-        console.log(userData);
-        axios
-        .post(`${process.env.STRAPI_URL_PROD}/api/parcel-ids`, userData, {
-          headers: {
-            "Content-type": "application/json",
-          },
-        })
-        .then((res) => {
-            toast("NFT Minted Successfully!", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          }).catch((err) => {
-          console.log(err)
-        toast.error("🦄 Error while Minting!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      })
-    }
-    }
-    } catch (err) {
-      console.log(err)
-      toast.error("🦄 Error while Minting!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+              axios
+                .post(
+                  `${process.env.STRAPI_URL_PROD}/api/activities`,
+                  activityAdd,
+                  {
+                    headers: {
+                      "Content-type": "application/json",
+                    },
+                  }
+                )
+                .then((res) => {
+                  console.log("Successfully Uploaded...!!");
+                  console.log(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+
+              setLoading(false);
+              setNFTmintSuccess(true);
+
+              const userData = JSON.stringify({
+                data: {
+                  parcelIDs: parcelID,
+                },
+              });
+
+              console.log(userData);
+              axios
+                .post(
+                  `${process.env.STRAPI_URL_PROD}/api/parcel-ids`,
+                  userData,
+                  {
+                    headers: {
+                      "Content-type": "application/json",
+                    },
+                  }
+                )
+                .then((res) => {
+                  toast("NFT Minted Successfully!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                })
+                .catch((err) => {
+                  console.log(err);
+                  toast.error("🦄 Error while Minting!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                  });
+                });
+            }
+          }
+        } catch (err) {
+          console.log(err);
+          toast.error("🦄 Error while Minting!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
       }
-      
-      
-      
-
-      // Data of the listing you want to create
-      // const txResult = await createDirectListing({
-      //   assetContractAddress: "0x7921ec9df2eacb73d6c3879ab336dff644536675",
-      //   tokenId: "12",
-      //   pricePerToken: "0.1",
-      // });
-      // const receipt = txResult.receipt; // the transaction receipt
-      // const id = txResult.id; // the id of the newly created listing
-      // console.log(id);
-      // console.log(receipt);
     }
+
+    mintNFTAndHandleActivity();
   }, [loading, ipfsHash]);
+
 
   const radioOnchange = (e) => {
     console.log(e.target.value);

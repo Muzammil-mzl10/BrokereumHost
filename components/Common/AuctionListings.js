@@ -14,7 +14,8 @@ const AuctionListings = ({ data }) => {
   const [MinimumBidVal, setMinimumBidVal] = useState();
   const [WinningBid, setWinningBid] = useState();
   const [marketplaceContract , setMarketplaceContract] = useState()
-   const fetchOWnerInfo = () => {
+  
+  const fetchOwnerInfo = () => {
      fetch( `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data.creatorAddress}`)
        .then((res) => res.json())
        .then((res) => {
@@ -36,29 +37,43 @@ const AuctionListings = ({ data }) => {
       };
       
       
-      useEffect(async() => {
-        console.log(data)
-        fetchOWnerInfo()
-        fetchBidder()
+    useEffect(() => {
+      async function fetchData() {
+        console.log(data);
+         fetchOwnerInfo();
+         fetchBidder();
         const sdk = new ThirdwebSDK("mumbai", {
           clientId: process.env.thirdweb_CLIENTID,
         });
         setMarketplaceContract(
           await sdk.getContract(process.env.Marketplace_Contract)
-          )
-        }, [data])
-  
-  useEffect(async () => {
-    if (marketplaceContract && data) {
-      // console.log(data.id);
-     const minimum = await marketplaceContract.englishAuctions.getMinimumNextBid(data?.id)
-      // console.log(minimum)
-       setMinimumBidVal(minimum)
-      setWinningBid(
-        await marketplaceContract.englishAuctions.getWinningBid(data?.id)
-      );
-    }
-  }, [marketplaceContract, data]);
+        );
+      }
+
+      fetchData();
+    }, [data]);
+
+    useEffect(() => {
+      async function fetchMinimumAndWinningBid() {
+        if (marketplaceContract && data) {
+          try {
+            const minimum =
+              await marketplaceContract.englishAuctions.getMinimumNextBid(
+                data?.id
+              );
+            setMinimumBidVal(minimum);
+            setWinningBid(
+              await marketplaceContract.englishAuctions.getWinningBid(data?.id)
+            );
+          } catch (error) {
+            console.error("Error fetching minimum and winning bid:", error);
+          }
+        }
+      }
+
+      fetchMinimumAndWinningBid();
+    }, [marketplaceContract, data]);
+
  
 
   const Completionist = () => (
@@ -94,15 +109,18 @@ const AuctionListings = ({ data }) => {
     }
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      comingSoonTime();
-    }, 1000);
+useEffect(() => {
+  async function updateComingSoonTime() {
+    comingSoonTime();
+  }
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+  const interval = setInterval(updateComingSoonTime, 1000);
+
+  return () => {
+    clearInterval(interval);
+  };
+}, []);
+
 
   return (
     <div className="col-lg-3 col-md-6">

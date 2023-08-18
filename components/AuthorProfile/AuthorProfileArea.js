@@ -64,10 +64,15 @@ const AuthorProfileArea = () => {
   };
 
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       comingSoonTime();
     }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
+
 
   const [contract, setcontract] = useState();
   const [userData, setUserData] = useState();
@@ -80,45 +85,69 @@ const AuthorProfileArea = () => {
     navigator.clipboard.writeText(address);
     setclipboard(true);
   };
-  useEffect(async () => {
-    const sdk = new ThirdwebSDK("mumbai", {
-      clientId: process.env.thirdweb_CLIENTID,
-    });
-    setcontract(await sdk.getContract(process.env.ERC_Contract));
-    setmarketplaceContract(
-      await sdk.getContract(process.env.Marketplace_Contract)
-    );
+
+
+  useEffect(() => {
+    async function fetchData() {
+      const sdk = new ThirdwebSDK("mumbai", {
+        clientId: process.env.thirdweb_CLIENTID,
+      });
+
+      try {
+        const ercContract = await sdk.getContract(process.env.ERC_Contract);
+        setcontract(ercContract);
+
+        const marketplaceContract = await sdk.getContract(
+          process.env.Marketplace_Contract
+        );
+        setMarketplaceContract(marketplaceContract);
+      } catch (error) {
+        console.error("Error fetching contracts:", error);
+      }
+    }
+
+    fetchData();
   }, []);
+
 
   function getPageFromArray(dataArray, currentPage, itemsPerPage) {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return dataArray.slice(startIndex, endIndex);
   }
-  useEffect(() => {
-    if (fullNFTdata) { 
-      const data = getPageFromArray(fullNFTdata, currentPage, 9)
-      console.log(data)
-      setNft(data)
-    }
-  },[currentPage])
+ useEffect(() => {
+   if (fullNFTdata) {
+     const data = getPageFromArray(fullNFTdata, currentPage, 9);
+     console.log(data);
+     setNft(data);
+   }
+ }, [currentPage]);
 
-  useEffect(async () => {
+
+useEffect(() => {
+  async function fetchData() {
     if (contract) {
-      const data = await contract.erc721.getOwned(address)
-      setFullNFTData(data);
-      let numberofpages = Math.ceil(data.length / 9)
-      console.log(numberofpages)
-      setTotalPages(Array.from(
-        { length: numberofpages },
-        (_, index) => index + 1
-      ))
-      console.log(totalPages)
-      const fileteredarray = getPageFromArray(data, currentPage, 9)
-      setNft(fileteredarray)
-      setloading(false);
+      try {
+        const data = await contract.erc721.getOwned(address);
+        setFullNFTData(data);
+        const numberOfPages = Math.ceil(data.length / 9);
+        console.log(numberOfPages);
+        setTotalPages(
+          Array.from({ length: numberOfPages }, (_, index) => index + 1)
+        );
+        console.log(totalPages);
+        const filteredArray = getPageFromArray(data, currentPage, 9);
+        setNft(filteredArray);
+        setloading(false);
+      } catch (error) {
+        console.error("Error fetching NFT data:", error);
+      }
     }
-  }, [contract, setcontract, address]);
+  }
+
+  fetchData();
+}, [contract, address, currentPage]);
+
 
   const MarketplaceFetch = async () => {
     if (marketplaceContract) {
@@ -132,7 +161,7 @@ const AuthorProfileArea = () => {
       }
     }
   };
-  useEffect(async () => {
+  useEffect(() => {
     MarketplaceFetch();
   }, [marketplaceContract]);
 
@@ -295,7 +324,7 @@ const AuthorProfileArea = () => {
                                   className="col-lg-4 col-md-6"
                                   style={{ cursor: "pointer" }}
                                 >
-                                  <Link href={`/NFT/${data.metadata.id}`}>
+                                  <Link legacyBehavior href={`/NFT/${data.metadata.id}`}>
                                     <div className="featured-card box-shadow">
                                       <div className="featured-card-img">
                                         <a className="d-flex justify-content-center align-items-center">
@@ -353,7 +382,7 @@ const AuthorProfileArea = () => {
                               <div className="col-lg-4 col-md-6">
                                 <div className="featured-card box-shadow">
                                   <div className="featured-card-img">
-                                    <Link href="/item-details">
+                                    <Link legacyBehavior href="/item-details">
                                       <a>
                                         <img
                                           src={data.asset.image}
@@ -374,7 +403,7 @@ const AuthorProfileArea = () => {
 
                                   <div className="content">
                                     <h3>
-                                      <Link href="/item-details">
+                                      <Link legacyBehavior href="/item-details">
                                         <a>{data.asset.name}</a>
                                       </Link>
                                     </h3>
@@ -388,7 +417,7 @@ const AuthorProfileArea = () => {
                                           {data.currencyValuePerToken.symbol}
                                         </span>
                                       </div>
-                                      <Link href="/item-details">
+                                      <Link legacyBehavior href="/item-details">
                                         <a className="featured-content-btn">
                                           <i className="ri-arrow-right-line"></i>
                                         </a>
@@ -408,7 +437,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img1.jpg"
@@ -429,7 +458,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Industrial Revolution</a>
                                   </Link>
                                 </h3>
@@ -439,14 +468,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user1.jpg"
@@ -462,7 +491,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img2.jpg"
@@ -489,7 +518,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>I Love In The Air</a>
                                   </Link>
                                 </h3>
@@ -499,14 +528,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 70 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user2.jpg"
@@ -522,7 +551,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img3.jpg"
@@ -549,7 +578,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Become One With Nature</a>
                                   </Link>
                                 </h3>
@@ -559,14 +588,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user3.jpg"
@@ -582,7 +611,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img4.jpg"
@@ -603,7 +632,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Twilight Fracture City</a>
                                   </Link>
                                 </h3>
@@ -613,14 +642,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user4.jpg"
@@ -636,7 +665,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img5.jpg"
@@ -657,7 +686,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Walking On Air</a>
                                   </Link>
                                 </h3>
@@ -667,14 +696,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user5.jpg"
@@ -690,7 +719,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img6.jpg"
@@ -711,7 +740,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Supper Nuemorphism</a>
                                   </Link>
                                 </h3>
@@ -721,13 +750,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user6.jpg"
@@ -743,7 +772,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img7.jpg"
@@ -764,7 +793,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Dark-light Angel</a>
                                   </Link>
                                 </h3>
@@ -774,14 +803,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 100 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user7.jpg"
@@ -797,7 +826,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img8.jpg"
@@ -818,7 +847,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Exe Dream Hight</a>
                                   </Link>
                                 </h3>
@@ -828,14 +857,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user8.jpg"
@@ -851,7 +880,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img9.jpg"
@@ -872,7 +901,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Art Of The Infinity</a>
                                   </Link>
                                 </h3>
@@ -882,14 +911,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user1.jpg"
@@ -911,7 +940,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img2.jpg"
@@ -932,7 +961,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Industrial Revolution</a>
                                   </Link>
                                 </h3>
@@ -942,13 +971,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user1.jpg"
@@ -964,7 +993,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img3.jpg"
@@ -991,7 +1020,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>I Love In The Air</a>
                                   </Link>
                                 </h3>
@@ -1001,14 +1030,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 70 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user2.jpg"
@@ -1024,7 +1053,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img5.jpg"
@@ -1051,7 +1080,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Become One With Nature</a>
                                   </Link>
                                 </h3>
@@ -1061,13 +1090,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user3.jpg"
@@ -1083,7 +1112,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img7.jpg"
@@ -1104,7 +1133,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Fracture City</a>
                                   </Link>
                                 </h3>
@@ -1114,14 +1143,14 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
 
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user4.jpg"
@@ -1137,7 +1166,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img9.jpg"
@@ -1158,7 +1187,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Walking On Air</a>
                                   </Link>
                                 </h3>
@@ -1168,13 +1197,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user5.jpg"
@@ -1190,7 +1219,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img6.jpg"
@@ -1211,7 +1240,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Supper Nuemorphism</a>
                                   </Link>
                                 </h3>
@@ -1221,13 +1250,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user6.jpg"
@@ -1243,7 +1272,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img7.jpg"
@@ -1264,7 +1293,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Dark-light Angel</a>
                                   </Link>
                                 </h3>
@@ -1274,13 +1303,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 100 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user7.jpg"
@@ -1296,7 +1325,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img8.jpg"
@@ -1317,7 +1346,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Exe Dream Hight</a>
                                   </Link>
                                 </h3>
@@ -1327,13 +1356,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user8.jpg"
@@ -1349,7 +1378,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img9.jpg"
@@ -1370,7 +1399,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Art Of The Infinity</a>
                                   </Link>
                                 </h3>
@@ -1380,13 +1409,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user1.jpg"
@@ -1408,7 +1437,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img1.jpg"
@@ -1429,7 +1458,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Industrial Revolution</a>
                                   </Link>
                                 </h3>
@@ -1439,13 +1468,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user1.jpg"
@@ -1461,7 +1490,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img2.jpg"
@@ -1488,7 +1517,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>I Love In The Air</a>
                                   </Link>
                                 </h3>
@@ -1498,13 +1527,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 70 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user2.jpg"
@@ -1520,7 +1549,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img3.jpg"
@@ -1547,7 +1576,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Become One With Nature</a>
                                   </Link>
                                 </h3>
@@ -1557,13 +1586,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user3.jpg"
@@ -1579,7 +1608,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img4.jpg"
@@ -1600,7 +1629,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Twilight Fracture City</a>
                                   </Link>
                                 </h3>
@@ -1610,13 +1639,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user4.jpg"
@@ -1632,7 +1661,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img5.jpg"
@@ -1653,7 +1682,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Walking On Air</a>
                                   </Link>
                                 </h3>
@@ -1663,13 +1692,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 80 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user5.jpg"
@@ -1685,7 +1714,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img6.jpg"
@@ -1706,7 +1735,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Supper Nuemorphism</a>
                                   </Link>
                                 </h3>
@@ -1716,13 +1745,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user6.jpg"
@@ -1738,7 +1767,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img7.jpg"
@@ -1759,7 +1788,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Dark-light Angel</a>
                                   </Link>
                                 </h3>
@@ -1769,13 +1798,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 100 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user7.jpg"
@@ -1791,7 +1820,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img8.jpg"
@@ -1812,7 +1841,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Exe Dream Hight</a>
                                   </Link>
                                 </h3>
@@ -1822,13 +1851,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user8.jpg"
@@ -1844,7 +1873,7 @@ const AuthorProfileArea = () => {
                           <div className="col-lg-4 col-md-6">
                             <div className="featured-card box-shadow">
                               <div className="featured-card-img">
-                                <Link href="/item-details">
+                                <Link legacyBehavior href="/item-details">
                                   <a>
                                     <img
                                       src="../images/featured/featured-img9.jpg"
@@ -1865,7 +1894,7 @@ const AuthorProfileArea = () => {
 
                               <div className="content">
                                 <h3>
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a>Art Of The Infinity</a>
                                   </Link>
                                 </h3>
@@ -1875,13 +1904,13 @@ const AuthorProfileArea = () => {
                                     <h4>Bid 90 ETH </h4>
                                   </div>
 
-                                  <Link href="/item-details">
+                                  <Link legacyBehavior href="/item-details">
                                     <a className="featured-content-btn">
                                       <i className="ri-arrow-right-line"></i>
                                     </a>
                                   </Link>
                                 </div>
-                                <Link href="/author-profile">
+                                <Link legacyBehavior href="/author-profile">
                                   <a className="featured-user-option">
                                     <img
                                       src="../images/featured/featured-user1.jpg"

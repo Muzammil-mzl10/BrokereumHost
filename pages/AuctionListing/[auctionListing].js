@@ -17,20 +17,40 @@ const auctionListing = () => {
     });
     console.log(router.query.auctionListing);
 
-    useEffect(async() => {
-      setMarketplaceModule(await sdk.getContract(process.env.Marketplace_Contract))  
-    }, [])
+  
       
-     useEffect(async () => {
-       console.log(marketplaceModule);
-       if (marketplaceModule) {
-         setListingData(
-           await marketplaceModule.englishAuctions.getAuction(
-             router.query.auctionListing
-           )
-         );
-       }
-     }, [marketplaceModule]);
+  useEffect(() => {
+    async function fetchMarketplaceData() {
+      try {
+        setMarketplaceModule(
+          await sdk.getContract(process.env.Marketplace_Contract)
+        ); 
+      } catch (error) {
+        console.error("Error fetching marketplace data:", error);
+      }
+    }
+    fetchMarketplaceData();
+  }, []);
+
+    useEffect(() => {
+      async function fetchListingData() {
+        try {
+          console.log(marketplaceModule);
+          if (marketplaceModule) {
+            const listingData = await marketplaceModule.englishAuctions.getAuction(
+                router.query.auctionListing
+              );
+            console.log(listingData)
+            setListingData(listingData);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      fetchListingData();
+    }, [marketplaceModule]);
+
     
      console.log(listingData)
 

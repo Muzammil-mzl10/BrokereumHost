@@ -7,7 +7,7 @@ const DiscoverSidebar = () => {
       <div className='side-bar-area pl-20'>
         <div className='side-bar-widget'>
           <h3 className='title'>
-            Filter <Link href='/discover-2'><a>Clear All</a></Link>
+            Filter <Link legacyBehavior href='/discover-2'><a>Clear All</a></Link>
           </h3>
           <form className='search-form'>
             <input
@@ -39,49 +39,49 @@ const DiscoverSidebar = () => {
           <h3 className='title'>Categories</h3>
           <ul>
             <li>
-              <Link href='/categories'>
+              <Link legacyBehavior href='/categories'>
                 <a target='_blank'>
                   Art
                 </a>
               </Link>
             </li>
             <li>
-              <Link href='/categories'>
+              <Link legacyBehavior href='/categories'>
                 <a target='_blank'>
                   Virtual Worlds
                 </a>
               </Link>
             </li>
             <li>
-              <Link href='/categories'>
+              <Link legacyBehavior href='/categories'>
                 <a target='_blank'>
                   Collectibles
                 </a>
               </Link>
             </li>
             <li>
-              <Link href='/categories'>
+              <Link legacyBehavior href='/categories'>
                 <a target='_blank'>
                   Music
                 </a>
               </Link>
             </li>
             <li>
-              <Link href='/categories'>
+              <Link legacyBehavior href='/categories'>
                 <a target='_blank'>
                   Games
                 </a>
               </Link>
             </li>
             <li>
-              <Link href='/categories'>
+              <Link legacyBehavior href='/categories'>
                 <a target='_blank'>
                   Domains
                 </a>
               </Link>
             </li>
             <li>
-              <Link href='/categories'>
+              <Link legacyBehavior href='/categories'>
                 <a target='_blank'>
                   Memes
                 </a>

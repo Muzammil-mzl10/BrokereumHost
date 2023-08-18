@@ -14,7 +14,7 @@ const AuthorArea = () => {
 
             <div className='col-lg-4 col-md-4'>
               <div className='author-btn text-end'>
-                <Link href='/authors'>
+                <Link legacyBehavior href='/authors'>
                   <a className='default-btn border-radius-5'>Explore More</a>
                 </Link>
               </div>
@@ -24,7 +24,7 @@ const AuthorArea = () => {
           <div className='row pt-45 justify-content-center'>
             <div className='col-lg-3 col-6'>
               <div className='author-card'>
-                <Link href='/authors'>
+                <Link legacyBehavior href='/authors'>
                   <a>
                     <img src='../images/author/author-img1.jpg' alt='Images' />
                   </a>
@@ -56,7 +56,7 @@ const AuthorArea = () => {
                   </div>
 
                   <h3>
-                    <Link href='/authors'>
+                    <Link legacyBehavior href='/authors'>
                       <a>Olivia Jenar</a>
                     </Link>
                   </h3>
@@ -68,7 +68,7 @@ const AuthorArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='author-card'>
-                <Link href='/authors'>
+                <Link legacyBehavior href='/authors'>
                   <a>
                     <img src='../images/author/author-img2.jpg' alt='Images' />
                   </a>
@@ -100,7 +100,7 @@ const AuthorArea = () => {
                   </div>
 
                   <h3>
-                    <Link href='/authors'>
+                    <Link legacyBehavior href='/authors'>
                       <a>James Parker</a>
                     </Link>
                   </h3>
@@ -113,7 +113,7 @@ const AuthorArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='author-card'>
-                <Link href='/authors'>
+                <Link legacyBehavior href='/authors'>
                   <a>
                     <img src='../images/author/author-img3.jpg' alt='Images' />
                   </a>
@@ -146,7 +146,7 @@ const AuthorArea = () => {
                   </div>
 
                   <h3>
-                    <Link href='/authors'>
+                    <Link legacyBehavior href='/authors'>
                       <a>Lucas Adison</a>
                     </Link>
                   </h3>
@@ -158,7 +158,7 @@ const AuthorArea = () => {
 
             <div className='col-lg-3 col-6'>
               <div className='author-card'>
-                <Link href='/authors'>
+                <Link legacyBehavior href='/authors'>
                   <a>
                     <img src='../images/author/author-img4.jpg' alt='Images' />
                   </a>
@@ -190,7 +190,7 @@ const AuthorArea = () => {
                   </div>
 
                   <h3>
-                    <Link href='/authors'>
+                    <Link legacyBehavior href='/authors'>
                       <a>Amelia Rosia</a>
                     </Link>
                   </h3>

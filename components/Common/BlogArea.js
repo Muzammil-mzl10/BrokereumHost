@@ -14,7 +14,7 @@ const BlogArea = () => {
 
             <div className='col-lg-4 col-md-4'>
               <div className='blog-btn text-end'>
-                <Link href='/blog-1'>
+                <Link legacyBehavior href='/blog-1'>
                   <a className='default-btn border-radius-5'>Explore More</a>
                 </Link>
               </div>
@@ -25,13 +25,13 @@ const BlogArea = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img1.jpg' alt='Images' />
                     </a>
                   </Link>
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='blog-user-option'>
                         <img
                           src='../images/featured/featured-user2.jpg'
@@ -41,14 +41,14 @@ const BlogArea = () => {
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior href='/tags'>
                     <a className='blog-tag-btn'>Artwork</a>
                   </Link>
                 </div>
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior href='/blog-details'>
                       <a>Announcing Our $100m Raise, Led By A16z</a>
                     </Link>
                   </h3>
@@ -63,13 +63,13 @@ const BlogArea = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card'>
                 <div className='blog-img'>
-                  <Link href='/item-details'>
+                  <Link legacyBehavior href='/item-details'>
                     <a>
                       <img src='../images/blog/blog-img2.jpg' alt='Images' />
                     </a>
                   </Link>
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='blog-user-option'>
                         <img
                           src='../images/featured/featured-user2.jpg'
@@ -79,14 +79,14 @@ const BlogArea = () => {
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior href='/tags'>
                     <a className='blog-tag-btn'>Digital</a>
                   </Link>
                 </div>
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior href='/blog-details'>
                       <a>
                         Edition365: A Portrait Of The Year That Changed
                         Everything
@@ -104,13 +104,13 @@ const BlogArea = () => {
             <div className='col-lg-4 col-md-6'>
               <div className='blog-card'>
                 <div className='blog-img'>
-                  <Link href='/blog-details'>
+                  <Link legacyBehavior href='/blog-details'>
                     <a>
                       <img src='../images/blog/blog-img3.jpg' alt='Images' />
                     </a>
                   </Link>
                   <div className='blog-user'>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='blog-user-option'>
                         <img
                           src='../images/featured/featured-user3.jpg'
@@ -120,14 +120,14 @@ const BlogArea = () => {
                       </a>
                     </Link>
                   </div>
-                  <Link href='/tags'>
+                  <Link legacyBehavior href='/tags'>
                     <a className='blog-tag-btn'>Creative</a>
                   </Link>
                 </div>
 
                 <div className='content'>
                   <h3>
-                    <Link href='/blog-details'>
+                    <Link legacyBehavior href='/blog-details'>
                       <a>
                         Christie’s Ended Up Selling For $69 Million In Nft
                         Marketplace

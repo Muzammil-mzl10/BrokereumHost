@@ -51,7 +51,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img1.jpg' alt='Images' />
                 </a>
@@ -66,7 +66,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Industrial Revolution</a>
                 </Link>
               </h3>
@@ -75,13 +75,13 @@ const CollectionCard = () => {
                   <span>100 ETH 12/14</span>
                   <h4>Bid 80 ETH </h4>
                 </div>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user1.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -94,7 +94,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img2.jpg' alt='Images' />
                 </a>
@@ -113,7 +113,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>I Love In The Air</a>
                 </Link>
               </h3>
@@ -123,13 +123,13 @@ const CollectionCard = () => {
                   <h4>Bid 70 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user2.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -142,7 +142,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img3.jpg' alt='Images' />
                 </a>
@@ -161,7 +161,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Become One With Nature</a>
                 </Link>
               </h3>
@@ -171,13 +171,13 @@ const CollectionCard = () => {
                   <h4>Bid 80 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user3.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -190,7 +190,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img4.jpg' alt='Images' />
                 </a>
@@ -205,7 +205,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Twilight Fracture City</a>
                 </Link>
               </h3>
@@ -215,13 +215,13 @@ const CollectionCard = () => {
                   <h4>Bid 90 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user4.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -234,7 +234,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img5.jpg' alt='Images' />
                 </a>
@@ -249,7 +249,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Walking On Air</a>
                 </Link>
               </h3>
@@ -259,13 +259,13 @@ const CollectionCard = () => {
                   <h4>Bid 80 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user5.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -278,7 +278,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img6.jpg' alt='Images' />
                 </a>
@@ -293,7 +293,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Supper Nuemorphism</a>
                 </Link>
               </h3>
@@ -303,13 +303,13 @@ const CollectionCard = () => {
                   <h4>Bid 90 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user6.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -322,7 +322,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                   <a>
                   <img src='../images/featured/featured-img7.jpg' alt='Images' />
                 </a>
@@ -337,7 +337,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Dark-light Angel</a>
                 </Link>
               </h3>
@@ -347,13 +347,13 @@ const CollectionCard = () => {
                   <h4>Bid 100 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user7.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -366,7 +366,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img8.jpg' alt='Images' />
                 </a>
@@ -381,7 +381,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Exe Dream Hight</a>
                 </Link>
               </h3>
@@ -391,13 +391,13 @@ const CollectionCard = () => {
                   <h4>Bid 90 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user8.jpg' alt='Images' />
                   <span>Created by @Adison</span>
@@ -410,7 +410,7 @@ const CollectionCard = () => {
         <div className='col-lg-4 col-md-6'>
           <div className='featured-card box-shadow'>
             <div className='featured-card-img'>
-              <Link href='/item-details'>
+              <Link legacyBehavior href='/item-details'>
                 <a>
                   <img src='../images/featured/featured-img9.jpg' alt='Images' />
                 </a>
@@ -425,7 +425,7 @@ const CollectionCard = () => {
 
             <div className='content'>
               <h3>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a>Art Of The Infinity</a>
                 </Link>
               </h3>
@@ -435,13 +435,13 @@ const CollectionCard = () => {
                   <h4>Bid 90 ETH </h4>
                 </div>
 
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a className='featured-content-btn'>
                     <i className='ri-arrow-right-line'></i>
                   </a>
                 </Link>
               </div>
-              <Link href='/author-profile'>
+              <Link legacyBehavior href='/author-profile'>
                 <a className='featured-user-option'>
                   <img src='../images/featured/featured-user1.jpg' alt='Images' />
                   <span>Created by @Adison</span>

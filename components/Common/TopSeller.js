@@ -14,7 +14,7 @@ const TopSeller = ({ pt100 }) => {
 
             <div className='col-lg-4 col-md-5'>
               <div className='trending-btn text-end'>
-                <Link href='/author'>
+                <Link legacyBehavior href='/author'>
                   <a className='default-btn border-radius-5'>Explore More</a>
                 </Link>
               </div>
@@ -26,7 +26,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>1.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers1.jpg'
@@ -38,7 +38,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Benjamin Doe</a>
                     </Link>
                   </h3>
@@ -51,7 +51,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>2.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers2.jpg'
@@ -63,7 +63,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Evelyn Adison</a>
                     </Link>
                   </h3>
@@ -76,7 +76,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>3.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers3.jpg'
@@ -88,7 +88,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Aria July</a>
                     </Link>
                   </h3>
@@ -101,7 +101,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>4.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers4.jpg'
@@ -113,7 +113,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Aria July</a>
                     </Link>
                   </h3>
@@ -126,7 +126,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>5.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers5.jpg'
@@ -138,7 +138,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Sebastian Farnil</a>
                     </Link>
                   </h3>
@@ -151,7 +151,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>6.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers6.jpg'
@@ -163,7 +163,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Henry Martina</a>
                     </Link>
                   </h3>
@@ -176,7 +176,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>7.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers7.jpg'
@@ -188,7 +188,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Daniel Adams</a>
                     </Link>
                   </h3>
@@ -201,7 +201,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>8.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers8.jpg'
@@ -213,7 +213,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Julian Rin</a>
                     </Link>
                   </h3>
@@ -226,7 +226,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>9.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers9.jpg'
@@ -238,7 +238,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Samuel Anvi</a>
                     </Link>
                   </h3>
@@ -251,7 +251,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>10.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers10.jpg'
@@ -263,7 +263,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Emilia Adison</a>
                     </Link>
                   </h3>
@@ -276,7 +276,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>11.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers11.jpg'
@@ -288,7 +288,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Muhammad Ali</a>
                     </Link>
                   </h3>
@@ -301,7 +301,7 @@ const TopSeller = ({ pt100 }) => {
               <div className='top-sellers-item'>
                 <div className='number'>12.</div>
                 <div className='top-sellers-img'>
-                  <Link href='/author-profile'>
+                  <Link legacyBehavior href='/author-profile'>
                     <a>
                       <img
                         src='../images/top-sellers/top-sellers12.jpg'
@@ -313,7 +313,7 @@ const TopSeller = ({ pt100 }) => {
                 </div>
                 <div className='content'>
                   <h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a>Alexander Luis</a>
                     </Link>
                   </h3>

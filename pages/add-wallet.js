@@ -20,7 +20,7 @@ const AddWallet = () => {
             <h2>Connect Your wallet</h2>
             <p>
               Connect with one of available wallet providers or create a new
-              wallet. <Link href='/help-center'><a>What is a wallet?</a></Link>{' '}
+              wallet. <Link legacyBehavior href='/help-center'><a>What is a wallet?</a></Link>{' '}
             </p>
           </div>
 
@@ -29,7 +29,7 @@ const AddWallet = () => {
               <div className='wallet-card'>
                 <img src='../images/wallet-img/wallet-img1.png' alt='Images' />
                 <h3>
-                  <Link href='/contact'>
+                  <Link legacyBehavior href='/contact'>
                     <a>Torsol</a>
                   </Link>
                 </h3>
@@ -45,7 +45,7 @@ const AddWallet = () => {
               <div className='wallet-card'>
                 <img src='../images/wallet-img/wallet-img2.png' alt='Images' />
                 <h3>
-                  <Link href='/contact'>
+                  <Link legacyBehavior href='/contact'>
                     <a>Portol</a>
                   </Link>
                 </h3>
@@ -61,7 +61,7 @@ const AddWallet = () => {
               <div className='wallet-card'>
                 <img src='../images/wallet-img/wallet-img3.png' alt='Images' />
                 <h3>
-                    <Link Link href='/contact'>
+                    <Link legacyBehavior Link href='/contact'>
                       <a>Niktin</a>
                     </Link>
                 </h3>
@@ -77,7 +77,7 @@ const AddWallet = () => {
               <div className='wallet-card'>
                 <img src='../images/wallet-img/wallet-img4.png' alt='Images' />
                 <h3>
-                  <Link href='/contact'>
+                  <Link legacyBehavior href='/contact'>
                     <a>Jenmar</a>
                   </Link>
                 </h3>
@@ -92,7 +92,7 @@ const AddWallet = () => {
               <div className='wallet-card'>
                 <img src='../images/wallet-img/wallet-img5.png' alt='Images' />
                 <h3>
-                  <Link href='/contact'>
+                  <Link legacyBehavior href='/contact'>
                     <a>Denky</a>
                   </Link>
                 </h3>
@@ -107,7 +107,7 @@ const AddWallet = () => {
               <div className='wallet-card'>
                 <img src='../images/wallet-img/wallet-img6.png' alt='Images' />
                 <h3>
-                  <Link href='/contact'>
+                  <Link legacyBehavior href='/contact'>
                     <a>Gible</a>
                   </Link>
                 </h3>

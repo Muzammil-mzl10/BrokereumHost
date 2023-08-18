@@ -9,7 +9,7 @@ const Footer = () => {
 						<div className="col-lg-4 col-sm-8">
 							<div className="footer-widget">
 								<div className="footer-logo">
-									<Link href="/">
+									<Link legacyBehavior href="/">
 										<a>
 											<img
 												src="../images/footer-logo.png"
@@ -53,22 +53,22 @@ const Footer = () => {
 								<h3>Marketplace</h3>
 								<ul className="footer-list">
 									<li>
-										<Link href="/discover-1">
+										<Link legacyBehavior href="/discover-1">
 											<a>Art</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/discover-1">
+										<Link legacyBehavior href="/discover-1">
 											<a>All NFTs</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/discover-1">
+										<Link legacyBehavior href="/discover-1">
 											<a>Music</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/discover-1">
+										<Link legacyBehavior href="/discover-1">
 											<a>Trending Cards</a>
 										</Link>
 									</li>
@@ -81,22 +81,22 @@ const Footer = () => {
 								<h3>My Account</h3>
 								<ul className="footer-list">
 									<li>
-										<Link href="/authors">
+										<Link legacyBehavior href="/authors">
 											<a>Authors</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/collection">
+										<Link legacyBehavior href="/collection">
 											<a>Collection</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/author-profile">
+										<Link legacyBehavior href="/author-profile">
 											<a>Author Profile</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/create-collection">
+										<Link legacyBehavior href="/create-collection">
 											<a>Create Collection</a>
 										</Link>
 									</li>
@@ -109,24 +109,24 @@ const Footer = () => {
 								<h3>Resources</h3>
 								<ul className="footer-list">
 									<li>
-										<Link href="/help-center">
+										<Link legacyBehavior href="/help-center">
 											<a>Helps & Support</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/auction">
+										<Link legacyBehavior href="/auction">
 											<a>Live Auctions</a>
 										</Link>
 									</li>
 
 									<li>
-										<Link href="/item-details">
+										<Link legacyBehavior href="/item-details">
 											<a>Item Details</a>
 										</Link>
 									</li>
 
 									<li>
-										<Link href="/activity">
+										<Link legacyBehavior href="/activity">
 											<a>Activity</a>
 										</Link>
 									</li>
@@ -139,23 +139,23 @@ const Footer = () => {
 								<h3>Company</h3>
 								<ul className="footer-list">
 									<li>
-										<Link href="/about">
+										<Link legacyBehavior href="/about">
 											<a>About Us</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/contact">
+										<Link legacyBehavior href="/contact">
 											<a>Contact Us</a>
 										</Link>
 									</li>
 
 									<li>
-										<Link href="/blog-1">
+										<Link legacyBehavior href="/blog-1">
 											<a>Our Blog</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/discover-1">
+										<Link legacyBehavior href="/discover-1">
 											<a>Discover</a>
 										</Link>
 									</li>

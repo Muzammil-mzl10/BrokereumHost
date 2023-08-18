@@ -1,9 +1,9 @@
-import React , {useState , useEffect} from 'react';
-import ItemDetailsDescription from './ItemDetailsDescription';
-import ItemDetailsHistory from './ItemDetailsHistory';
-import ItemDetailsUser from './ItemDetailsUser';
+import React, { useState, useEffect } from "react";
+import ItemDetailsDescription from "./ItemDetailsDescription";
+import ItemDetailsHistory from "./ItemDetailsHistory";
+import ItemDetailsUser from "./ItemDetailsUser";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
-import OverlayImage from './Overlay';
+import OverlayImage from "./Overlay";
 
 var Carousel = require("react-responsive-carousel").Carousel;
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -18,7 +18,7 @@ import {
 // Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
 
-const ItemDetailsArea = ({tokenID , data}) => {
+const ItemDetailsArea = ({ tokenID, data }) => {
   const [ipfsData, setipfsData] = useState();
   const [marketplaceModule, setMarketplaceModule] = useState();
   const [satelitleImg, setSateliteImg] = useState();
@@ -28,72 +28,80 @@ const ItemDetailsArea = ({tokenID , data}) => {
   });
   // console.log(tokenID);
 
-  useEffect(async () => {
-    setMarketplaceModule(
-      await sdk.getContract(process.env.Marketplace_Contract)
-    );
-  }, []);
+ useEffect(() => {
+   async function fetchMkData() {
+     try {
+       const marketplaceContract = await sdk.getContract(
+         process.env.Marketplace_Contract
+       );
+       setMarketplaceModule(marketplaceContract);
+     } catch (error) {
+       console.error("Error fetching marketplace data:", error);
+     }
+   }
+   fetchMkData();
+ }, []);
+
 
   useEffect(() => {
-    console.log(data?.asset.properties.IPFSHash);
-    fetch(data?.asset.properties.IPFSHash)
-      .then((res) => res.json())
-      .then((res) => {
-        setipfsData(res.parcelData);
-        console.log(res.parcelData);
-        setSateliteImg(res.parcelData.image_urls.satellite_image);
-        setWorldTopoImg(res.parcelData.image_urls.world_topo_image);
+    async function fetchIpfsData() {
+      try {
+        console.log(data?.asset.properties.IPFSHash);
+        const response = await fetch(data?.asset.properties.IPFSHash);
+        const ipfsData = await response.json();
+        setipfsData(ipfsData.parcelData);
+        console.log(ipfsData.parcelData);
+        setSateliteImg(ipfsData.parcelData.image_urls.satellite_image);
+        setWorldTopoImg(ipfsData.parcelData.image_urls.world_topo_image);
         console.log(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchIpfsData();
   }, [data]);
   // console.log(satelitleImg)
-  
-const [days, setDays] = useState("");
-const [hours, setHours] = useState("");
-const [minutes, setMinutes] = useState("");
-const [seconds, setSeconds] = useState("");
 
+  const [days, setDays] = useState("");
+  const [hours, setHours] = useState("");
+  const [minutes, setMinutes] = useState("");
+  const [seconds, setSeconds] = useState("");
 
-const comingSoonTime = () => {
-  const endTimeInSeconds = data?.endTimeInSeconds; // Set the endTimeInSeconds variable
-  const now = Math.floor(Date.now() / 1000); // Convert milliseconds to seconds
-  const timeLeft = endTimeInSeconds - now;
+  const comingSoonTime = () => {
+    const endTimeInSeconds = data?.endTimeInSeconds; // Set the endTimeInSeconds variable
+    const now = Math.floor(Date.now() / 1000); // Convert milliseconds to seconds
+    const timeLeft = endTimeInSeconds - now;
 
-  if (timeLeft > 0) {
-    const countdays = Math.floor(timeLeft / 86400);
-    const counthours = Math.floor((timeLeft % 86400) / 3600);
-    const countminutes = Math.floor((timeLeft % 3600) / 60);
-    const countseconds = Math.floor(timeLeft % 60);
+    if (timeLeft > 0) {
+      const countdays = Math.floor(timeLeft / 86400);
+      const counthours = Math.floor((timeLeft % 86400) / 3600);
+      const countminutes = Math.floor((timeLeft % 3600) / 60);
+      const countseconds = Math.floor(timeLeft % 60);
 
-    setDays(countdays);
-    setHours(counthours);
-    setMinutes(countminutes);
-    setSeconds(countseconds);
-  } else {
-    // Bidding is over
-    setDays(0);
-    setHours(0);
-    setMinutes(0);
-    setSeconds(0);
-  }
-};
-
-// console.log(data)
-  useEffect(() => {
-  const interval = setInterval(() => {
-    comingSoonTime();
-  }, 1000);
-
-  return () => {
-    clearInterval(interval);
+      setDays(countdays);
+      setHours(counthours);
+      setMinutes(countminutes);
+      setSeconds(countseconds);
+    } else {
+      // Bidding is over
+      setDays(0);
+      setHours(0);
+      setMinutes(0);
+      setSeconds(0);
+    }
   };
-}, [data]);
-  
 
+  // console.log(data)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      comingSoonTime();
+    }, 1000);
 
+    return () => {
+      clearInterval(interval);
+    };
+  }, [data]);
 
   return (
     <>

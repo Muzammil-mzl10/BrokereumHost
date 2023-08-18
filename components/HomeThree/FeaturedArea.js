@@ -94,7 +94,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img1.jpg'
@@ -115,7 +115,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -124,13 +124,13 @@ const FeaturedArea = () => {
                                 <span>100 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user1.jpg'
@@ -146,7 +146,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img2.jpg'
@@ -173,7 +173,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>I Love In The Air</a>
                               </Link>
                             </h3>
@@ -182,13 +182,13 @@ const FeaturedArea = () => {
                                 <span>110 ETH 12/14</span>
                                 <h4>Bid 70 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user2.jpg'
@@ -204,7 +204,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img3.jpg'
@@ -231,7 +231,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -240,13 +240,13 @@ const FeaturedArea = () => {
                                 <span>120 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user3.jpg'
@@ -262,7 +262,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img4.jpg'
@@ -283,7 +283,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -292,13 +292,13 @@ const FeaturedArea = () => {
                                 <span>110 ETH 12/14</span>
                                 <h4>Bid 90 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user4.jpg'
@@ -314,7 +314,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img5.jpg'
@@ -335,7 +335,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -344,13 +344,13 @@ const FeaturedArea = () => {
                                 <span>130 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -368,7 +368,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img6.jpg'
@@ -389,7 +389,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -398,13 +398,13 @@ const FeaturedArea = () => {
                                 <span>140 ETH 12/14</span>
                                 <h4>Bid 90 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -422,7 +422,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img7.jpg'
@@ -443,7 +443,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -452,13 +452,13 @@ const FeaturedArea = () => {
                                 <span>160 ETH 12/14</span>
                                 <h4>Bid 100 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user7.jpg'
@@ -474,7 +474,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img8.jpg'
@@ -495,7 +495,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -504,13 +504,13 @@ const FeaturedArea = () => {
                                 <span>170 ETH 12/14</span>
                                 <h4>Bid 90 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user8.jpg'
@@ -532,7 +532,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img5.jpg'
@@ -541,7 +541,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user5.jpg'
@@ -561,7 +561,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -597,7 +597,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img6.jpg'
@@ -606,7 +606,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user6.jpg'
@@ -626,7 +626,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -662,7 +662,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img7.jpg'
@@ -671,7 +671,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user7.jpg'
@@ -691,7 +691,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -727,7 +727,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img8.jpg'
@@ -736,7 +736,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user8.jpg'
@@ -756,7 +756,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -792,7 +792,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img1.jpg'
@@ -801,7 +801,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user1.jpg'
@@ -821,7 +821,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -857,7 +857,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img2.jpg'
@@ -866,7 +866,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user2.jpg'
@@ -886,7 +886,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Love In The Air</a>
                               </Link>
                             </h3>
@@ -922,7 +922,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img3.jpg'
@@ -931,7 +931,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user3.jpg'
@@ -951,7 +951,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -987,7 +987,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img4.jpg'
@@ -996,7 +996,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user4.jpg'
@@ -1016,7 +1016,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -1058,7 +1058,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img1.jpg'
@@ -1079,7 +1079,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -1088,13 +1088,13 @@ const FeaturedArea = () => {
                                 <span>100 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user1.jpg'
@@ -1110,7 +1110,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img2.jpg'
@@ -1137,7 +1137,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>I Love In The Air</a>
                               </Link>
                             </h3>
@@ -1146,13 +1146,13 @@ const FeaturedArea = () => {
                                 <span>110 ETH 12/14</span>
                                 <h4>Bid 70 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user2.jpg'
@@ -1168,7 +1168,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img3.jpg'
@@ -1195,7 +1195,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -1204,13 +1204,13 @@ const FeaturedArea = () => {
                                 <span>120 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user3.jpg'
@@ -1226,7 +1226,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img4.jpg'
@@ -1247,7 +1247,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -1256,13 +1256,13 @@ const FeaturedArea = () => {
                                 <span>110 ETH 12/14</span>
                                 <h4>Bid 90 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user4.jpg'
@@ -1278,7 +1278,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img5.jpg'
@@ -1299,7 +1299,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -1308,13 +1308,13 @@ const FeaturedArea = () => {
                                 <span>130 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user5.jpg'
@@ -1330,7 +1330,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img6.jpg'
@@ -1351,7 +1351,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -1360,13 +1360,13 @@ const FeaturedArea = () => {
                                 <span>140 ETH 12/14</span>
                                 <h4>Bid 90 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user6.jpg'
@@ -1382,7 +1382,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img7.jpg'
@@ -1403,7 +1403,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -1412,13 +1412,13 @@ const FeaturedArea = () => {
                                 <span>160 ETH 12/14</span>
                                 <h4>Bid 100 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -1436,7 +1436,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img8.jpg'
@@ -1457,7 +1457,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -1466,13 +1466,13 @@ const FeaturedArea = () => {
                                 <span>170 ETH 12/14</span>
                                 <h4>Bid 90 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-content-btn'>
                                   <i className='ri-arrow-right-line'></i>
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a className='featured-user-option'>
                                 <img
                                   src='../images/featured/featured-user8.jpg'
@@ -1494,7 +1494,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img5.jpg'
@@ -1503,7 +1503,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user5.jpg'
@@ -1523,7 +1523,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -1559,7 +1559,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img6.jpg'
@@ -1568,7 +1568,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user6.jpg'
@@ -1588,7 +1588,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -1624,7 +1624,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img7.jpg'
@@ -1633,7 +1633,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user7.jpg'
@@ -1653,7 +1653,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -1689,7 +1689,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img8.jpg'
@@ -1698,7 +1698,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user8.jpg'
@@ -1718,7 +1718,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -1754,7 +1754,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img1.jpg'
@@ -1763,7 +1763,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profie'>
+                              <Link legacyBehavior href='/author-profie'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user1.jpg'
@@ -1783,7 +1783,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -1819,7 +1819,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img2.jpg'
@@ -1828,7 +1828,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user2.jpg'
@@ -1848,7 +1848,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Love In The Air</a>
                               </Link>
                             </h3>
@@ -1884,7 +1884,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img3.jpg'
@@ -1893,7 +1893,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a
                                   className='featured-user-option'
                                 >
@@ -1915,7 +1915,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -1951,7 +1951,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-item'>
                           <div className='featured-item-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img4.jpg'
@@ -1960,7 +1960,7 @@ const FeaturedArea = () => {
                               </a>
                             </Link>
                             <div className='featured-user'>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a className='featured-user-option'>
                                   <img
                                     src='../images/featured/featured-user4.jpg'
@@ -1980,7 +1980,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/author-profile'>
+                              <Link legacyBehavior href='/author-profile'>
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -2022,7 +2022,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img1.jpg'
@@ -2043,7 +2043,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>
                                   Industrial Revolution
                                 </a>
@@ -2054,7 +2054,7 @@ const FeaturedArea = () => {
                                 <span>100 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2063,7 +2063,7 @@ const FeaturedArea = () => {
                               </Link>
                             </div>
 
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a
                                 className='featured-user-option'
                               >
@@ -2081,7 +2081,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img2.jpg'
@@ -2108,7 +2108,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>I Love In The Air</a>
                               </Link>
                             </h3>
@@ -2118,7 +2118,7 @@ const FeaturedArea = () => {
                                 <h4>Bid 70 ETH</h4>
                               </div>
 
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2126,7 +2126,7 @@ const FeaturedArea = () => {
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -2144,7 +2144,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img3.jpg'
@@ -2171,7 +2171,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>
                                   Become One With Nature
                                 </a>
@@ -2182,7 +2182,7 @@ const FeaturedArea = () => {
                                 <span>120 ETH 12/14</span>
                                 <h4>Bid 80 ETH</h4>
                               </div>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2190,7 +2190,7 @@ const FeaturedArea = () => {
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -2208,7 +2208,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img4.jpg'
@@ -2229,7 +2229,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>
                                   Twilight Fracture City
                                 </a>
@@ -2241,7 +2241,7 @@ const FeaturedArea = () => {
                                 <h4>Bid 90 ETH</h4>
                               </div>
 
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2249,7 +2249,7 @@ const FeaturedArea = () => {
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -2267,7 +2267,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img5.jpg'
@@ -2288,7 +2288,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -2298,7 +2298,7 @@ const FeaturedArea = () => {
                                 <h4>Bid 80 ETH</h4>
                               </div>
 
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2306,7 +2306,7 @@ const FeaturedArea = () => {
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -2324,7 +2324,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img6.jpg'
@@ -2345,7 +2345,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -2355,7 +2355,7 @@ const FeaturedArea = () => {
                                 <h4>Bid 90 ETH</h4>
                               </div>
 
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2363,7 +2363,7 @@ const FeaturedArea = () => {
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -2381,7 +2381,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img7.jpg'
@@ -2402,7 +2402,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -2412,7 +2412,7 @@ const FeaturedArea = () => {
                                 <h4>Bid 100 ETH</h4>
                               </div>
 
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2420,7 +2420,7 @@ const FeaturedArea = () => {
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >
@@ -2438,7 +2438,7 @@ const FeaturedArea = () => {
                       <div className='col-lg-3 col-md-6'>
                         <div className='featured-card'>
                           <div className='featured-card-img'>
-                            <Link href='/item-details'>
+                            <Link legacyBehavior href='/item-details'>
                               <a>
                                 <img
                                   src='../images/featured/featured-img8.jpg'
@@ -2459,7 +2459,7 @@ const FeaturedArea = () => {
 
                           <div className='content'>
                             <h3>
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -2469,7 +2469,7 @@ const FeaturedArea = () => {
                                 <h4>Bid 90 ETH</h4>
                               </div>
 
-                              <Link href='/item-details'>
+                              <Link legacyBehavior href='/item-details'>
                                 <a
                                   className='featured-content-btn'
                                 >
@@ -2477,7 +2477,7 @@ const FeaturedArea = () => {
                                 </a>
                               </Link>
                             </div>
-                            <Link href='/author-profile'>
+                            <Link legacyBehavior href='/author-profile'>
                               <a
                                 className='featured-user-option'
                               >

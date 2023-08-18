@@ -1611,8 +1611,9 @@ Main Banner Area
 }
 
 .banner-area-three {
-  background-image: url(../images/headers/landscape\ blockchain-7444514.jpg);
+  background-image: url(../images/headers/landscape\ blockchain-7571280.jpg);
   background-size: cover;
+  height: 90vh;
   background-position: center center;
   background-repeat: no-repeat;
   padding: 150px 0;
@@ -1765,6 +1766,9 @@ Inner Banner Area
 
 .inner-bg8 {
   background-image: url(../images/inner-banner/inner-banner8.jpg);
+}
+.bg-activity-img {
+  background-image: url(../images/headers/landscape\ web-4667382.jpg);
 }
 
 .inner-bg9 {

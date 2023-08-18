@@ -8,8 +8,6 @@ import { Mumbai } from '@thirdweb-dev/chains';
 import { ethers } from "ethers";
 import axios from 'axios';
 
-
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -28,24 +26,28 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const signer = useSigner()
   const Address = useAddress()
   
-  useEffect(() => {
-    if (!Address) {
-      router.push("/");
-    }
-  }, [router]);
+ useEffect(() => {
+   if (!Address) {
+     router.push("/");
+   }
+ }, [Address, router]);
+
 
    useEffect(() => {
-     console.log(data?.asset.properties.IPFSHash);
-     fetch(data?.asset.properties.IPFSHash)
-       .then((res) => res.json())
-       .then((res) => {
-         setipfsData(res.parcelData);
-         console.log(res.parcelData);
-       })
-       .catch((err) => {
-         console.log(err);
-       });
+     async function fetchIpfsData() {
+       try {
+         console.log(data?.asset.properties.IPFSHash);
+         const response = await fetch(data?.asset.properties.IPFSHash);
+         const ipfsData = await response.json();
+         setipfsData(ipfsData.parcelData);
+         console.log(ipfsData.parcelData);
+       } catch (error) {
+         console.log(error);
+       }
+     }
+     fetchIpfsData();
    }, [data]);
+
 
 
   //  const sdk = new ThirdwebSDK("mumbai");
@@ -69,40 +71,59 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
          .then((res) => res.json())
          .then((res) => {
            console.log(res?.data[0]?.attributes);
-           setOwnerData(res.data[0].attributes);
+           setOwnerData(res.data[0]?.attributes);
          })
          .catch((err) => console.log(err));
    };
 
-  useEffect(async() => {
-    if (Mumbai && ThirdwebSDK && signer) {
-      const sdk = ThirdwebSDK.fromSigner(signer, Mumbai, {
-        clientId: process.env.thirdweb_CLIENTID,
-      });
-      setMarketplaceModule(
-        await sdk.getContract(process.env.Marketplace_Contract)
-      );
-    }
-  }, [Mumbai, ThirdwebSDK, signer]);
+ useEffect(() => {
+   async function fetchData() {
+     if (Mumbai && ThirdwebSDK && signer) {
+       try {
+         const sdk = ThirdwebSDK.fromSigner(signer, Mumbai, {
+           clientId: process.env.thirdweb_CLIENTID,
+         });
+         const marketplaceModule = await sdk.getContract(
+           process.env.Marketplace_Contract
+         );
+         setMarketplaceModule(marketplaceModule);
+       } catch (error) {
+         console.log(error);
+       }
+     }
+   }
 
-  useEffect(async () => {
+   fetchData();
+ }, [Mumbai, ThirdwebSDK, signer]);
+
+
+  useEffect(() => {
     fetchUserInfo()
     fetchOWnerInfo()
    }, []);
-   useEffect(async () => {
-     if (marketplaceModule && data) {
-       console.log(userData)
-       console.log(data.id)
-      setMinimumBidVal(
-         await marketplaceModule.englishAuctions.getMinimumNextBid(
-           data?.id
-         ))
-      setWinningBid(await marketplaceModule.englishAuctions.getWinningBid(
-         data?.id
-       ))
+  useEffect(() => {
+    async function fetchData() {
+      if (marketplaceModule && data) {
+        try {
+          console.log(userData);
+          console.log(data.id);
+
+          const minimumBid =
+            await marketplaceModule.englishAuctions.getMinimumNextBid(data?.id);
+          setMinimumBidVal(minimumBid);
+
+          const winningBid =
+            await marketplaceModule.englishAuctions.getWinningBid(data?.id);
+          setWinningBid(winningBid);
+        } catch (error) {
+          console.log(error);
+        }
       }
-      
-    }, [marketplaceModule, data]);
+    }
+
+    fetchData();
+  }, [marketplaceModule, data]);
+
     
     // console.log(winningBid)
     // console.log(minimumBidVal)

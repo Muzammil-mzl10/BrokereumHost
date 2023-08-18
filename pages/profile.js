@@ -793,7 +793,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                           <input type="checkbox" id="chb1" />
                           <label htmlFor="chb1">
                             Remember Me
-                            <Link href="/forgot-password">
+                            <Link legacyBehavior href="/forgot-password">
                               <a className="forget">Forgot My Password?</a>
                             </Link>
                           </label>
@@ -1129,7 +1129,7 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                           <input type="checkbox" id="chb1" />
                           <label htmlFor="chb1">
                             Remember Me
-                            <Link href="/forgot-password">
+                            <Link legacyBehavior href="/forgot-password">
                               <a className="forget">Forgot My Password?</a>
                             </Link>
                           </label>

@@ -53,7 +53,7 @@ const TrendingArea = () => {
 
             <div className='col-lg-4 col-md-6'>
               <div className='trending-btn text-end'>
-                <Link href='/item-details'>
+                <Link legacyBehavior href='/item-details'>
                   <a
                     className='default-btn border-radius-5'
                   >
@@ -69,7 +69,7 @@ const TrendingArea = () => {
               <OwlCarousel {...options}>
                 <div className='trending-card'>
                   <div className='trending-card-img'>
-                    <Link href='/item-details'>
+                    <Link legacyBehavior href='/item-details'>
                       <a>
                         <img
                           src='../images/trending/trending-style1.jpg'
@@ -90,11 +90,11 @@ const TrendingArea = () => {
 
                   <div className='content'>
                     <h3>
-                      <Link href='/item-details'>
+                      <Link legacyBehavior href='/item-details'>
                         <a>Les Immortal's</a>
                       </Link>
                     </h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='trending-user-option'>
                         <img
                           src='../images/trending/trending-user1.jpg'
@@ -113,7 +113,7 @@ const TrendingArea = () => {
 
                 <div className='trending-card'>
                   <div className='trending-card-img'>
-                    <Link href='/item-details'>
+                    <Link legacyBehavior href='/item-details'>
                       <a>
                         <img
                           src='../images/trending/trending-style2.jpg'
@@ -134,11 +134,11 @@ const TrendingArea = () => {
 
                   <div className='content'>
                     <h3>
-                      <Link href='/item-details'>
+                      <Link legacyBehavior href='/item-details'>
                         <a>Industrial Revolution</a>
                       </Link>
                     </h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='trending-user-option'>
                         <img
                           src='../images/trending/trending-user2.jpg'
@@ -158,7 +158,7 @@ const TrendingArea = () => {
 
                 <div className='trending-card'>
                   <div className='trending-card-img'>
-                    <Link href='/item-details'>
+                    <Link legacyBehavior href='/item-details'>
                       <a>
                         <img
                           src='../images/trending/trending-style3.jpg'
@@ -179,11 +179,11 @@ const TrendingArea = () => {
 
                   <div className='content'>
                     <h3>
-                      <Link href='/item-details'>
+                      <Link legacyBehavior href='/item-details'>
                         <a>Tranquility (Modal)</a>
                       </Link>
                     </h3>
-                    <Link href='/item-details'>
+                    <Link legacyBehavior href='/item-details'>
                       <a className='trending-user-option'>
                         <img
                           src='../images/trending/trending-user3.jpg'
@@ -202,7 +202,7 @@ const TrendingArea = () => {
 
                 <div className='trending-card'>
                   <div className='trending-card-img'>
-                    <Link href='/item-details'>
+                    <Link legacyBehavior href='/item-details'>
                       <a>
                         <img
                           src='../images/trending/trending-style4.jpg'
@@ -223,11 +223,11 @@ const TrendingArea = () => {
 
                   <div className='content'>
                     <h3>
-                      <Link href='/item-details'>
+                      <Link legacyBehavior href='/item-details'>
                         <a>Walking On Air</a>
                       </Link>
                     </h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='trending-user-option'>
                         <img
                           src='../images/trending/trending-user4.jpg'
@@ -246,7 +246,7 @@ const TrendingArea = () => {
 
                 <div className='trending-card'>
                   <div className='trending-card-img'>
-                    <Link href='/item-details'>
+                    <Link legacyBehavior href='/item-details'>
                       <a>
                         <img
                           src='../images/trending/trending-style5.jpg'
@@ -267,11 +267,11 @@ const TrendingArea = () => {
 
                   <div className='content'>
                     <h3>
-                      <Link href='/item-details'>
+                      <Link legacyBehavior href='/item-details'>
                         <a>To Infinity</a>
                       </Link>
                     </h3>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='trending-user-option'>
                         <img
                           src='../images/trending/trending-user5.jpg'

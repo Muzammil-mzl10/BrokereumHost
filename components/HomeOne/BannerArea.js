@@ -57,24 +57,34 @@ const BannerArea = () => {
     clientId: process.env.thirdweb_CLIENTID,
   });
 
-  useEffect(async () => {
-    setMarketplaceContract(
-      await sdk.getContract(process.env.Marketplace_Contract)
-    );
-  }, []);
-  useEffect(async () => {
-    console.log(marketplaceContract);
-    if (marketplaceContract) {
-      try {
-        setAuctionListing(
-          await marketplaceContract.englishAuctions.getAllValid()
-        );
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }, [marketplaceContract]);
+ useEffect(() => {
+   async function fetchMarketplaceContract() {
+     try {
+       const contract = await sdk.getContract(process.env.Marketplace_Contract);
+       setMarketplaceContract(contract);
+     } catch (error) {
+       console.error("Error fetching marketplace contract:", error);
+     }
+   }
 
+   fetchMarketplaceContract();
+ }, []);
+
+ useEffect(() => {
+   async function fetchAuctionListing() {
+     if (marketplaceContract) {
+       try {
+         const auctionList =
+           await marketplaceContract.englishAuctions.getAllValid();
+         setAuctionListing(auctionList);
+       } catch (error) {
+         console.error("Error fetching auction listing:", error);
+       }
+     }
+   }
+
+   fetchAuctionListing();
+ }, [marketplaceContract]);
 
 
 
@@ -82,7 +92,7 @@ const BannerArea = () => {
 
 
   return (
-    <>
+    <div>
       <div className="banner-area-three">
         <div className="container-fluid">
           <div className="row align-items-center">
@@ -114,7 +124,7 @@ const BannerArea = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Link href="/about">
+                  <Link legacyBehavior href="/about">
                     <a className="default-btn border-radius-5">Explore More</a>
                   </Link>
                   {!walletaAddress ? (
@@ -161,20 +171,20 @@ const BannerArea = () => {
         </div>
 
         <div className="banner-shape">
-          <div className="shape-circle1">
+          {/* <div className="shape-circle1 ">
             <img src="../images/home-one/circle1.png" alt="Images" />
           </div>
 
-          <div className="shape-circle2">
+          <div className="shape-circle2 ">
             <img src="../images/home-one/circle2.png" alt="Images" />
-          </div>
+          </div> */}
 
-          <div className="shape-bg">
+          {/* <div className="shape-bg">
             <img src="../images/home-one/bg-shape.png" alt="Images" />
-          </div>
+          </div> */}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

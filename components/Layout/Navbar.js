@@ -54,7 +54,7 @@ const Navbar = () => {
                 )}
               </div>
               <div className="logo">
-                <Link href="/">
+                <Link legacyBehavior href="/">
                   <a>
                     <img style={{height:"65px", width:"200px"}} src="../images/logo.png" alt="logo" />
                   </a>
@@ -76,7 +76,7 @@ const Navbar = () => {
             <nav
               className="navbar navbar-expand-md navbar-light "
             >
-              <Link href="/">
+              <Link legacyBehavior href="/">
                 <a className="navbar-brand" style={{ width: "12rem" }}>
                   <img src="../images/footer-logo2.png" alt="Logo" />
                 </a>
@@ -101,7 +101,7 @@ const Navbar = () => {
               >
                 <ul className="navbar-nav m-auto">
                   <li className="nav-item">
-                    <Link href="/" activeClassName="active">
+                    <Link legacyBehavior href="/" activeClassName="active">
 
                     <a  className="nav-link active">
                       Home
@@ -116,22 +116,22 @@ const Navbar = () => {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link href="/auction" activeClassName="active">
+                        <Link legacyBehavior href="/auction" activeClassName="active">
                           <a className="nav-link">Live Auction</a>
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link href="/discover-1" activeClassName="active">
+                        <Link legacyBehavior href="/discover-1" activeClassName="active">
                           <a className="nav-link">Discover Style One</a>
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link href="/discover-2" activeClassName="active">
+                        <Link legacyBehavior href="/discover-2" activeClassName="active">
                           <a className="nav-link">Discover Style Two</a>
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link href="/item-details" activeClassName="active">
+                        <Link legacyBehavior href="/item-details" activeClassName="active">
                           <a className="nav-link">Item Details</a>
                         </Link>
                       </li>
@@ -139,7 +139,7 @@ const Navbar = () => {
                   </li> */}
 
                   <li className="nav-item">
-                    <Link href="/activity" activeClassName="active">
+                    <Link legacyBehavior href="/activity" activeClassName="active">
                       <a className="nav-link">Activity</a>
                     </Link>
                   </li>
@@ -151,13 +151,13 @@ const Navbar = () => {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link href="/collection" activeClassName="active">
+                        <Link legacyBehavior href="/collection" activeClassName="active">
                           <a className="nav-link">Collection</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link
+                        <Link legacyBehavior
                           href="/create-collection"
                           activeClassName="active"
                         >
@@ -166,25 +166,25 @@ const Navbar = () => {
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/batchUpload" activeClassName="active">
+                        <Link legacyBehavior href="/batchUpload" activeClassName="active">
                           <a className="nav-link">Batch Upload</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/author-profile" activeClassName="active">
+                        <Link legacyBehavior href="/author-profile" activeClassName="active">
                           <a className="nav-link">Author Profile</a>
                         </Link>
                       </li>
 
                       {/* <li className="nav-item">
-                        <Link href="/team" activeClassName="active">
+                        <Link legacyBehavior href="/team" activeClassName="active">
                           <a className="nav-link">Team</a>
                         </Link>
                       </li> */}
 
                       {/* <li className="nav-item">
-                        <Link href="/testimonials" activeClassName="active">
+                        <Link legacyBehavior href="/testimonials" activeClassName="active">
                           <a className="nav-link">Testimonials</a>
                         </Link>
                       </li> */}
@@ -196,17 +196,17 @@ const Navbar = () => {
                         </a>
                         <ul className="dropdown-menu">
                           <li className="nav-item">
-                            <Link href="/login" activeClassName="active">
+                            <Link legacyBehavior href="/login" activeClassName="active">
                               <a className="nav-link">Log In</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link href="/register" activeClassName="active">
+                            <Link legacyBehavior href="/register" activeClassName="active">
                               <a className="nav-link">Register</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link
+                            <Link legacyBehavior
                               href="/forgot-password"
                               activeClassName="active"
                             >
@@ -217,25 +217,25 @@ const Navbar = () => {
                       </li> */}
 
                       <li className="nav-item">
-                        <Link href="/terms-condition" activeClassName="active">
+                        <Link legacyBehavior href="/terms-condition" activeClassName="active">
                           <a className="nav-link">Terms & Conditions</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/privacy-policy" activeClassName="active">
+                        <Link legacyBehavior href="/privacy-policy" activeClassName="active">
                           <a className="nav-link">Privacy Policy</a>
                         </Link>
                       </li>
 
                       {/* <li className="nav-item">
-                        <Link href="/404" activeClassName="active">
+                        <Link legacyBehavior href="/404" activeClassName="active">
                           <a className="nav-link">404 Page</a>
                         </Link>
                       </li> */}
 
                       {/* <li className="nav-item">
-                        <Link href="/coming-soon" activeClassName="active">
+                        <Link legacyBehavior href="/coming-soon" activeClassName="active">
                           <a className="nav-link">Coming Soon</a>
                         </Link>
                       </li> */}
@@ -249,13 +249,13 @@ const Navbar = () => {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link href="/about" activeClassName="active">
+                        <Link legacyBehavior href="/about" activeClassName="active">
                           <a className="nav-link">About Us</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/add-wallet" activeClassName="active">
+                        <Link legacyBehavior href="/add-wallet" activeClassName="active">
                           <a className="nav-link">Add Wallet</a>
                         </Link>
                       </li>
@@ -267,34 +267,34 @@ const Navbar = () => {
                         </a>
                         <ul className="dropdown-menu">
                           <li className="nav-item">
-                            <Link href="/blog-1" activeClassName="active">
+                            <Link legacyBehavior href="/blog-1" activeClassName="active">
                               <a className="nav-link">Blog Grid</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link href="/blog-2" activeClassName="active">
+                            <Link legacyBehavior href="/blog-2" activeClassName="active">
                               <a className="nav-link">Blog Left Sidebar</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link href="/blog-3" activeClassName="active">
+                            <Link legacyBehavior href="/blog-3" activeClassName="active">
                               <a className="nav-link">Blog Right Sidebar</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link href="/blog-details" activeClassName="active">
+                            <Link legacyBehavior href="/blog-details" activeClassName="active">
                               <a className="nav-link">Blog Details</a>
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link href="/categories" activeClassName="active">
+                            <Link legacyBehavior href="/categories" activeClassName="active">
                               <a className="nav-link">Categories</a>
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link href="/tags" activeClassName="active">
+                            <Link legacyBehavior href="/tags" activeClassName="active">
                               <a className="nav-link">Tags</a>
                             </Link>
                           </li>
@@ -302,7 +302,7 @@ const Navbar = () => {
                       </li>
 
                       <li className="nav-item">
-                        <Link href="/help-center" activeClassName="active">
+                        <Link legacyBehavior href="/help-center" activeClassName="active">
                           <a className="nav-link">Help Center</a>
                         </Link>
                       </li>
@@ -310,19 +310,19 @@ const Navbar = () => {
                   </li>
 
                   <li className="nav-item">
-                    <Link href="/contact" activeClassName="active">
+                    <Link legacyBehavior href="/contact" activeClassName="active">
                       <a className="nav-link">Contact Us</a>
                     </Link>
                   </li>
                   {walletAddress ? (
                     <>
                       <li className="nav-item">
-                        <Link href="/profile" activeClassName="active">
+                        <Link legacyBehavior href="/profile" activeClassName="active">
                           <a className="nav-link">Profile</a>
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link href="/chat" activeClassName="active">
+                        <Link legacyBehavior href="/chat" activeClassName="active">
                           <a className="nav-link">Chat</a>
                         </Link>
                       </li>
@@ -380,7 +380,7 @@ const Navbar = () => {
                   <div className="side-nav-item">
                     <ul className="optional-item-list">
                       <li>
-                        <Link
+                        <Link legacyBehavior
                           href="/create-collection"
                           activeClassName="active"
                         >

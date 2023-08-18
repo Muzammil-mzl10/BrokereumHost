@@ -14,51 +14,77 @@ const AuctionListings = ({ data }) => {
   const [MinimumBidVal, setMinimumBidVal] = useState();
   const [WinningBid, setWinningBid] = useState();
   const [marketplaceContract , setMarketplaceContract] = useState()
-   const fetchOWnerInfo = () => {
-     fetch( `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data.creatorAddress}`)
-       .then((res) => res.json())
-       .then((res) => {
-         console.log(res?.data[0]?.attributes);
-         setOWnerData(res.data[0].attributes);
-       })
-       .catch((err) => console.log(err));
+  const fetchOwnerInfo = async () => {
+    try {
+      const ownerResponse = await fetch(
+        `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data.creatorAddress}`
+      );
+      const ownerData = await ownerResponse.json();
+      console.log(ownerData?.data[0]?.attributes);
+      setOwnerData(ownerData.data[0].attributes);
+    } catch (error) {
+      console.log(error);
+    }
   };
-   const fetchBidder = () => {
-     fetch(
-       `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
-     )
-       .then((res) => res.json())
-       .then((res) => {
-         console.log(res);
-         setBidders(res.data);
-        })
-        .then((err) => console.log(err));
-      };
-      
-      
-      useEffect(async() => {
-        console.log(data)
-        fetchOWnerInfo()
-        fetchBidder()
+
+  const fetchBidder = async () => {
+    try {
+      const bidderResponse = await fetch(
+        `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
+      );
+      const bidderData = await bidderResponse.json();
+      console.log(bidderData);
+      setBidders(bidderData.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        console.log(data);
+        await fetchOwnerInfo();
+        await fetchBidder();
+
         const sdk = new ThirdwebSDK("mumbai", {
           clientId: process.env.thirdweb_CLIENTID,
         });
-        setMarketplaceContract(
-          await sdk.getContract(process.env.Marketplace_Contract)
-          )
-        }, [data])
-  
-  useEffect(async () => {
-    if (marketplaceContract && data) {
-      // console.log(data.id);
-     const minimum = await marketplaceContract.englishAuctions.getMinimumNextBid(data?.id)
-      // console.log(minimum)
-       setMinimumBidVal(minimum)
-      setWinningBid(
-        await marketplaceContract.englishAuctions.getWinningBid(data?.id)
-      );
+
+        const marketplaceContract = await sdk.getContract(
+          process.env.Marketplace_Contract
+        );
+        setMarketplaceContract(marketplaceContract);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }, [marketplaceContract, data]);
+
+    fetchData();
+  }, [data]);
+
+  
+ useEffect(() => {
+   async function fetchMinimumAndWinningBid() {
+     if (marketplaceContract && data) {
+       try {
+         const minimum =
+           await marketplaceContract.englishAuctions.getMinimumNextBid(
+             data?.id
+           );
+         setMinimumBidVal(minimum);
+         const winningBid =
+           await marketplaceContract.englishAuctions.getWinningBid(data?.id);
+         setWinningBid(winningBid);
+       } catch (error) {
+         console.error("Error fetching minimum and winning bid:", error);
+       }
+     }
+   }
+
+   fetchMinimumAndWinningBid();
+ }, [marketplaceContract, data]);
+
  
 
   const Completionist = () => (

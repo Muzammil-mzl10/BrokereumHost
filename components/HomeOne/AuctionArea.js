@@ -46,7 +46,7 @@ const AuctionArea = () => {
 
             <div className='col-lg-4 col-md-4'>
               <div className='auction-btn text-end'>
-                <Link href='/auction'>
+                <Link legacyBehavior href='/auction'>
                   <a className='default-btn border-radius-5'>
                     Explore More
                   </a>
@@ -60,7 +60,7 @@ const AuctionArea = () => {
               <OwlCarousel {...options}>
                 <div className='auction-item'>
                   <div className='auction-item-img'>
-                    <Link href='/auction'>
+                    <Link legacyBehavior href='/auction'>
                       <a>
                         <img
                           src='../images/auctions/auctions-img.jpg'
@@ -86,7 +86,7 @@ const AuctionArea = () => {
                   <div className='content'>
                     <div className='auction-item-list'>
                       <div className='auction-item-list-img'>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>
                             <img
                               src='../images/auctions/auctions-user1.jpg'
@@ -97,18 +97,18 @@ const AuctionArea = () => {
                         <i className='ri-check-line'></i>
                       </div>
                       <h3>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>Walking on Air</a>
                         </Link>
                       </h3>
                       <span>
                         Created by
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>@Emilia</a>
                         </Link>
                       </span>
                     </div>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='auction-item-btn'>
                         <i className='ri-arrow-right-line'></i>
                       </a>
@@ -124,7 +124,7 @@ const AuctionArea = () => {
 
                 <div className='auction-item'>
                   <div className='auction-item-img'>
-                    <Link href='/auction'>
+                    <Link legacyBehavior href='/auction'>
                       <a>
                         <img
                           src='../images/auctions/auctions-img2.jpg'
@@ -150,7 +150,7 @@ const AuctionArea = () => {
                   <div className='content'>
                     <div className='auction-item-list'>
                       <div className='auction-item-list-img'>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>
                             <img
                               src='../images/auctions/auctions-user2.jpg'
@@ -161,19 +161,19 @@ const AuctionArea = () => {
                         <i className='ri-check-line'></i>
                       </div>
                       <h3>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>To Infinity And Beyond</a>
                         </Link>
                       </h3>
                       <span>
                         Created by
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>@Martina</a>
                         </Link>
                       </span>
                     </div>
 
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='auction-item-btn'>
                         <i className='ri-arrow-right-line'></i>
                       </a>
@@ -190,7 +190,7 @@ const AuctionArea = () => {
 
                 <div className='auction-item'>
                   <div className='auction-item-img'>
-                    <Link href='/auction'>
+                    <Link legacyBehavior href='/auction'>
                       <a>
                         <img
                           src='../images/auctions/auctions-img3.jpg'
@@ -216,7 +216,7 @@ const AuctionArea = () => {
                   <div className='content'>
                     <div className='auction-item-list'>
                       <div className='auction-item-list-img'>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>
                             <img
                               src='../images/auctions/auctions-user3.jpg'
@@ -227,18 +227,18 @@ const AuctionArea = () => {
                         <i className='ri-check-line'></i>
                       </div>
                       <h3>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>Industrial Revolution</a>
                         </Link>
                       </h3>
                       <span>
                         Created by
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>@Julian</a>
                         </Link>
                       </span>
                     </div>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='auction-item-btn'>
                         <i className='ri-arrow-right-line'></i>
                       </a>
@@ -254,7 +254,7 @@ const AuctionArea = () => {
 
                 <div className='auction-item'>
                   <div className='auction-item-img'>
-                    <Link href='/auction'>
+                    <Link legacyBehavior href='/auction'>
                       <a>
                         <img
                           src='../images/auctions/auctions-img4.jpg'
@@ -281,7 +281,7 @@ const AuctionArea = () => {
                   <div className='content'>
                     <div className='auction-item-list'>
                       <div className='auction-item-list-img'>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>
                             <img
                               src='../images/auctions/auctions-user4.jpg'
@@ -292,18 +292,18 @@ const AuctionArea = () => {
                         <i className='ri-check-line'></i>
                       </div>
                       <h3>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>Become on Nature</a>
                         </Link>
                       </h3>
                       <span>
                         Created by
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a>@Daniel</a>
                         </Link>
                       </span>
                     </div>
-                    <Link href='/author-profile'>
+                    <Link legacyBehavior href='/author-profile'>
                       <a className='auction-item-btn'>
                         <i className='ri-arrow-right-line'></i>
                       </a>

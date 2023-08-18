@@ -90,10 +90,10 @@ const BannerArea = () => {
                   sodales consectetur.
                 </p>
                 <div className='banner-btn'>
-                  <Link href='/about'>
+                  <Link legacyBehavior href='/about'>
                     <a className='default-btn border-radius-5'>Explore More</a>
                   </Link>
-                  <Link href='/add-wallet'>
+                  <Link legacyBehavior href='/add-wallet'>
                     <a className='default-btn two border-radius-5'>
                       Connect NFT
                     </a>
@@ -113,7 +113,7 @@ const BannerArea = () => {
                           alt='Images'
                         />
                         <div className='banner-item-user'>
-                          <Link href='/author-profile'>
+                          <Link legacyBehavior href='/author-profile'>
                             <a className='banner-item-user-option'>
                               <img
                                 src='../images/home-two/home-two-user1.jpg'
@@ -145,7 +145,7 @@ const BannerArea = () => {
                             </div>
                           </div>
                         </div>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a className='place-btn'>Place Bid</a>
                         </Link>
                       </div>
@@ -158,7 +158,7 @@ const BannerArea = () => {
                           alt='Images'
                         />
                         <div className='banner-item-user'>
-                          <Link href='/author-profile'>
+                          <Link legacyBehavior href='/author-profile'>
                             <a className='banner-item-user-option'>
                               <img
                                 src='../images/home-two/home-two-user2.jpg'
@@ -190,7 +190,7 @@ const BannerArea = () => {
                             </div>
                           </div>
                         </div>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a className='place-btn'>Place Bid</a>
                         </Link>
                       </div>
@@ -203,7 +203,7 @@ const BannerArea = () => {
                           alt='Images'
                         />
                         <div className='banner-item-user'>
-                          <Link href='/author-profile'>
+                          <Link legacyBehavior href='/author-profile'>
                             <a
                               className='banner-item-user-option'
                             >
@@ -237,7 +237,7 @@ const BannerArea = () => {
                             </div>
                           </div>
                         </div>
-                        <Link href='/author-profile'>
+                        <Link legacyBehavior href='/author-profile'>
                           <a className='place-btn'>Place Bid</a>
                         </Link>
                       </div>

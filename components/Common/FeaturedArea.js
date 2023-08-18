@@ -60,23 +60,35 @@ const FeaturedArea = ({ title, pagination }) => {
     clientId: process.env.thirdweb_CLIENTID,
   });
 
-  useEffect(async() => {
-    setMarketplaceContract(
-      await sdk.getContract(process.env.Marketplace_Contract)
-    )
-  }, [])
-  useEffect(async () => {
-    console.log(marketplaceContract)
-    if (marketplaceContract) { 
-      try { 
-        setAuctionListing(
-          await marketplaceContract.englishAuctions.getAllValid()
-          );
-      } catch (err) {
-        console.log(err)
-        }
+useEffect(() => {
+  async function fetchMarketplaceData() {
+    try {
+      const contract = await sdk.getContract(process.env.Marketplace_Contract);
+      setMarketplaceContract(contract);
+    } catch (error) {
+      console.error("Error fetching marketplace contract:", error);
     }
-  }, [marketplaceContract])
+  }
+
+  fetchMarketplaceData();
+}, []);
+
+useEffect(() => {
+  async function fetchAuctionListing() {
+    console.log(marketplaceContract);
+    if (marketplaceContract) {
+      try {
+        const auctionList =
+          await marketplaceContract.englishAuctions.getAllValid();
+        setAuctionListing(auctionList);
+      } catch (error) {
+        console.error("Error fetching auction listing:", error);
+      }
+    }
+  }
+
+  fetchAuctionListing();
+}, [marketplaceContract]);
 
   // console.log(AuctionListing)
 
@@ -137,7 +149,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img5.jpg"
@@ -146,7 +158,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user5.jpg"
@@ -166,7 +178,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -202,7 +214,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/author-profile">
+                            <Link legacyBehavior href="/author-profile">
                               <a>
                                 <img
                                   src="../images/featured/featured-img6.jpg"
@@ -211,7 +223,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user6.jpg"
@@ -231,7 +243,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -267,7 +279,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img7.jpg"
@@ -276,7 +288,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user7.jpg"
@@ -296,7 +308,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -332,7 +344,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img8.jpg"
@@ -341,7 +353,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user8.jpg"
@@ -361,7 +373,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -397,7 +409,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img1.jpg"
@@ -406,7 +418,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user1.jpg"
@@ -426,7 +438,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -462,7 +474,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img2.jpg"
@@ -471,7 +483,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user2.jpg"
@@ -491,7 +503,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Love In The Air</a>
                               </Link>
                             </h3>
@@ -527,7 +539,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img3.jpg"
@@ -536,7 +548,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user3.jpg"
@@ -556,7 +568,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -592,7 +604,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img4.jpg"
@@ -601,7 +613,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user4.jpg"
@@ -621,7 +633,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -663,7 +675,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img3.jpg"
@@ -672,7 +684,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user3.jpg"
@@ -692,7 +704,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -728,7 +740,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img4.jpg"
@@ -737,7 +749,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user4.jpg"
@@ -757,7 +769,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -793,7 +805,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img5.jpg"
@@ -802,7 +814,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user5.jpg"
@@ -822,7 +834,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -858,7 +870,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img6.jpg"
@@ -867,7 +879,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user6.jpg"
@@ -887,7 +899,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -923,7 +935,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img7.jpg"
@@ -932,7 +944,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user7.jpg"
@@ -952,7 +964,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -988,7 +1000,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img8.jpg"
@@ -997,7 +1009,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user8.jpg"
@@ -1017,7 +1029,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -1053,7 +1065,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img1.jpg"
@@ -1062,7 +1074,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user1.jpg"
@@ -1082,7 +1094,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -1118,7 +1130,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img2.jpg"
@@ -1127,7 +1139,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user3.jpg"
@@ -1147,7 +1159,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Love In The Air</a>
                               </Link>
                             </h3>
@@ -1189,7 +1201,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img5.jpg"
@@ -1198,7 +1210,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user5.jpg"
@@ -1218,7 +1230,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -1254,7 +1266,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img6.jpg"
@@ -1263,7 +1275,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user6.jpg"
@@ -1283,7 +1295,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -1319,7 +1331,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img7.jpg"
@@ -1328,7 +1340,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user7.jpg"
@@ -1348,7 +1360,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -1384,7 +1396,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img8.jpg"
@@ -1393,7 +1405,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user8.jpg"
@@ -1413,7 +1425,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -1449,7 +1461,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img1.jpg"
@@ -1458,7 +1470,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user1.jpg"
@@ -1478,7 +1490,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -1514,7 +1526,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img2.jpg"
@@ -1523,7 +1535,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user3.jpg"
@@ -1543,7 +1555,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Love In The Air</a>
                               </Link>
                             </h3>
@@ -1579,7 +1591,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img3.jpg"
@@ -1588,7 +1600,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user3.jpg"
@@ -1608,7 +1620,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -1644,7 +1656,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img4.jpg"
@@ -1653,7 +1665,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user4.jpg"
@@ -1673,7 +1685,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -1715,7 +1727,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img3.jpg"
@@ -1724,7 +1736,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user3.jpg"
@@ -1744,7 +1756,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Become One With Nature</a>
                               </Link>
                             </h3>
@@ -1780,7 +1792,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img4.jpg"
@@ -1789,7 +1801,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user4.jpg"
@@ -1809,7 +1821,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Twilight Fracture City</a>
                               </Link>
                             </h3>
@@ -1845,7 +1857,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img5.jpg"
@@ -1854,7 +1866,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user5.jpg"
@@ -1874,7 +1886,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Walking On Air</a>
                               </Link>
                             </h3>
@@ -1910,7 +1922,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img6.jpg"
@@ -1919,7 +1931,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user6.jpg"
@@ -1939,7 +1951,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Supper Nuemorphism</a>
                               </Link>
                             </h3>
@@ -1975,7 +1987,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img7.jpg"
@@ -1984,7 +1996,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user7.jpg"
@@ -2004,7 +2016,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Dark-light Angel</a>
                               </Link>
                             </h3>
@@ -2040,7 +2052,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img8.jpg"
@@ -2049,7 +2061,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user8.jpg"
@@ -2069,7 +2081,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Exe Dream Hight</a>
                               </Link>
                             </h3>
@@ -2105,7 +2117,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img1.jpg"
@@ -2114,7 +2126,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user1.jpg"
@@ -2134,7 +2146,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Industrial Revolution</a>
                               </Link>
                             </h3>
@@ -2170,7 +2182,7 @@ const FeaturedArea = ({ title, pagination }) => {
                       <div className="col-lg-3 col-md-6">
                         <div className="featured-item">
                           <div className="featured-item-img">
-                            <Link href="/item-details">
+                            <Link legacyBehavior href="/item-details">
                               <a>
                                 <img
                                   src="../images/featured/featured-img2.jpg"
@@ -2179,7 +2191,7 @@ const FeaturedArea = ({ title, pagination }) => {
                               </a>
                             </Link>
                             <div className="featured-user">
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a className="featured-user-option">
                                   <img
                                     src="../images/featured/featured-user2.jpg"
@@ -2199,7 +2211,7 @@ const FeaturedArea = ({ title, pagination }) => {
 
                           <div className="content">
                             <h3>
-                              <Link href="/author-profile">
+                              <Link legacyBehavior href="/author-profile">
                                 <a>Love In The Air</a>
                               </Link>
                             </h3>
