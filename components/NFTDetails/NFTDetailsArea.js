@@ -41,10 +41,14 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
 
   useEffect(() => {
    
-      
+    if (NFT) {   
       console.log(NFT);
       fetch(NFT?.metadata.properties.IPFSHash)
-      .then((res) => res.json())
+        .then((res) => { 
+          console.log(res)
+          return res.json()
+        } 
+        )
       .then((res) => {
         setipfsData(res.parcelData);
         console.log(res);
@@ -55,7 +59,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
       .catch((err) => {
         console.log(err);
       });
-    
+    }
   }, [NFT])
   
 

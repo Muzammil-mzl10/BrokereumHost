@@ -43,9 +43,12 @@ const AuthorArea = () => {
   // },[contract])
 
   useEffect(() => {
-    getNFTColleciton()
-    getAdminNFTContract()
-  },[])
+    if (ThirdwebSDK) {
+      
+      getNFTColleciton()
+      getAdminNFTContract()
+    }
+  },[ThirdwebSDK])
 
 
   const { mutateAsync: upload } = useStorageUpload( {
@@ -72,18 +75,19 @@ const AuthorArea = () => {
    };
   
 
-  useEffect(async() => {
-    console.log(metadata)
-    if (metadata.length == lengthIPFS) {
-      console.log("Finally the time has come.....!!")
-      try {  
+useEffect(() => {
+  const mintBatch = async () => {
+    console.log(metadata);
+    if (metadata.length === lengthIPFS) {
+      console.log("Finally the time has come.....!!");
+      try {
         const rolesAndMembers = await adminContract.roles.getAll();
-        console.log(rolesAndMembers)
-        const data = await  adminContract.roles.grant("minter", walletAddress);
-        console.log(data)
+        console.log(rolesAndMembers);
+        const data = await adminContract.roles.grant("minter", walletAddress);
+        console.log(data);
         if (data) {
           const tx = await contract.erc721.mintBatchTo(walletAddress, metadata);
-          console.log(tx)
+          console.log(tx);
           toast.success("Batch Minted Successfully!", {
             position: "top-center",
             autoClose: 5000,
@@ -93,10 +97,10 @@ const AuthorArea = () => {
             draggable: true,
             progress: undefined,
             theme: "light",
-        });
-      }
-      } catch (Err) {
-        console.log(Err)
+          });
+        }
+      } catch (err) {
+        console.log(err);
         toast.error("🦄 Error while batch minting", {
           position: "top-center",
           autoClose: 5000,
@@ -109,7 +113,11 @@ const AuthorArea = () => {
         });
       }
     }
-  },[metadata])
+  };
+
+  mintBatch();
+}, [metadata]);
+
 
   const uploadBatch = async() => {
     toast.info("🦄 Minting started....", {

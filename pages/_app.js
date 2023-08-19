@@ -52,6 +52,7 @@ function MyApp({ Component, pageProps }) {
         clientId={process.env.thirdweb_CLIENTID}
         activeChain={"mumbai"}
         autoConnect={true}
+        
         sdkOptions={{
           gasless: {
             openzeppelin: {
@@ -61,26 +62,19 @@ function MyApp({ Component, pageProps }) {
           },
         }}
         supportedWallets={[
-          smartWallet({
-            
-            factoryAddress: process.env.factoryAddress,
-            thirdwebApiKey: process.env.thirdwebApiKey,
-            gasless: true,
-            personalWallets: [
-              metamaskWallet(),
-              paperWallet({
-                paperClientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d",
-              }),
-              localWallet({ persist: true }),
-              coinbaseWallet(),
-              walletConnect(),
-              // rainbowWallet(),
-              // zerionWallet(),
-             
-              // frameWallet(),
-              trustWallet(),
-            ],
+          metamaskWallet(),
+          paperWallet({
+            paperClientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d",
           }),
+          localWallet({ persist: true }),
+          coinbaseWallet(),
+          walletConnect(),
+          trustWallet(),
+          // smartWallet({
+          //   factoryAddress: process.env.factoryAddress,
+          //   thirdwebApiKey: process.env.thirdwebApiKey,
+          //   gasless: true,
+          // }),
         ]}
       >
         <Component {...pageProps} />

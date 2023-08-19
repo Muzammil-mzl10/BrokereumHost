@@ -7,11 +7,16 @@ import {
   useContractWrite,
   useContract,
   Web3Button,
-  coinbaseWallet, localWallet, metamaskWallet, safeWallet, smartWallet, walletConnect 
+  coinbaseWallet,
+  localWallet,
+  metamaskWallet,
+  safeWallet,
+  smartWallet,
+  walletConnect,
 } from "@thirdweb-dev/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import { SmartWallet } from "@thirdweb-dev/wallets";
 import { Mumbai } from "@thirdweb-dev/chains";
@@ -22,23 +27,22 @@ import { route } from "next/dist/server/router";
 import axios from "axios";
 
 const NFTDetailsDescription = ({ NFT, ipfsData }) => {
+  console.log(NFT.metadata.properties.downPayment);
+  const router = useRouter();
+  const address = useAddress();
 
-  const router = useRouter()
-  const address = useAddress()
- 
   useEffect(() => {
     if (!address) {
-      router.push("/")
+      router.push("/");
     }
-  },[])
-
+  }, []);
 
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   const [formData, setFormData] = useState({
     listingType: "Auction",
     pricePerToken: "",
-    bidoutPrice:"",
+    bidoutPrice: "",
   });
   const [Clipboard, setclipboard] = useState(false);
   const [contract, setContract] = useState();
@@ -48,8 +52,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     setclipboard(true);
   };
 
-
-  const signer = useSigner()
+  const signer = useSigner();
   const marketplaceContract = async () => {
     const sdk = ThirdwebSDK.fromSigner(signer, "mumbai", {
       clientId: process.env.thirdweb_CLIENTID,
@@ -58,23 +61,30 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     setContract(await sdk.getContract(process.env.Marketplace_Contract));
   };
   useEffect(() => {
-    if (ThirdwebSDK, address) {
-      
+    if ((ThirdwebSDK, address)) {
       marketplaceContract();
     }
   }, [ThirdwebSDK, address]);
- 
-    
 
+  const [finalbidamount, setfinalbidamount] = useState();
+  function calculatePercent(totalAmount) {
+    const returnedPercentage =
+      (NFT.metadata.properties.downPayment / 100) * totalAmount;
+    setfinalbidamount(returnedPercentage);
+  }
 
+  useEffect(() => {
+    calculatePercent(formData.bidoutPrice);
+  }, [formData]);
 
   const ListForSale = async (e) => {
     e.preventDefault();
+    console.log(finalbidamount);
     console.log(formData);
     console.log(startDate);
     console.log(endDate);
     console.log("List");
-   
+
     // Data of the listing you want to create
     const listing = {
       // address of the contract the asset you want to list is on
@@ -105,9 +115,9 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
       // address of the currency contract that will be used to pay for the auctioned tokens
       currencyContractAddress: NATIVE_TOKEN_ADDRESS,
       // the minimum bid that will be accepted for the token
-      minimumBidAmount: "0.01",
+      minimumBidAmount: finalbidamount,
       // how much people would have to bid to instantly buy the asset
-      buyoutBidAmount: "1",
+      buyoutBidAmount: formData.bidoutPrice,
       // If a bid is made less than these many seconds before expiration, the expiration time is increased by this.
       timeBufferInSeconds: "300", // 5 minutes by default
       // A bid must be at least this much bps greater than the current winning bid
@@ -117,25 +127,22 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
       // end time of auction
       endTimestamp: endDate,
     };
-    console.log(contract)
+    console.log(contract);
     try {
-      
-    
       const tx = await contract.englishAuctions.createAuction(auction);
       if (tx) {
-
-          const activityAdd = JSON.stringify({
-            data: {
-              Name: "List",
-              address: address,
-              ListID: NFT.metadata.id,
-              imgHash: ipfsData.image_urls.satellite_image,
-              Data: {
-                data: tx.receipt,
-              },
+        const activityAdd = JSON.stringify({
+          data: {
+            Name: "List",
+            address: address,
+            ListID: NFT.metadata.id,
+            imgHash: ipfsData.image_urls.satellite_image,
+            Data: {
+              data: tx.receipt,
             },
-          });
-        
+          },
+        });
+
         axios
           .post(`${process.env.STRAPI_URL_PROD}/api/activities`, activityAdd, {
             headers: {
@@ -149,34 +156,33 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
           .catch((err) => {
             console.log(err);
           });
-          toast.success("Property listed Successfully!", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+        toast.success("Property listed Successfully!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
       const receipt = tx.receipt; // the transaction receipt
       const id = tx.id; // the id of the newly created listing
       console.log(receipt);
       console.log(id);
-    }
-    catch (err) {
-      console.log(err)
-       toast.error("🦄 Error while listing the Property", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
+    } catch (err) {
+      console.log(err);
+      toast.error("🦄 Error while listing the Property", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -329,7 +335,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
               />
             </div>
             <div className="form-group mt-3">
-              <label>Bidout Price</label>
+              <label>Total Property Price</label>
               <input
                 type="number"
                 value={formData.bidoutPrice}
@@ -357,6 +363,16 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
               />
             </div>
           </div>
+          <div style={{fontSize:"30px"}} className="my-5 d-flex flex-column justify-content-center align-items-start">
+            <div>
+             DownPayment % {NFT.metadata.properties.downPayment}
+            </div>
+            {finalbidamount ?
+            <div>
+             Final Bid Amount {finalbidamount}
+            </div>
+            :null}
+            </div>
 
           <button type="submit" className="default-btn border-radius-50">
             List for Sale
