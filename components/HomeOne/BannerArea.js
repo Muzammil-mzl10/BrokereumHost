@@ -99,26 +99,17 @@ const BannerArea = () => {
             <div className="col-lg-6">
               <div className="banner-content">
                 <p className="h1 text-danger fw-bold">
-                  Reshape Real Estate Selling
+                  Real Estate Selling Redefined
                 </p>
 
                 <ul style={{ color: "whitesmoke" }} className="h3">
-                  <li>Use Smart contracts for real estate auctions</li>
-                  <li>Reduce the influence of intermediaries</li>
-                  <li>Avoid delays in real estate transactions</li>
-                  <li>Sell real estate within hours not months</li>
+                  <li>Use Smart Contract based Auctions</li>
+                  <li>Benefit from Fair Price Discovery</li>
+                  <li>Sell Yourself Without Intermediaries</li>
+                  <li>Transact within Hours not Months</li>
                 </ul>
-                <p className="mt-5">
-                  Introducing Brokereum, the game-changing platform with
-                  tamper-proof smart contracts. Make buying and selling property
-                  faster, more efficient, and more secure.
-                </p>
-                <p>
-                  Benefit from fair price discovery with heavily reduced
-                  transaction costs.
-                </p>
                 <div
-                  className=""
+                  className="mt-5"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -155,7 +146,7 @@ const BannerArea = () => {
               </div>
             </div>
 
-            <div className="col-lg-6">
+            <div className="col-lg-6 d-none d-lg-block">
               <div className="banner-card-area">
                 <div className="d-flex flex-lg-row flex-column justify-content-center">
                   {AuctionListing &&
@@ -183,6 +174,20 @@ const BannerArea = () => {
             <img src="../images/home-one/bg-shape.png" alt="Images" />
           </div> */}
         </div>
+      </div>
+      <div className="p-2 bottom-section-style">
+        <div
+          style={{ fontWeight: "bold"}}
+          className=" mt-4 text-danger bottom-section-text"
+        >
+          Benefits of Brokereum
+        </div>
+        <ul style={{ color: "black", width: "80vw" }} className="h3 mt-2">
+          <li>Experience how smart contracts revolutionize transactions</li>
+          <li>Make buying and selling real estate faster and more secure</li>
+          <li>Benefit from heavily reduced transaction costs</li>
+          <li>Retain full control over the sale of your property from A-Z</li>
+        </ul>
       </div>
     </div>
   );

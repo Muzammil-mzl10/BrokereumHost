@@ -362,6 +362,7 @@
     font-size: 14px;
   }
   .banner-area-three {
+    height: 60vh; 
     padding: 50px 0;
   }
   .banner-content-three {
@@ -861,6 +862,12 @@
     line-height: 30px;
     font-size: 15px;
   }
+  .bottom-section-style{
+  margin-left: 10px;
+}
+.bottom-section-text{
+  font-size: 30px;
+}
   /* Author Area End */
   /* Testimonial Area */
   .testimonial-item {
@@ -1752,6 +1759,7 @@
     font-size: 14px;
   }
   .banner-area-three {
+    
     padding: 50px 0;
   }
   .banner-content-three {

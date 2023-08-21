@@ -7,12 +7,47 @@ import { Web3Button, useSigner, useAddress } from '@thirdweb-dev/react';
 import { Mumbai } from '@thirdweb-dev/chains';
 import { ethers } from "ethers";
 import axios from 'axios';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
 const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
+
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [bidoutPrice,setBidOutPrice] = useState()
+  
+  const [startDate, endDate] = dateRange;
+  const [formData, setFormData] = useState({
+    listingType: "Auction",
+    pricePerToken: "",
+  });
+  
+  const handleChange = (e) => {
+    console.log(e.target.name)
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  
+   function calculatePercent(totalAmount) {
+     const returnedPercentage =
+       (data?.asset.properties.downPayment / 100) * totalAmount;
+       setBidOutPrice(returnedPercentage);
+   }
+
+  useEffect(() => {
+    calculatePercent(formData.pricePerToken)
+    console.log(bidoutPrice)
+
+  },[formData])
+
+  // ...
+
   const router = useRouter();
   const [bidAmount, setBidAmount] = useState()
   const [userData,setUserData] = useState()
@@ -239,6 +274,36 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       console.log("Error");
     }
   } 
+
+  const updateListing = () => {
+    console.log(formData)
+    console.log(dateRange);
+      const auction = {
+        // address of the contract of the asset you want to auction
+        assetContractAddress: process.env.ERC_Contract,
+        // token ID of the asset you want to auction
+        tokenId: data.id,
+        // how many of the asset you want to auction
+        quantity: 1,
+        // address of the currency contract that will be used to pay for the auctioned tokens
+        currencyContractAddress: NATIVE_TOKEN_ADDRESS,
+        // the minimum bid that will be accepted for the token
+        minimumBidAmount: finalbidamount,
+        // how much people would have to bid to instantly buy the asset
+        buyoutBidAmount: bidoutPrice,
+        // If a bid is made less than these many seconds before expiration, the expiration time is increased by this.
+        timeBufferInSeconds: "300", // 5 minutes by default
+        // A bid must be at least this much bps greater than the current winning bid
+        bidBufferBps: "500", // 5% by default
+        // when should the auction open up for bidding
+        startTimestamp: startDate,
+        // end time of auction
+        endTimestamp: endDate,
+      };
+      
+    
+    
+  }
   
   
   return (
@@ -357,7 +422,63 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       </div>
       <form onSubmit={placeBid}>
         {data?.creatorAddress == Address ? (
-          <span className="fs-bold ">You are the Owner of this NFT</span>
+          <form onSubmit={updateListing}>
+            <div className="item-details-btn">
+              <h2 className='text-danger'> You are the Owner of the Property</h2>
+              <div className="side-bar-widget">
+                <label
+                  style={{ fontSize: "30px", fontWeight: "bolder" }}
+                  className="mt-2"
+                >
+                  Edit the Listing
+                </label>
+                <br />
+
+              </div>
+              <div className="col-lg-12 mb-4">
+                <div className="form-group">
+                  <label>Price of the Property</label>
+                  <input
+                    type="number"
+                    value={formData.pricePerToken}
+                    name="pricePerToken"
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+              </div>
+              <div className="col-lg-12 mb-4">
+                <div className="form-group">
+                  <label>Big Out Amount will be: {bidoutPrice }</label>
+                </div>
+              </div>
+              <div className="col-lg-12">
+                <div className="">
+                  <label>Listing for specific date</label>
+                  <DatePicker
+                    selectsRange={true}
+                    startDate={startDate}
+                    placeholderText="Select the Date Range"
+                    endDate={endDate}
+                    style={{ width: "inherit" }}
+                    onChange={(update) => {
+                      setDateRange(update);
+                    }}
+                    className="px-5 py-2 mb-4 text-center"
+                    minDate={new Date()}
+                    withPortal
+                  />
+                </div>
+              </div>
+
+              <button type="submit" style={{backgroundColor:"gray"}}  className="default-btn btn-info mb-2 border-radius-50">
+                Update Listing
+              </button>
+              <button type="button" className="default-btn border-radius-50">
+                Cancel Listing
+              </button>
+            </div>
+          </form>
         ) : (
           <>
             <div className="col-lg-12 my-3">

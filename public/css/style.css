@@ -1610,6 +1610,7 @@ Main Banner Area
           transform-origin: bottom center;
 }
 
+
 .banner-area-three {
   background-image: url(../images/headers/landscape\ blockchain-7571280.jpg);
   background-size: cover;
@@ -1617,6 +1618,12 @@ Main Banner Area
   background-position: center center;
   background-repeat: no-repeat;
   padding: 150px 0;
+}
+.bottom-section-style{
+  margin-left: 60px;
+}
+.bottom-section-text{
+  font-size: 40px;
 }
 
 .banner-content-three {
