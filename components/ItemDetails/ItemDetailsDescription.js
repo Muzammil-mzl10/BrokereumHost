@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from 'next/link'
 import { setConfig } from 'next/config';
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
-import { Web3Button, useSigner, useAddress } from '@thirdweb-dev/react';
+import { Web3Button, useSigner, useAddress, NATIVE_TOKEN_ADDRESS } from '@thirdweb-dev/react';
 import { Mumbai } from '@thirdweb-dev/chains';
 import { ethers } from "ethers";
 import axios from 'axios';
@@ -275,7 +275,8 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     }
   } 
 
-  const updateListing = () => {
+  const updateListing = async (e) => {
+    e.preventDefault()
     console.log(formData)
     console.log(dateRange);
       const auction = {
@@ -288,9 +289,9 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         // address of the currency contract that will be used to pay for the auctioned tokens
         currencyContractAddress: NATIVE_TOKEN_ADDRESS,
         // the minimum bid that will be accepted for the token
-        minimumBidAmount: finalbidamount,
+        minimumBidAmount: bidoutPrice,
         // how much people would have to bid to instantly buy the asset
-        buyoutBidAmount: bidoutPrice,
+        buyoutBidAmount: formData.pricePerToken,
         // If a bid is made less than these many seconds before expiration, the expiration time is increased by this.
         timeBufferInSeconds: "300", // 5 minutes by default
         // A bid must be at least this much bps greater than the current winning bid
@@ -301,8 +302,41 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         endTimestamp: endDate,
       };
       
-    
-    
+    // const tx = await marketplaceModule.englishAuctions.updateListing(data.id,auction)
+    // console.log(tx)
+  }
+
+  const cancelAuction = async() => {
+    try {
+      
+      const tx = await marketplaceModule.englishAuctions.cancelAuction(data.id)
+      
+      console.log(tx)
+    toast.success("Successfully Cancelled Auction", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+        
+        router.push("/")
+    } catch (err) {
+      console.log(err)
+         toast.error("🦄 Can not Cancelled", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+    }
   }
   
   
@@ -420,7 +454,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           </h3>
         </div>
       </div>
-      <form onSubmit={placeBid}>
+     
         {data?.creatorAddress == Address ? (
           <form onSubmit={updateListing}>
             <div className="item-details-btn">
@@ -435,7 +469,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                 <br />
 
               </div>
-              <div className="col-lg-12 mb-4">
+              {/* <div className="col-lg-12 mb-4">
                 <div className="form-group">
                   <label>Price of the Property</label>
                   <input
@@ -473,14 +507,15 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
               <button type="submit" style={{backgroundColor:"gray"}}  className="default-btn btn-info mb-2 border-radius-50">
                 Update Listing
-              </button>
-              <button type="button" className="default-btn border-radius-50">
+              </button> */}
+              <button type="button" onClick={cancelAuction} className="default-btn border-radius-50">
                 Cancel Listing
               </button>
             </div>
           </form>
         ) : (
           <>
+             <form onSubmit={placeBid}>
             <div className="col-lg-12 my-3">
               <div className="form-group">
                 <label>Enter Bidding Amount</label>
@@ -508,6 +543,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                 {bidComplete ? "Your Bid was Successfull" : "Place Bid"}
               </button>
             </div>
+      </form>
             {bidErrorMessage ? (
               <span className="text-danger">
                 Enter Amount must be greater than{" "}
@@ -520,7 +556,6 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             )}
           </>
         )}
-      </form>
     </>
   );
 };
