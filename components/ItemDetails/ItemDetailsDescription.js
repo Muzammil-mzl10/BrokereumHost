@@ -338,6 +338,37 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         });
     }
   }
+
+  const closeAuctionForBidders = async () => {
+    try {
+      
+      const tx =   await marketplaceModule.englishAuctions.closeAuctionForBidder(data.id);
+      console.log(tx)
+       toast.success("Successfully Closed Auction For Bidder", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+    } catch (err) {
+
+       console.log(err)
+       toast.error("🦄 Listing can not be Closed", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+    }
+  }
   
   
   return (
@@ -510,6 +541,9 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
               </button> */}
               <button type="button" onClick={cancelAuction} className="default-btn border-radius-50">
                 Cancel Listing
+              </button>
+              <button type="button" onClick={closeAuctionForBidders} className="default-btn border-radius-50 mt-2">
+                Close Auction for Bidders
               </button>
             </div>
           </form>

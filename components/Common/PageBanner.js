@@ -4,7 +4,7 @@ import Link from 'next/link'
 const PageBanner = ({ bannerHeading, parentTitle, pageTitle,bg }) => {
   return (
     <>
-      <div style={{height:"70vh"}} className={`inner-banner  bg-activity-img`}>
+      <div style={{height:"50vh"}} className={`inner-banner  bg-activity-img`}>
         <div className="container">
           <div className="inner-title">
             <h3>{bannerHeading}</h3>

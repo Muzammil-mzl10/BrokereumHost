@@ -1614,13 +1614,15 @@ Main Banner Area
 .banner-area-three {
   background-image: url(../images/headers/landscape\ blockchain-7571280.jpg);
   background-size: cover;
-  height: 90vh;
+  height: 70vh;
   background-position: center center;
   background-repeat: no-repeat;
-  padding: 150px 0;
+  padding: 100px 0;
+ 
 }
 .bottom-section-style{
-  margin-left: 60px;
+  padding: 10px 0;
+  margin-left: 4vw;
 }
 .bottom-section-text{
   font-size: 40px;

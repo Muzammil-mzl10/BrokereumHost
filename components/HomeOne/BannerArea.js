@@ -94,7 +94,7 @@ const BannerArea = () => {
   return (
     <div>
       <div className="banner-area-three">
-        <div className="container-fluid">
+        <div style={{marginLeft:"3.5vw"}} className="container-fluid">
           <div className="row align-items-center">
             <div className="col-lg-6">
               <div className="banner-content">
@@ -175,7 +175,7 @@ const BannerArea = () => {
           </div> */}
         </div>
       </div>
-      <div className="p-2 bottom-section-style">
+      <div className="bottom-section-style">
         <div
           style={{ fontWeight: "bold"}}
           className=" mt-4 text-danger bottom-section-text"

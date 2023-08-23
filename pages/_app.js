@@ -70,11 +70,11 @@ function MyApp({ Component, pageProps }) {
           coinbaseWallet(),
           walletConnect(),
           trustWallet(),
-          // smartWallet({
-          //   factoryAddress: process.env.factoryAddress,
-          //   thirdwebApiKey: process.env.thirdwebApiKey,
-          //   gasless: true,
-          // }),
+          smartWallet({
+            factoryAddress: process.env.factoryAddress,
+            thirdwebApiKey: process.env.thirdwebApiKey,
+            gasless: true,
+          }),
         ]}
       >
         <Component {...pageProps} />
