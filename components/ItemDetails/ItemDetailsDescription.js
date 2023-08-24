@@ -342,7 +342,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const closeAuctionForBidders = async () => {
     try {
       
-      const tx =   await marketplaceModule.englishAuctions.closeAuctionForBidder(data.id);
+      const tx = await marketplaceModule.englishAuctions.executeSale(data.id);
       console.log(tx)
        toast.success("Successfully Closed Auction For Bidder", {
          position: "top-center",
@@ -542,9 +542,9 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
               <button type="button" onClick={cancelAuction} className="default-btn border-radius-50">
                 Cancel Listing
               </button>
-              <button type="button" onClick={closeAuctionForBidders} className="default-btn border-radius-50 mt-2">
-                Close Auction for Bidders
-              </button>
+              {/* <button type="button" onClick={closeAuctionForBidders} className="default-btn border-radius-50 mt-2">
+                Close Auction
+              </button> */}
             </div>
           </form>
         ) : (

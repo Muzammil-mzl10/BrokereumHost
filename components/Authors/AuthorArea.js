@@ -161,7 +161,7 @@ useEffect(() => {
               IPFSHash: ipfsHash,
               priceType: "formData.priceType",
               salesDeadline: "formData.salesDeadline",
-              downPayment: "formData.downPayment",
+              downPayment: 5,
               propertyType: "formData.propertyType",
             },
           };
