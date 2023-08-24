@@ -145,7 +145,7 @@ const BannerArea = () => {
                 </div>
               </div>
             </div>
-
+{/* 
             <div className="col-lg-6 d-none d-lg-block">
               <div className="banner-card-area">
                 <div className="d-flex flex-lg-row flex-column justify-content-center">
@@ -157,7 +157,7 @@ const BannerArea = () => {
                     )}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

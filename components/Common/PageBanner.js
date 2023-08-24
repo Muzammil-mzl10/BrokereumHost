@@ -18,10 +18,10 @@ const PageBanner = ({ bannerHeading, parentTitle, pageTitle,bg }) => {
               {pageTitle && <li>{pageTitle}</li>}
             </ul>
 
-            <div className="inner-shape">
+            {/* <div className="inner-shape">
               <img src="../images/inner-banner/inner-shape1.png" alt="Images" />
               <img src="../images/inner-banner/inner-shape2.png" alt="Images" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
