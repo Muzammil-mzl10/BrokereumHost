@@ -1,19 +1,17 @@
 import { Client } from "@xmtp/xmtp-js";
 import { ethers } from "ethers";
 import React, { useEffect, useState, useRef } from "react";
-import Chat from "../components/XMTPChat/Chat";;
-import styles from "../public/css/Home.module.css";
-import PageBanner from "../components/Common/PageBanner";
-import Footer from "../components/Layout/Footer";
-import Copyright from "../components/Common/Copyright";
-import Pagination from "../components/Common/Pagination";
-import Link from "next/link";
-import Navbar from "../components/Layout/Navbar";
-import { useAddress } from "@thirdweb-dev/react";
+import Chat from "../../components/XMTPChat/Chat";;
+import styles from "../../public/css/Home.module.css";
+import Footer from "../../components/Layout/Footer";
+import Navbar from "../../components/Layout/Navbar";
+import { useAddress, useSigner } from "@thirdweb-dev/react";
+import { useRouter } from "next/router";
 
-const PEER_ADDRESS = "0x0Dd6F513D90EFADAf7902a705509C370e6088C52";
+// const PEER_ADDRESS = "0x0Dd6F513D90EFADAf7902a705509C370e6088C52";
 
 export default function Home() {
+    const router = useRouter();
     const address = useAddress()
   const [messages, setMessages] = useState(null);
   const convRef = useRef(null);
@@ -21,11 +19,11 @@ export default function Home() {
   const [signer, setSigner] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isOnNetwork, setIsOnNetwork] = useState(false);
-
+  console.log(router.query.chat);
   // Function to load the existing messages in a conversation
   const newConversation = async function (xmtp_client, addressTo) {
     //Creates a new conversation with the address
-    if (await xmtp_client?.canMessage(PEER_ADDRESS)) {
+    if (await xmtp_client?.canMessage(router.query.chat)) {
       const conversation = await xmtp_client.conversations.newConversation(
         addressTo
       );
@@ -44,7 +42,7 @@ export default function Home() {
     // Create the XMTP client
     const xmtp = await Client.create(signer, { env: "production" });
     //Create or load conversation with Gm bot
-    newConversation(xmtp, PEER_ADDRESS);
+    newConversation(xmtp, router.query.chat);
     // Set the XMTP client in state for later use
     setIsOnNetwork(!!xmtp.address);
     //Set the client in the ref
@@ -74,6 +72,14 @@ export default function Home() {
       console.error("Metamask not found");
     }
   };
+  const ThirdwebSigner = useSigner()
+  useEffect(() => {
+    if (address) {
+      setIsConnected(true);
+      setSigner(ThirdwebSigner);
+    }
+  },[address])
+
   useEffect(() => {
     if (isOnNetwork && convRef.current) {
       // Function to stream new messages in the conversation

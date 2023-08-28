@@ -79,7 +79,7 @@ useEffect(() => {
     if (marketplaceContract) {
       try {
         const auctionList =
-          await marketplaceContract.englishAuctions.getAllValid();
+          await marketplaceContract.englishAuctions.getAll();
         setAuctionListing(auctionList);
       } catch (error) {
         console.error("Error fetching auction listing:", error);
@@ -90,7 +90,7 @@ useEffect(() => {
   fetchAuctionListing();
 }, [marketplaceContract]);
 
-  // console.log(AuctionListing)
+  console.log(AuctionListing)
 
 
   return (

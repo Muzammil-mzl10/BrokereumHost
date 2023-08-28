@@ -18,13 +18,52 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
   const [dateRange, setDateRange] = useState([null, null]);
   const [bidoutPrice,setBidOutPrice] = useState()
-  
+  const [expired,setExpired] = useState(false)
+
   const [startDate, endDate] = dateRange;
   const [formData, setFormData] = useState({
     listingType: "Auction",
     pricePerToken: "",
   });
+
+  const [winnerUser,setWinnerUser] = useState()
   
+  const fetchWinningBid = async () => {
+    if (marketplaceModule && data) {
+      setTestTrue(true);
+      console.log("fetching..")
+      const winner = await marketplaceModule.englishAuctions.getWinner(data?.id);
+      console.log(winner)
+     fetch(
+       `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${winner}`
+       )
+       .then((res) => res.json())
+       .then((res) => {
+         console.log(res?.data[0]?.attributes);     
+           setWinnerUser(res.data[0].attributes);
+          });
+          
+          
+        }
+  }
+  const [testTrue,setTestTrue] = useState(false)
+
+  useEffect(() => {
+    if (marketplaceModule) {
+      
+      if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) { 
+        if (!testTrue) { 
+        fetchWinningBid()
+        
+      }
+      setExpired(true)
+    } else {
+      setExpired(false)
+   }
+      }
+  })
+
+
   const handleChange = (e) => {
     console.log(e.target.name)
     const { name, value } = e.target;
@@ -33,6 +72,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       [name]: value,
     }));
   };
+  console.log(days,hours,minutes,seconds)
   
    function calculatePercent(totalAmount) {
      const returnedPercentage =
@@ -369,8 +409,8 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
        });
     }
   }
-  
-  
+  console.log(expired)
+  console.log(winningBid)
   return (
     <>
       <div className="section-title">
@@ -485,22 +525,44 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           </h3>
         </div>
       </div>
-     
-        {data?.creatorAddress == Address ? (
-          <form onSubmit={updateListing}>
-            <div className="item-details-btn">
-              <h2 className='text-danger'> You are the Owner of the Property</h2>
-              <div className="side-bar-widget">
-                <label
-                  style={{ fontSize: "30px", fontWeight: "bolder" }}
-                  className="mt-2"
-                >
-                  Edit the Listing
-                </label>
-                <br />
+      {winningBid && (
+        <div className="item-details-in-content">
+          <div className="item-left">
+            <h3>Auction Winner</h3>
+            <div className="timer-text" data-countdown="2021/11/11">
+              {winningBid?.bidAmountCurrencyValue?.displayValue}{" "}
+              {winningBid?.bidAmountCurrencyValue?.symbol}
+            </div>
+          </div>
+          <div className="item-right">
+            {data?.creatorAddress == Address ? (
+              <Link href={`/chat/${winningBid?.bidderAddress}`}>
+                <button className="btn default-btn">Chat</button>
+              </Link>
+            ) : null}
+            <h3 className="item-remaining mt-3">
+              {winningBid?.bidderAddress.slice(0, 10) +
+                "......" +
+                winningBid?.bidderAddress.slice(-4)}
+            </h3>
+          </div>
+        </div>
+      )}
 
-              </div>
-              {/* <div className="col-lg-12 mb-4">
+      {data?.creatorAddress == Address ? (
+        <form onSubmit={updateListing}>
+          <div className="item-details-btn">
+            <h2 className="text-danger"> You are the Owner of the Property</h2>
+            <div className="side-bar-widget">
+              <label
+                style={{ fontSize: "30px", fontWeight: "bolder" }}
+                className="mt-2"
+              >
+                Edit the Listing
+              </label>
+              <br />
+            </div>
+            {/* <div className="col-lg-12 mb-4">
                 <div className="form-group">
                   <label>Price of the Property</label>
                   <input
@@ -539,17 +601,27 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
               <button type="submit" style={{backgroundColor:"gray"}}  className="default-btn btn-info mb-2 border-radius-50">
                 Update Listing
               </button> */}
-              <button type="button" onClick={cancelAuction} className="default-btn border-radius-50">
-                Cancel Listing
+            <button
+              type="button"
+              onClick={cancelAuction}
+              className="default-btn border-radius-50"
+            >
+              Cancel Listing
+            </button>
+            {expired && expired ? (
+              <button
+                type="button"
+                onClick={closeAuctionForBidders}
+                className="default-btn border-radius-50 mt-2"
+              >
+                Execute Sale
               </button>
-              {/* <button type="button" onClick={closeAuctionForBidders} className="default-btn border-radius-50 mt-2">
-                Close Auction
-              </button> */}
-            </div>
-          </form>
-        ) : (
-          <>
-             <form onSubmit={placeBid}>
+            ) : null}
+          </div>
+        </form>
+      ) : !expired ? (
+        <>
+          <form onSubmit={placeBid}>
             <div className="col-lg-12 my-3">
               <div className="form-group">
                 <label>Enter Bidding Amount</label>
@@ -577,19 +649,19 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                 {bidComplete ? "Your Bid was Successfull" : "Place Bid"}
               </button>
             </div>
-      </form>
-            {bidErrorMessage ? (
-              <span className="text-danger">
-                Enter Amount must be greater than{" "}
-                <span className="fs-bold">
-                  {data?.minimumBidCurrencyValue.displayValue}
-                </span>
+          </form>
+          {bidErrorMessage ? (
+            <span className="text-danger">
+              Enter Amount must be greater than{" "}
+              <span className="fs-bold">
+                {data?.minimumBidCurrencyValue.displayValue}
               </span>
-            ) : (
-              ""
-            )}
-          </>
-        )}
+            </span>
+          ) : (
+            ""
+          )}
+        </>
+      ) : null}
     </>
   );
 };
