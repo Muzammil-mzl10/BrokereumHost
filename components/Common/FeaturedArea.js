@@ -113,7 +113,7 @@ useEffect(() => {
                     <Tab>
                       <a>All</a>
                     </Tab>
-                    <Tab>
+                    {/* <Tab>
                       <a>Art</a>
                     </Tab>
 
@@ -125,7 +125,7 @@ useEffect(() => {
                     </Tab>
                     <Tab>
                       <a>Music</a>
-                    </Tab>
+                    </Tab> */}
                   </TabList>
                 </ul>
               </div>

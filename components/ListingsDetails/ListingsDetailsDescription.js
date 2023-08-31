@@ -141,18 +141,12 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
           <h3>Information Regarding this Property</h3>
         </div>
         <ul>
-          <li>
-            Size
-            <b>: 3000 x 3000</b>
-          </li>
+          
           <li>
             Created
             <b>: 08 July, 2021</b>
           </li>
-          <li>
-            City
-            <b>: Osnabruck</b>
-          </li>
+         
           <li>
             Property Type
             <b>: MultiFamily</b>

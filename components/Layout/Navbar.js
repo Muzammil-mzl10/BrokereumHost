@@ -56,7 +56,11 @@ const Navbar = () => {
               <div className="logo">
                 <Link legacyBehavior href="/">
                   <a>
-                    <img style={{height:"65px", width:"200px"}} src="../images/logo.png" alt="logo" />
+                    <img
+                      style={{ height: "65px", width: "200px" }}
+                      src="../images/logo.png"
+                      alt="logo"
+                    />
                   </a>
                 </Link>
               </div>
@@ -65,7 +69,6 @@ const Navbar = () => {
         </div>
 
         <div
-          
           className={
             showMenu
               ? "show desktop-nav desktop-nav-one nav-area"
@@ -73,9 +76,7 @@ const Navbar = () => {
           }
         >
           <div className="container-fluid">
-            <nav
-              className="navbar navbar-expand-md navbar-light "
-            >
+            <nav className="navbar navbar-expand-md navbar-light ">
               <Link legacyBehavior href="/">
                 <a className="navbar-brand" style={{ width: "12rem" }}>
                   <img src="../images/footer-logo2.png" alt="Logo" />
@@ -102,10 +103,7 @@ const Navbar = () => {
                 <ul className="navbar-nav m-auto">
                   <li className="nav-item">
                     <Link legacyBehavior href="/" activeClassName="active">
-
-                    <a  className="nav-link active">
-                      Home
-                    </a>
+                      <a className="nav-link active">Home</a>
                     </Link>
                   </li>
 
@@ -139,7 +137,11 @@ const Navbar = () => {
                   </li> */}
 
                   <li className="nav-item">
-                    <Link legacyBehavior href="/activity" activeClassName="active">
+                    <Link
+                      legacyBehavior
+                      href="/activity"
+                      activeClassName="active"
+                    >
                       <a className="nav-link">Activity</a>
                     </Link>
                   </li>
@@ -151,13 +153,18 @@ const Navbar = () => {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link legacyBehavior href="/collection" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/collection"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Collection</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link legacyBehavior
+                        <Link
+                          legacyBehavior
                           href="/create-collection"
                           activeClassName="active"
                         >
@@ -166,13 +173,21 @@ const Navbar = () => {
                       </li>
 
                       <li className="nav-item">
-                        <Link legacyBehavior href="/batchUpload" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/batchUpload"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Batch Upload</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link legacyBehavior href="/author-profile" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/author-profile"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Author Profile</a>
                         </Link>
                       </li>
@@ -217,13 +232,21 @@ const Navbar = () => {
                       </li> */}
 
                       <li className="nav-item">
-                        <Link legacyBehavior href="/terms-condition" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/terms-condition"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Terms & Conditions</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link legacyBehavior href="/privacy-policy" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/privacy-policy"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Privacy Policy</a>
                         </Link>
                       </li>
@@ -249,13 +272,21 @@ const Navbar = () => {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="nav-item">
-                        <Link legacyBehavior href="/about" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/about"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">About Us</a>
                         </Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link legacyBehavior href="/add-wallet" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/add-wallet"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Add Wallet</a>
                         </Link>
                       </li>
@@ -267,34 +298,58 @@ const Navbar = () => {
                         </a>
                         <ul className="dropdown-menu">
                           <li className="nav-item">
-                            <Link legacyBehavior href="/blog-1" activeClassName="active">
+                            <Link
+                              legacyBehavior
+                              href="/blog-1"
+                              activeClassName="active"
+                            >
                               <a className="nav-link">Blog Grid</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link legacyBehavior href="/blog-2" activeClassName="active">
+                            <Link
+                              legacyBehavior
+                              href="/blog-2"
+                              activeClassName="active"
+                            >
                               <a className="nav-link">Blog Left Sidebar</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link legacyBehavior href="/blog-3" activeClassName="active">
+                            <Link
+                              legacyBehavior
+                              href="/blog-3"
+                              activeClassName="active"
+                            >
                               <a className="nav-link">Blog Right Sidebar</a>
                             </Link>
                           </li>
                           <li className="nav-item">
-                            <Link legacyBehavior href="/blog-details" activeClassName="active">
+                            <Link
+                              legacyBehavior
+                              href="/blog-details"
+                              activeClassName="active"
+                            >
                               <a className="nav-link">Blog Details</a>
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link legacyBehavior href="/categories" activeClassName="active">
+                            <Link
+                              legacyBehavior
+                              href="/categories"
+                              activeClassName="active"
+                            >
                               <a className="nav-link">Categories</a>
                             </Link>
                           </li>
 
                           <li className="nav-item">
-                            <Link legacyBehavior href="/tags" activeClassName="active">
+                            <Link
+                              legacyBehavior
+                              href="/tags"
+                              activeClassName="active"
+                            >
                               <a className="nav-link">Tags</a>
                             </Link>
                           </li>
@@ -302,7 +357,11 @@ const Navbar = () => {
                       </li>
 
                       <li className="nav-item">
-                        <Link legacyBehavior href="/help-center" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/help-center"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Help Center</a>
                         </Link>
                       </li>
@@ -310,20 +369,32 @@ const Navbar = () => {
                   </li>
 
                   <li className="nav-item">
-                    <Link legacyBehavior href="/contact" activeClassName="active">
+                    <Link
+                      legacyBehavior
+                      href="/contact"
+                      activeClassName="active"
+                    >
                       <a className="nav-link">Contact Us</a>
                     </Link>
                   </li>
                   {walletAddress ? (
                     <>
                       <li className="nav-item">
-                        <Link legacyBehavior href="/profile" activeClassName="active">
+                        <Link
+                          legacyBehavior
+                          href="/profile"
+                          activeClassName="active"
+                        >
                           <a className="nav-link">Profile</a>
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <Link legacyBehavior href="/chat" activeClassName="active">
-                          <a className="nav-link">Chat</a>
+                        <Link
+                          legacyBehavior
+                          href="https://xmtp.chat/inbox"
+                          activeClassName="active"
+                        >
+                          <a  target="_blank" className="nav-link">Chats</a>
                         </Link>
                       </li>
                     </>
@@ -361,7 +432,7 @@ const Navbar = () => {
               className="dot-menu dot-menu-mt"
               onClick={() => toggleWallet()}
             >
-              <div style={{marginTop:"-7px"}} className="circle-inner">
+              <div style={{ marginTop: "-7px" }} className="circle-inner">
                 <div className="circle circle-one"></div>
                 <div className="circle circle-two"></div>
                 <div className="circle circle-three"></div>
@@ -380,7 +451,8 @@ const Navbar = () => {
                   <div className="side-nav-item">
                     <ul className="optional-item-list">
                       <li>
-                        <Link legacyBehavior
+                        <Link
+                          legacyBehavior
                           href="/create-collection"
                           activeClassName="active"
                         >

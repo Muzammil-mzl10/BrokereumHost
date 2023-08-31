@@ -12,6 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ContentTypeComposite } from '@xmtp/xmtp-js';
 
 
 const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
@@ -98,6 +99,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const [winningBid, setWinningBid]= useState()
   const [minimumBidVal, setMinimumBidVal] = useState()
   const [ipfsData, setipfsData] = useState();
+  const [checkNotary,setCheckNotary] = useState(false)
   const signer = useSigner()
   const Address = useAddress()
   
@@ -132,8 +134,13 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
        fetch(`${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${Address}`)
          .then((res) => res.json())
          .then((res) => {
-           console.log(res?.data[0]?.attributes);
            if (res.data[0]) {
+             if (res.data[0].attributes.userType.Notaries == "Notaries") {
+               setCheckNotary(true);
+             } else {
+               setCheckNotary(false);
+             }
+               console.log(res.data[0].attributes.userType.Notaries);
              setUserData(res.data[0].attributes);
            } else {
              router.push("/profile");
@@ -409,8 +416,9 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
        });
     }
   }
-  console.log(expired)
-  console.log(winningBid)
+  // console.log("notary:", checkNotary)
+  // console.log(expired)
+  // console.log(winningBid)
   return (
     <>
       <div className="section-title">
@@ -475,17 +483,10 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         </div>
         <ul>
           <li>
-            Size
-            <b>: 3000 x 3000</b>
-          </li>
-          <li>
             Created
             <b>: 08 July, 2021</b>
           </li>
-          <li>
-            Collection
-            <b>: Rose Gold</b>
-          </li>
+
           <li>
             Category
             <b>: Artwork</b>
@@ -535,7 +536,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             </div>
           </div>
           <div className="item-right">
-            {data?.creatorAddress == Address ? (
+            {data?.creatorAddress == Address || checkNotary ? (
               <Link href={`/chat/${winningBid?.bidderAddress}`}>
                 <button className="btn default-btn">Chat</button>
               </Link>
