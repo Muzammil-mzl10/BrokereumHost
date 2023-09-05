@@ -1484,6 +1484,9 @@ Main Banner Area
   margin-top: 25px;
   margin-bottom: 20px;
 }
+.slider{
+  height: 430px;
+}
 
 .banner-item .content p {
   position: absolute;

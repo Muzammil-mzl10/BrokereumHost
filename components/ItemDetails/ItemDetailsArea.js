@@ -160,6 +160,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
+                        width: "35vw",
                       }}
                     >
                       <div className="d-flex justify-content-between px-2">
@@ -229,6 +230,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
+                        width: "35vw",
                       }}
                       className="px-3 py-5 mt-5"
                     >
@@ -284,6 +286,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
+                        width: "35vw",
                       }}
                       className="px-3 py-5 mt-5"
                     >
@@ -393,6 +396,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
+                        width: "35vw",
                       }}
                       className="px-3 py-5 mt-5"
                     >
@@ -526,6 +530,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                 </div>
                               </div>
                               <div>
+                                
                                 <div>
                                   TT Agglo Road
                                   <b

@@ -14,7 +14,9 @@ const ItemDetailsHistory = ({ data }) => {
     .then((res) =>  res.json())
     .then((res) => {
       console.log(res);
-      setPRevBids(res.data);
+      if (res.data) { 
+        setPRevBids(res.data.reverse());
+      }
 
     })
     .then((err) => console.log(err));

@@ -54,15 +54,15 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       
       if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) { 
         if (!testTrue) { 
-        fetchWinningBid()
-        
+          console.log("Hello")
+        fetchWinningBid()    
       }
       setExpired(true)
     } else {
       setExpired(false)
    }
       }
-  })
+  },[days,hours,minutes,seconds])
 
 
   const handleChange = (e) => {
