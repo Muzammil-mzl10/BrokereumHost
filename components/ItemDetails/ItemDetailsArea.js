@@ -156,11 +156,11 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       </div>
                     </div>
                     <div
-                      className="mt-5 px-3 py-5"
+                      className="mt-2 px-3 py-5"
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        width: "35vw",
+                        
                       }}
                     >
                       <div className="d-flex justify-content-between px-2">
@@ -230,9 +230,9 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        width: "35vw",
+                        
                       }}
-                      className="px-3 py-5 mt-5"
+                      className="px-3 py-5 mt-2"
                     >
                       <div className="section-title px-2">
                         <div className="fs-5">Building</div>
@@ -286,9 +286,9 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        width: "35vw",
+                        
                       }}
-                      className="px-3 py-5 mt-5"
+                      className="px-3 py-5 mt-2"
                     >
                       <div className="fs-5">Plot</div>
                       <hr />
@@ -396,9 +396,9 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        width: "35vw",
+                        
                       }}
-                      className="px-3 py-5 mt-5"
+                      className="px-3 py-5 mt-2"
                     >
                       <div className="fs-5">Aditional Information</div>
                       <hr />

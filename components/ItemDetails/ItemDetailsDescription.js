@@ -16,7 +16,7 @@ import { ContentTypeComposite } from '@xmtp/xmtp-js';
 
 
 const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
-
+  // console.log(data)
   const [dateRange, setDateRange] = useState([null, null]);
   const [bidoutPrice,setBidOutPrice] = useState()
   const [expired,setExpired] = useState(false)
@@ -73,7 +73,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       [name]: value,
     }));
   };
-  console.log(days,hours,minutes,seconds)
+  // console.log(days,hours,minutes,seconds)
   
    function calculatePercent(totalAmount) {
      const returnedPercentage =
@@ -419,6 +419,35 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   // console.log("notary:", checkNotary)
   // console.log(expired)
   // console.log(winningBid)
+  const [properyBuyOut,setPropertyBuyout] = useState()
+
+  const onBidChange = (e) => {
+    const bidAmount = parseFloat(e.target.value); // Convert bidAmount to a number
+    const downPaymentPercentage = data?.asset?.properties?.downPayment; // Replace with your down payment percentage
+    setBidAmount(e.target.value)
+  //  if (isNaN(bidAmount) || bidAmount < 0) {
+  //    console.log("Invalid bid amount");
+  //    return;
+  //  }
+
+  //  if (
+  //    isNaN(downPaymentPercentage) ||
+  //    downPaymentPercentage < 0 ||
+  //    downPaymentPercentage > 100
+  //  ) {
+  //    console.log("Invalid down payment percentage");
+  //    return;
+  //  }
+
+   // Calculate the total property amount from the bid amount and down payment percentage
+    console.log(downPaymentPercentage)
+    console.log(bidAmount)
+  const totalPropertyAmount = ((downPaymentPercentage*100)/bidAmount)
+  setPropertyBuyout(totalPropertyAmount)
+  console.log("Total Property Amount:", totalPropertyAmount);
+  };
+
+
   return (
     <>
       <div className="section-title">
@@ -630,11 +659,28 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                   type="float"
                   step="0.01"
                   value={bidAmount}
-                  onChange={(e) => setBidAmount(e.target.value)}
+                  onChange={onBidChange}
                   placeholder={`Minimum Bid Value ${minimumBidVal?.displayValue} ${minimumBidVal?.symbol}`}
                   name="itemName"
                   className="form-control"
                 />
+              </div>
+            </div>
+            <div className="item-details-in-content">
+              <div className="item-left">
+                <span>Total Property Amount</span>
+                <div className="timer-text" data-countdown="2021/11/11">
+                  DownPayment: {data?.asset?.properties?.downPayment}%
+                </div>
+              </div>
+              <div className="item-right">
+                <span>Buyout NFT Price</span>
+                <div
+                  style={{ fontWeight: "bold", fontSize: "20px" }}
+                  className="timer-text"
+                >
+                  {parseInt(properyBuyOut)} MATIC
+                </div>
               </div>
             </div>
             <div className="item-details-btn">

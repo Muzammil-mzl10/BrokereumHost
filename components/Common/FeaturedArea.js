@@ -90,7 +90,7 @@ useEffect(() => {
   fetchAuctionListing();
 }, [marketplaceContract]);
 
-  console.log(AuctionListing)
+  // console.log(AuctionListing)
 
 
   return (
