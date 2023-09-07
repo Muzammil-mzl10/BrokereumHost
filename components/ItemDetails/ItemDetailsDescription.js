@@ -190,12 +190,16 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           console.log(userData);
           console.log(data.id);
 
-          const minimumBid =
-            await marketplaceModule.englishAuctions.getMinimumNextBid(data?.id);
-          setMinimumBidVal(minimumBid);
+          const minimumBid = await marketplaceModule.englishAuctions.getMinimumNextBid(data?.id);
+          console.log(minimumBid)
+          setPropertyBuyout(parseFloat(minimumBid.displayValue));
+          const downPaymentPercentage = data?.asset?.properties?.downPayment;
+          const totalPropertyAmount =
+            (parseFloat(minimumBid.displayValue) * 100) / downPaymentPercentage;
+          console.log(totalPropertyAmount)
+          setMinimumBidVal(totalPropertyAmount);
 
-          const winningBid =
-            await marketplaceModule.englishAuctions.getWinningBid(data?.id);
+          const winningBid = await marketplaceModule.englishAuctions.getWinningBid(data?.id);
           setWinningBid(winningBid);
         } catch (error) {
           console.log(error);
@@ -214,14 +218,14 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const placeBid = async (e) => {
     e.preventDefault()
 
-    if (bidAmount >= parseFloat(minimumBidVal.displayValue)) {
+    if (bidAmount >= parseFloat(minimumBidVal)) {
       setBidErrorMessage(false);
       console.log(data.id);
       try {
         
         const tx = await marketplaceModule.englishAuctions.makeBid(
           data.id,
-          bidAmount
+          properyBuyOut
         );
 
         console.log(tx.receipt);
@@ -420,29 +424,15 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   // console.log(expired)
   // console.log(winningBid)
   const [properyBuyOut,setPropertyBuyout] = useState()
-
+  const [downPayment,setDownPayment] = useState()
   const onBidChange = (e) => {
     const bidAmount = parseFloat(e.target.value); // Convert bidAmount to a number
     const downPaymentPercentage = data?.asset?.properties?.downPayment; // Replace with your down payment percentage
     setBidAmount(e.target.value)
-  //  if (isNaN(bidAmount) || bidAmount < 0) {
-  //    console.log("Invalid bid amount");
-  //    return;
-  //  }
-
-  //  if (
-  //    isNaN(downPaymentPercentage) ||
-  //    downPaymentPercentage < 0 ||
-  //    downPaymentPercentage > 100
-  //  ) {
-  //    console.log("Invalid down payment percentage");
-  //    return;
-  //  }
-
-   // Calculate the total property amount from the bid amount and down payment percentage
+ 
     console.log(downPaymentPercentage)
     console.log(bidAmount)
-  const totalPropertyAmount = ((downPaymentPercentage*100)/bidAmount)
+  const totalPropertyAmount = (downPaymentPercentage / 100) * bidAmount;
   setPropertyBuyout(totalPropertyAmount)
   console.log("Total Property Amount:", totalPropertyAmount);
   };
@@ -503,10 +493,10 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
       <div className="item-details-price">
         <div className="item-details-title">
-          <h3>
+          {/* <h3>
             Current Price {winningBid?.bidAmountCurrencyValue?.displayValue}{" "}
             {winningBid?.bidAmountCurrencyValue?.symbol}
-          </h3>
+          </h3> */}
           {/* <p>$1200</p>
           <span>1/10</span> */}
         </div>
@@ -654,13 +644,13 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           <form onSubmit={placeBid}>
             <div className="col-lg-12 my-3">
               <div className="form-group">
-                <label>Enter Bidding Amount</label>
+                <label>Enter Total Property Amount</label>
                 <input
                   type="float"
                   step="0.01"
                   value={bidAmount}
                   onChange={onBidChange}
-                  placeholder={`Minimum Bid Value ${minimumBidVal?.displayValue} ${minimumBidVal?.symbol}`}
+                  placeholder={`Minimum Value ${minimumBidVal} MATIC`}
                   name="itemName"
                   className="form-control"
                 />
@@ -668,18 +658,18 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             </div>
             <div className="item-details-in-content">
               <div className="item-left">
-                <span>Total Property Amount</span>
+                <span>Total Property Amount : {bidAmount}</span>
                 <div className="timer-text" data-countdown="2021/11/11">
                   DownPayment: {data?.asset?.properties?.downPayment}%
                 </div>
               </div>
               <div className="item-right">
-                <span>Buyout NFT Price</span>
+                <span>Your bid for this property</span>
                 <div
                   style={{ fontWeight: "bold", fontSize: "20px" }}
                   className="timer-text"
                 >
-                  {parseInt(properyBuyOut)} MATIC
+                  {properyBuyOut?.toFixed(2)} MATIC
                 </div>
               </div>
             </div>
@@ -700,9 +690,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           {bidErrorMessage ? (
             <span className="text-danger">
               Enter Amount must be greater than{" "}
-              <span className="fs-bold">
-                {data?.minimumBidCurrencyValue.displayValue}
-              </span>
+              <span className="fs-bold">{minimumBidVal}</span>
             </span>
           ) : (
             ""
