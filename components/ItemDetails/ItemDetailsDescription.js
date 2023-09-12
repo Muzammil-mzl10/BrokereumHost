@@ -182,7 +182,21 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   useEffect(() => {
     fetchUserInfo()
     fetchOWnerInfo()
-   }, []);
+  }, []);
+  
+  const [currencyExchangeRate, setCurrencyExchangeRate] = useState()
+
+  useEffect(() => {
+    fetchCurrencyRate()
+  },[])
+  const fetchCurrencyRate = async () => {
+    fetch(`https://api.coinbase.com/v2/exchange-rates?currency=matic`)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.data.rates.CHF);
+        setCurrencyExchangeRate(res.data.rates.CHF);
+      });
+  }
   useEffect(() => {
     async function fetchData() {
       if (marketplaceModule && data) {
@@ -217,31 +231,33 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
   const placeBid = async (e) => {
     e.preventDefault()
-
-    if (bidAmount >= parseFloat(minimumBidVal)) {
+    console.log(properyBuyOut / currencyExchangeRate);
+    console.log(properyBuyOut)
+    console.log(minimumBidVal)
+    console.log(bidAmount / currencyExchangeRate)?.toFixed(3)
+    console.log(minimumBidVal *currencyExchangeRate);
+    if (bidAmount / currencyExchangeRate >= minimumBidVal) {
       setBidErrorMessage(false);
       console.log(data.id);
       try {
-        
         const tx = await marketplaceModule.englishAuctions.makeBid(
           data.id,
-          properyBuyOut
+          properyBuyOut / currencyExchangeRate
         );
 
         console.log(tx.receipt);
         if (tx) {
-          
           const enterBidData = JSON.stringify({
             data: {
-             listingID: data.id,
-             bidAmount: bidAmount,
-             userInfo: {
-               data: userData,
-               address: Address,
-             },
-           },
+              listingID: data.id,
+              bidAmount: bidAmount,
+              userInfo: {
+                data: userData,
+                address: Address,
+              },
+            },
           });
-          
+
           const activityAdd = JSON.stringify({
             data: {
               Name: "Bid",
@@ -254,60 +270,63 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             },
           });
 
-         axios
-           .post(`${process.env.STRAPI_URL_PROD}/api/bidding`, enterBidData, {
-             headers: {
-               "Content-type": "application/json",
-             },
-           })
-           .then((res) => {
-             console.log("Successfully Uploaded...!!");
-             console.log(res);
-           })
-           .catch((err) => {
-             console.log(err);
-           });
-          
-         axios
-           .post(`${process.env.STRAPI_URL_PROD}/api/activities`, activityAdd, {
-             headers: {
-               "Content-type": "application/json",
-             },
-           })
-           .then((res) => {
-             console.log("Successfully Uploaded...!!");
-             console.log(res);
-           })
-           .catch((err) => {
-             console.log(err);
-           });
-        
-           SetBidComplete(true);
-               
-           toast.success("Your Bid was Successfull....!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        } else {
-           toast.error("🦄 Bid was not successfull", {
-             position: "top-center",
-             autoClose: 5000,
-             hideProgressBar: false,
-             closeOnClick: true,
-             pauseOnHover: true,
-             draggable: true,
-             progress: undefined,
-             theme: "light",
-           });
-      }
-      } catch (err) {
+          axios
+            .post(`${process.env.STRAPI_URL_PROD}/api/bidding`, enterBidData, {
+              headers: {
+                "Content-type": "application/json",
+              },
+            })
+            .then((res) => {
+              console.log("Successfully Uploaded...!!");
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
 
+          axios
+            .post(
+              `${process.env.STRAPI_URL_PROD}/api/activities`,
+              activityAdd,
+              {
+                headers: {
+                  "Content-type": "application/json",
+                },
+              }
+            )
+            .then((res) => {
+              console.log("Successfully Uploaded...!!");
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          SetBidComplete(true);
+
+          toast.success("Your Bid was Successfull....!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          toast.error("🦄 Bid was not successfull", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      } catch (err) {
         console.log(err);
         toast.error("🦄 Bid was not successfull", {
           position: "top-center",
@@ -428,15 +447,17 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const onBidChange = (e) => {
     const bidAmount = parseFloat(e.target.value); // Convert bidAmount to a number
     const downPaymentPercentage = data?.asset?.properties?.downPayment; // Replace with your down payment percentage
+    console.log(e.target.value)
     setBidAmount(e.target.value)
  
     console.log(downPaymentPercentage)
     console.log(bidAmount)
-  const totalPropertyAmount = (downPaymentPercentage / 100) * bidAmount;
-  setPropertyBuyout(totalPropertyAmount)
-  console.log("Total Property Amount:", totalPropertyAmount);
+    const totalPropertyAmount = (downPaymentPercentage / 100) * bidAmount;
+    setPropertyBuyout(totalPropertyAmount)
+    console.log("Total Property Amount:", totalPropertyAmount);
   };
 
+  console.log(currencyExchangeRate)
 
   return (
     <>
@@ -545,7 +566,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           </h3>
         </div>
       </div>
-      {winningBid && (
+      {winningBid && expired && (
         <div className="item-details-in-content">
           <div className="item-left">
             <h3>Auction Winner</h3>
@@ -644,13 +665,15 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           <form onSubmit={placeBid}>
             <div className="col-lg-12 my-3">
               <div className="form-group">
-                <label>Enter Total Property Amount</label>
+                <label>Your Bid for this property (CHF)</label>
                 <input
                   type="float"
                   step="0.01"
                   value={bidAmount}
                   onChange={onBidChange}
-                  placeholder={`Minimum Value ${minimumBidVal} MATIC`}
+                  placeholder={`Minimum Value ${(
+                    minimumBidVal * currencyExchangeRate
+                  )?.toFixed(3)} CHF`}
                   name="itemName"
                   className="form-control"
                 />
@@ -658,7 +681,31 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             </div>
             <div className="item-details-in-content">
               <div className="item-left">
-                <span>Total Property Amount : {bidAmount}</span>
+                <h5 data-countdown="2021/11/11">
+                  DownPayment: {data?.asset?.properties?.downPayment}%
+                </h5>
+                <h5>Down Payment in CHF : {properyBuyOut} </h5>
+                <h5>
+                  Down Payment In MATIC :{" "}
+                  {(properyBuyOut / currencyExchangeRate)?.toFixed(3)}
+                </h5>
+              </div>
+            </div>
+            <div className="form-group mb-5">
+              <label>Your down payment (MATIC)</label>
+              <input
+                type="float"
+                step="0.01"
+                placeholder={`${(properyBuyOut / currencyExchangeRate)?.toFixed(
+                  3
+                )} MATIC`}
+                name="itemName"
+                disabled
+                className="form-control"
+              />
+            </div>
+            {/* <div className="item-details-in-content">
+              <div className="item-left">
                 <div className="timer-text" data-countdown="2021/11/11">
                   DownPayment: {data?.asset?.properties?.downPayment}%
                 </div>
@@ -669,10 +716,11 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                   style={{ fontWeight: "bold", fontSize: "20px" }}
                   className="timer-text"
                 >
-                  {properyBuyOut?.toFixed(2)} MATIC
+                  {properyBuyOut?.toFixed(3)} CHF
                 </div>
               </div>
-            </div>
+            </div> */}
+
             <div className="item-details-btn">
               <button
                 type="submit"
@@ -690,7 +738,9 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           {bidErrorMessage ? (
             <span className="text-danger">
               Enter Amount must be greater than{" "}
-              <span className="fs-bold">{minimumBidVal}</span>
+              <span className="fs-bold">
+                {minimumBidVal * currencyExchangeRate}
+              </span>
             </span>
           ) : (
             ""

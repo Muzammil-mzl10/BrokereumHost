@@ -200,8 +200,7 @@ useEffect(() => {
                 <div className="author-user">
                   <img
                     src={
-                      `${process.env.STRAPI_URL_UPLOAD_PROD}/uploads/${userData?.profilePicHash}`
-                        .png
+                      `${process.env.STRAPI_URL_UPLOAD_PROD}${userData?.profilePicHash}`
                     }
                     alt="Images"
                     style={{ maxWidth: "180px !important" }}
