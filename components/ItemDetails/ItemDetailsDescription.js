@@ -103,12 +103,37 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const signer = useSigner()
   const Address = useAddress()
   
- useEffect(() => {
-   if (!Address) {
-     router.push("/");
-   }
+   const [strapiWinBid, setStrapiWinBid] = useState();
+   
+   
+   useEffect(() => {
+     if (!Address) {
+       router.push("/");
+      }
  }, [Address, router]);
 
+   useEffect(() => {
+    fetch(
+      `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          let winBid=0
+          res.data.map((data) => {
+            if (parseFloat(data.attributes.bidAmount) > winBid) {
+              winBid = parseFloat(data.attributes.bidAmount);
+            }
+          })
+          console.log(winBid)
+          setStrapiWinBid(winBid)
+          console.log(res.data)
+          // setPRevBids(res.data);
+        }
+      })
+      .then((err) => console.log(err));
+  }, [data]);
 
    useEffect(() => {
      async function fetchIpfsData() {
@@ -250,7 +275,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           const enterBidData = JSON.stringify({
             data: {
               listingID: data.id,
-              bidAmount: bidAmount,
+              bidAmount: String(properyBuyOut),
               userInfo: {
                 data: userData,
                 address: Address,
@@ -560,10 +585,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         </div>
         <div className="item-right">
           <h3 className="item-remaining">Highest Bid</h3>
-          <h3 className="item-right-eth">
-            {winningBid?.bidAmountCurrencyValue?.displayValue}{" "}
-            {winningBid?.bidAmountCurrencyValue?.symbol}
-          </h3>
+          <h3 className="item-right-eth">{strapiWinBid} CHF</h3>
         </div>
       </div>
       {winningBid && expired && (

@@ -41,7 +41,7 @@ const ItemDetailsHistory = ({ data }) => {
                     </div>
                     <div className="item-details-card-content">
                       <h3>
-                        Bid Placed For <b>{data.attributes.bidAmount} MATIC</b>
+                        Bid Placed For <b>{parseFloat(data.attributes.bidAmount).toFixed(3)} CHF</b>
                       </h3>
                       <span>@{data.attributes.userInfo.data.firstName}</span>
                     </div>
