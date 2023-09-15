@@ -500,10 +500,10 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     const totalPropertyAmount = (downPaymentPercentage / 100) * bidAmount;
     console.log(totalPropertyAmount);
     setPropertyBuyout(totalPropertyAmount);
-    console.log("Total Property Amount:", totalPropertyAmount);
+    // console.log("Total Property Amount:", totalPropertyAmount);
   };
-
-  console.log(currencyExchangeRate)
+  // console.log(`${process.env.STRAPI_URL_PROD}${OwnerData?.profilePicHash}`);
+  // console.log(currencyExchangeRate)
 
   return (
     <>
@@ -579,23 +579,24 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           </li>
         </ul>
       </div>
+      {OwnerData && (
+        <div className="item-details-user-item">
+          <div className="images">
+            <img
+              src={`${process.env.STRAPI_URL_PROD}${OwnerData?.profilePicHash}`}
+              alt="Image"
+            />
+            <i className="ri-check-line"></i>
+          </div>
 
-      <div className="item-details-user-item">
-        <div className="images">
-          <img
-            src={`${process.env.STRAPI_URL_PROD}${OwnerData?.profilePicHash}`}
-            alt="Images"
-          />
-          <i className="ri-check-line"></i>
+          <div className="content">
+            <h3>
+              {OwnerData?.firstName} {OwnerData?.lastName}
+            </h3>
+            <span>{OwnerData?.Email}</span>
+          </div>
         </div>
-
-        <div className="content">
-          <h3>
-            {OwnerData?.firstName} {OwnerData?.lastName}
-          </h3>
-          <span>{OwnerData?.Email}</span>
-        </div>
-      </div>
+      )}
 
       <div className="item-details-in-content">
         <div className="item-left">
@@ -607,7 +608,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         {strapiWinBid !== 0 ? (
           <div className="item-right">
             <h3 className="item-remaining">Highest Bid</h3>
-            <h3 className="item-right-eth">{strapiWinBid.toFixed(2)} CHF</h3>
+            <h3 className="item-right-eth">{strapiWinBid?.toFixed(2)} CHF</h3>
           </div>
         ) : null}
       </div>
