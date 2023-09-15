@@ -235,8 +235,9 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           const downPaymentPercentage = data?.asset?.properties?.downPayment;
           const totalPropertyAmount =
             (parseFloat(minimumBid.displayValue) * 100) / downPaymentPercentage;
-          console.log(totalPropertyAmount)
+          console.log(totalPropertyAmount*currencyExchangeRate)
           setMinimumBidVal(totalPropertyAmount);
+          onBidChange2();
 
           const winningBid = await marketplaceModule.englishAuctions.getWinningBid(data?.id);
           setWinningBid(winningBid);
@@ -249,7 +250,12 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     fetchData();
   }, [marketplaceModule, data]);
 
-    
+  useEffect(() => {
+    if (minimumBidVal && currencyExchangeRate) {
+      onBidChange2()
+    }
+  },[minimumBidVal, currencyExchangeRate])  
+
     // console.log(winningBid)
     // console.log(minimumBidVal)
  
@@ -259,7 +265,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     console.log(properyBuyOut / currencyExchangeRate);
     console.log(properyBuyOut)
     console.log(minimumBidVal)
-    console.log(bidAmount / currencyExchangeRate)?.toFixed(3)
+    console.log(bidAmount / currencyExchangeRate)?.toFixed(2)
     console.log(minimumBidVal *currencyExchangeRate);
     if (bidAmount / currencyExchangeRate >= minimumBidVal) {
       setBidErrorMessage(false);
@@ -470,6 +476,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const [properyBuyOut,setPropertyBuyout] = useState()
   const [downPayment,setDownPayment] = useState()
   const onBidChange = (e) => {
+    console.log(e)
     const bidAmount = parseFloat(e.target.value); // Convert bidAmount to a number
     const downPaymentPercentage = data?.asset?.properties?.downPayment; // Replace with your down payment percentage
     console.log(e.target.value)
@@ -478,7 +485,21 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     console.log(downPaymentPercentage)
     console.log(bidAmount)
     const totalPropertyAmount = (downPaymentPercentage / 100) * bidAmount;
+    console.log(totalPropertyAmount)
     setPropertyBuyout(totalPropertyAmount)
+    console.log("Total Property Amount:", totalPropertyAmount);
+  };
+  const onBidChange2 = () => {
+    const bidAmount = parseFloat(minimumBidVal * currencyExchangeRate); // Convert bidAmount to a number
+    const downPaymentPercentage = data?.asset?.properties?.downPayment; // Replace with your down payment percentage
+    // console.log(e.target.value);
+    // setBidAmount(minimumBidVal * currencyExchangeRate);
+
+    console.log(downPaymentPercentage);
+    console.log(bidAmount);
+    const totalPropertyAmount = (downPaymentPercentage / 100) * bidAmount;
+    console.log(totalPropertyAmount);
+    setPropertyBuyout(totalPropertyAmount);
     console.log("Total Property Amount:", totalPropertyAmount);
   };
 
@@ -562,7 +583,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       <div className="item-details-user-item">
         <div className="images">
           <img
-            src="../images/Item-details/Item-details-user4.jpg"
+            src={`${process.env.STRAPI_URL_PROD}${OwnerData?.profilePicHash}`}
             alt="Images"
           />
           <i className="ri-check-line"></i>
@@ -583,10 +604,12 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             {days}:{hours}:{minutes}:{seconds}
           </div>
         </div>
-        <div className="item-right">
-          <h3 className="item-remaining">Highest Bid</h3>
-          <h3 className="item-right-eth">{strapiWinBid} CHF</h3>
-        </div>
+        {strapiWinBid !== 0 ? (
+          <div className="item-right">
+            <h3 className="item-remaining">Highest Bid</h3>
+            <h3 className="item-right-eth">{strapiWinBid.toFixed(2)} CHF</h3>
+          </div>
+        ) : null}
       </div>
       {winningBid && expired && (
         <div className="item-details-in-content">
@@ -695,7 +718,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                   onChange={onBidChange}
                   placeholder={`Minimum Value ${(
                     minimumBidVal * currencyExchangeRate
-                  )?.toFixed(3)} CHF`}
+                  )?.toFixed(2)} CHF`}
                   name="itemName"
                   className="form-control"
                 />
@@ -706,10 +729,12 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                 <h5 data-countdown="2021/11/11">
                   DownPayment: {data?.asset?.properties?.downPayment}%
                 </h5>
-                <h5>Down Payment in CHF : {properyBuyOut} </h5>
+                <h5>
+                  Down Payment in CHF : {parseFloat(properyBuyOut)?.toFixed(2)}{" "}
+                </h5>
                 <h5>
                   Down Payment In MATIC :{" "}
-                  {(properyBuyOut / currencyExchangeRate)?.toFixed(3)}
+                  {(properyBuyOut / currencyExchangeRate)?.toFixed(2)}
                 </h5>
               </div>
             </div>
@@ -719,7 +744,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
                 type="float"
                 step="0.01"
                 placeholder={`${(properyBuyOut / currencyExchangeRate)?.toFixed(
-                  3
+                  2
                 )} MATIC`}
                 name="itemName"
                 disabled
