@@ -90,6 +90,8 @@ useEffect(() => {
   fetchAuctionListing();
 }, [marketplaceContract]);
 
+  
+  
   // console.log(AuctionListing)
 
 

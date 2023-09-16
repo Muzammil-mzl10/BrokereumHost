@@ -120,6 +120,22 @@ useEffect(() => {
     clearInterval(interval);
   };
 }, []);
+  
+    const [currencyExchangeRate, setCurrencyExchangeRate] = useState();
+
+    useEffect(() => {
+      fetchCurrencyRate();
+    }, []);
+    const fetchCurrencyRate = async () => {
+      fetch(`https://api.coinbase.com/v2/exchange-rates?currency=matic`)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res.data.rates.CHF);
+          setCurrencyExchangeRate(res.data.rates.CHF);
+        });
+    };
+  
+
 
 
   return (
@@ -127,7 +143,11 @@ useEffect(() => {
       <div className="featured-item">
         <div className="featured-item-img">
           <a>
-            <img src={data.asset.image} alt="Images" />
+            <img
+              style={{ width: "100vw" }}
+              src={data.asset.image}
+              alt="Images"
+            />
           </a>
 
           <div className="featured-user">
@@ -150,8 +170,8 @@ useEffect(() => {
         </div>
 
         <div className="content">
-          <h3>
-            <a>{data.asset.name}</a>
+          <h3 >
+            <a>{data.asset.name.slice(0, 20)} { data.asset.name.length>20 ? "___":null}</a>
           </h3>
           <div className="content-in pb-0">
             {/* <span>
@@ -159,34 +179,35 @@ useEffect(() => {
               {data.buyoutCurrencyValue.symbol}
             </span> */}
             <h3>
-              Bid {parseFloat(MinimumBidVal?.displayValue).toFixed(2)}{" "}
-              {data.minimumBidCurrencyValue.symbol}
+              Bid{" "}
+              {(
+                parseFloat(MinimumBidVal?.displayValue) * currencyExchangeRate
+              ).toFixed(2)}{" "}
+              CHF
             </h3>
           </div>
           <div className="featured-content-list">
             <ul>
               {Bidders && (
                 <>
-                  {Bidders.map((data, index) => (
-                    
-                      index<4?
+                  {Bidders.map((data, index) =>
+                    index < 4 ? (
+                      <li>
+                        <img
+                          src={`${process.env.STRAPI_URL_PROD}${data.attributes?.userInfo?.data?.profilePicHash}`}
+                          alt="Images"
+                        />
+                      </li>
+                    ) : null
+                  )}
+                  {Bidders.length == 0 ? (
                     <li>
                       <img
-                        src={`${process.env.STRAPI_URL_PROD}${data.attributes?.userInfo?.data?.profilePicHash}`}
+                        src="../images/featured/featured-user2.jpg"
                         alt="Images"
                       />
                     </li>
-                    
-                    :null
-                  ))}
-                  {Bidders.length == 0 ?
-                  <li>
-                    <img
-                      src="../images/featured/featured-user2.jpg"
-                      alt="Images"
-                    />
-                  </li> : null
-                  }
+                  ) : null}
                 </>
               )}
               <li className="title">{Bidders?.length}+ People Placed Bid</li>

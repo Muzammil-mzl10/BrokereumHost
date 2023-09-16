@@ -43,12 +43,11 @@ const AuthorArea = () => {
   // },[contract])
 
   useEffect(() => {
-    if (ThirdwebSDK) {
-      
-      getNFTColleciton()
-      getAdminNFTContract()
+    if (ThirdwebSDK && signer) {
+      getNFTColleciton();
+      getAdminNFTContract();
     }
-  },[ThirdwebSDK])
+  }, [ThirdwebSDK, signer]);
 
 
   const { mutateAsync: upload } = useStorageUpload( {
