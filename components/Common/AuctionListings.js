@@ -153,15 +153,15 @@ useEffect(() => {
           <h3>
             <a>{data.asset.name}</a>
           </h3>
-          <div className="content-in">
-            <span>
-              {data.buyoutCurrencyValue.displayValue}{" "}
+          <div className="content-in pb-0">
+            {/* <span>
+               {parseFloat(data.buyoutCurrencyValue.displayValue).toFixed(2)}{" "}
               {data.buyoutCurrencyValue.symbol}
-            </span>
-            <h4>
-              Bid {MinimumBidVal?.displayValue}{" "}
+            </span> */}
+            <h3>
+              Bid {parseFloat(MinimumBidVal?.displayValue).toFixed(2)}{" "}
               {data.minimumBidCurrencyValue.symbol}
-            </h4>
+            </h3>
           </div>
           <div className="featured-content-list">
             <ul>
