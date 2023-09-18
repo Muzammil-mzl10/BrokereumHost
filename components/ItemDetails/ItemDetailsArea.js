@@ -141,22 +141,22 @@ const ItemDetailsArea = ({ tokenID, data }) => {
 
                 {data && (
                   <div className="item-details-left-side pr-20">
-                    <div className="item-details-img"></div>
+                    {/* <div className="item-details-img"></div> */}
                     <div
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
                       }}
-                      className="px-3 py-5"
+                      className="px-3 py-3"
                     >
                       <div className="section-title px-2">
                         <div className="fs-5">Description</div>
                         <hr />
-                        <p>{data?.asset.description}</p>
+                        <p className="pt-0">{data?.asset.description}</p>
                       </div>
                     </div>
                     <div
-                      className="mt-2 px-3 py-5"
+                      className="mt-2 px-3 py-3"
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
@@ -174,7 +174,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                         </a>
                       </div>
                       <hr />
-                      <div className="d-flex justify-content-between mt-5 px-2">
+                      <div className="d-flex justify-content-between mt-2 px-2">
                         <div>
                           <div>
                             Street
@@ -211,7 +211,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                               style={{ marginLeft: "30px" }}
                               className="text-primary "
                             >
-                              : {data?.asset.lat}
+                              : {parseFloat(data?.asset.lat).toFixed(5)}
                             </b>
                           </div>
                           <div>
@@ -220,7 +220,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                               style={{ marginLeft: "20px" }}
                               className="text-primary "
                             >
-                              : {data?.asset.lng}
+                              : {parseFloat(data?.asset.lng).toFixed(5)}
                             </b>
                           </div>
                         </div>
@@ -232,12 +232,12 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                         borderRadius: "20px",
                         
                       }}
-                      className="px-3 py-5 mt-2"
+                      className="px-3 py-3 mt-2"
                     >
                       <div className="section-title px-2">
                         <div className="fs-5">Building</div>
                         <hr />
-                        <div className="d-flex justify-content-between mt-5 px-2">
+                        <div className="d-flex justify-content-between mt-2 px-2">
                           <div>
                             <div>
                               Bldg Constr Year
@@ -288,7 +288,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                         borderRadius: "20px",
                         
                       }}
-                      className="px-3 py-5 mt-2"
+                      className="px-3 py-3 mt-2"
                     >
                       <div className="fs-5">Plot</div>
                       <hr />
@@ -398,7 +398,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                         borderRadius: "20px",
                         
                       }}
-                      className="px-3 py-5 mt-2"
+                      className="px-3 py-3 mt-2"
                     >
                       <div className="fs-5">Aditional Information</div>
                       <hr />
@@ -624,7 +624,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
               </div>
             </div>
 
-            <div className="col-lg-5">
+            <div className="col-lg-5 mt-lg-0 mt-md-0 mt-3">
               <div className="item-details-dsce">
                 <ItemDetailsDescription
                   days={days}
