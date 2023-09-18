@@ -94,20 +94,21 @@ const BannerArea = () => {
   return (
     <div>
       <div className="banner-area-three">
-        <div style={{marginLeft:"3.5vw"}} className="container-fluid">
+        <div style={{ marginLeft: "3.5vw" }} className="container-fluid">
           <div className="row align-items-center">
-            <div className="col-lg-6">
+            <div className="col-lg-6 mt-4">
               <div className="banner-content">
                 <p className="h1 text-danger fw-bold">
                   Real Estate Selling Redefined
                 </p>
 
-                <ul style={{ color: "whitesmoke" }} className="h3">
+                <ul class="benefitsText1">
                   <li>Use Smart Contract based Auctions</li>
                   <li>Benefit from Fair Price Discovery</li>
                   <li>Sell Yourself Without Intermediaries</li>
                   <li>Transact within Hours not Months</li>
                 </ul>
+
                 <div
                   className="mt-5"
                   style={{
@@ -145,48 +146,32 @@ const BannerArea = () => {
                 </div>
               </div>
             </div>
-{/* 
-            <div className="col-lg-6 d-none d-lg-block">
-              <div className="banner-card-area">
-                <div className="d-flex flex-lg-row flex-column justify-content-center">
-                  {AuctionListing &&
-                    AuctionListing.map((data, index) =>
-                      index < 2 ? (
-                        <AuctionListings data={data} key={index} />
-                      ) : null
-                    )}
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
 
-        <div className="banner-shape">
-          {/* <div className="shape-circle1 ">
-            <img src="../images/home-one/circle1.png" alt="Images" />
-          </div>
-
-          <div className="shape-circle2 ">
-            <img src="../images/home-one/circle2.png" alt="Images" />
-          </div> */}
-
-          {/* <div className="shape-bg">
-            <img src="../images/home-one/bg-shape.png" alt="Images" />
-          </div> */}
-        </div>
+        <div className="banner-shape"></div>
       </div>
-      <div className="bottom-section-style">
+      <div className=" container-fluid mt-5">
         <div
-          style={{ fontWeight: "bold"}}
+          style={{ fontWeight: "bold" }}
           className=" mt-4 text-danger bottom-section-text"
         >
           Benefits of Brokereum
         </div>
-        <ul style={{ color: "black", width: "80vw" }} className="h3 mt-2">
+        <ul
+          style={{ color: "black", width: "80vw", fontWeight: "normal" }}
+          className="h3 mt-2 benefitsText"
+        >
           <li>Experience how smart contracts revolutionize transactions</li>
-          <li>Make buying and selling real estate faster and more secure</li>
-          <li>Benefit from heavily reduced transaction costs</li>
-          <li>Retain full control over the sale of your property from A-Z</li>
+          <li className="mt-lg-0 mt-md-0  mt-2">
+            Make buying and selling real estate faster and more secure
+          </li>
+          <li className="mt-lg-0 mt-md-0  mt-2">
+            Benefit from heavily reduced transaction costs
+          </li>
+          <li className="mt-lg-0 mt-md-0  mt-2">
+            Retain full control over the sale of your property from A-Z
+          </li>
         </ul>
       </div>
     </div>

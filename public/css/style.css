@@ -40,6 +40,7 @@ body {
   font-weight: 400;
   font-size: var(--fontSize);
   font-family: var(--bodyFonts);
+  overflow-x: hidden;
 }
 .spinner {
   animation-name: spin;
@@ -1545,6 +1546,7 @@ Main Banner Area
   margin-top: 0;
 }
 
+
 .banner-item .content .banner-item-content .item-right .timer-text {
   font-size: 20px;
   color: var(--titleColor);
@@ -1613,7 +1615,60 @@ Main Banner Area
           transform-origin: bottom center;
 }
 
+/* Custom CSS for responsive font sizes */
+@media (max-width: 768px) {
+  .h3-sm {
+    font-size: 16px; /* Adjust the font size as needed for smaller screens */
+  }
+}
 
+/* Define your custom font sizes for larger screens */
+.h2 {
+  font-size: 24px; /* Example font size for h2 on larger screens */
+}
+
+.h2-md {
+  font-size: 20px; /* Example font size for h2 on medium screens */
+}
+
+.h3-lg {
+  font-size: 28px; /* Example font size for h3 on larger screens */
+}
+/* Custom CSS for responsive font sizes */
+.benefitsText1 li {
+  color: whitesmoke;
+  
+  font-size: 28px; /* Default font size for larger screens */
+}
+
+@media (max-width: 768px) {
+  .benefitsText1 li {
+    margin-bottom: 10px;
+    font-size: 16px; /* Font size for smaller screens */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .benefitsText1 li {
+    font-size: 20px; /* Font size for medium screens */
+  }
+}
+
+@media (min-width: 993px) {
+  .benefitsTex1t li {
+    font-size: 24px; /* Font size for larger screens */
+  }
+}
+
+/* Style for the list items */
+.benefitsText li {
+  
+  margin-bottom: 10px;
+}
+
+.benefitsText li{
+  width: 90vw;
+}
 .banner-area-three {
   background-image: url(../images/headers/landscape\ web-4682713.jpg);
   background-size: cover;
