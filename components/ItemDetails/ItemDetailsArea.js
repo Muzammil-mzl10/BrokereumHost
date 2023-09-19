@@ -151,7 +151,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                     >
                       <div className="section-title px-2">
                         <div className="fs-5">Description</div>
-                        <hr className="mt-0"/>
+                        <hr className="mt-0" />
                         <p className="pt-0">{data?.asset.description}</p>
                       </div>
                     </div>
@@ -172,36 +172,36 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           Open in google maps
                         </a>
                       </div>
-                      <hr className="mt-0"/>
-                      <div className="d-flex justify-content-arround mt-2">
+                      <hr className="mt-0" />
+                      <div className="d-flex justify-content-between mt-2 px-2">
                         <div className="fw-bold">
                           <div>
                             Street
                             <b className="fw-normal px-4 mx-2">
-                               {ipfsData?.address?.street}
+                              {ipfsData?.address?.street}
                             </b>
                           </div>
                           <div className="my-0">
                             City
                             <b className="fw-normal  mx-5">
-                               {ipfsData?.address?.city}
+                              {ipfsData?.address?.city}
                             </b>
                           </div>
                           <div>
                             Canton
                             <b className="fw-normal px-3 mx-2">
-                               {ipfsData ? ipfsData?.address?.canton : ""}
+                              {ipfsData ? ipfsData?.address?.canton : ""}
                             </b>
                           </div>
                         </div>
-                        <div className="fw-bold" >
+                        <div className="fw-bold">
                           <div>
                             ZIP
                             <b
                               style={{ marginLeft: "70px" }}
                               className="fw-normal"
                             >
-                               {ipfsData?.address?.zip}
+                              {ipfsData?.address?.zip}
                             </b>
                           </div>
                           <div className="my-0">
@@ -210,7 +210,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                               style={{ marginLeft: "32px" }}
                               className="fw-normal "
                             >
-                               {parseFloat(data?.asset.lat).toFixed(5)}
+                              {parseFloat(data?.asset.lat).toFixed(5)}
                             </b>
                           </div>
                           <div>
@@ -219,7 +219,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                               style={{ marginLeft: "20px" }}
                               className="fw-normal "
                             >
-                               {parseFloat(data?.asset.lng).toFixed(5)}
+                              {parseFloat(data?.asset.lng).toFixed(5)}
                             </b>
                           </div>
                         </div>
@@ -234,25 +234,25 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                     >
                       <div className="section-title px-2">
                         <div className="fs-5">Building</div>
-                        <hr className="mt-0"/>
+                        <hr className="mt-0" />
                         <div className="d-flex justify-content-between mt-2 px-0">
                           <div>
                             <div className="fw-bold">
                               Bldg Constr Year
                               <b className="fw-normal px-1">
-                                 {ipfsData?.building?.bldg_constr_year}
+                                {ipfsData?.building?.bldg_constr_year}
                               </b>
                             </div>
                             <div className="my-0 fw-bold">
                               Bldg Flats
                               <b className="fw-normal px-5 mx-2">
-                                 {ipfsData?.building?.bldg_flats}
+                                {ipfsData?.building?.bldg_flats}
                               </b>
                             </div>
                             <div className="fw-bold">
                               Bldg Floors
                               <b className="fw-normal px-5">
-                                 {ipfsData?.building?.bldg_floors}
+                                {ipfsData?.building?.bldg_floors}
                               </b>
                             </div>
                           </div>
@@ -263,7 +263,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                 style={{ marginLeft: "30px" }}
                                 className="fw-normal"
                               >
-                                 {ipfsData?.building?.bldg_size}
+                                {ipfsData?.building?.bldg_size}
                               </b>
                             </div>
                             <div className="my-0 fw-bold">
@@ -272,7 +272,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                 style={{ marginLeft: "37px" }}
                                 className="fw-normal "
                               >
-                                 {ipfsData?.building?.bldg_vol}
+                                {ipfsData?.building?.bldg_vol}
                               </b>
                             </div>
                           </div>
@@ -288,7 +288,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       className="px-4 py-3 mt-2"
                     >
                       <div className="fs-5">Plot</div>
-                      <hr className="mt-0"/>
+                      <hr className="mt-0" />
 
                       <Accordion>
                         <AccordionItem>
@@ -302,19 +302,19 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                               <div className="fw-bold">
                                 Parcel Area
                                 <b className="fw-normal px-3 mx-1">
-                                   {ipfsData?.plot?.parcel_area}
+                                  {ipfsData?.plot?.parcel_area}
                                 </b>
                               </div>
                               <div className="my-0 fw-bold">
                                 Ratio_S
                                 <b className="fw-normal px-5">
-                                   {ipfsData?.plot?.ratio_s}
+                                  {ipfsData?.plot?.ratio_s}
                                 </b>
                               </div>
                               <div className="fw-bold">
                                 Ratio S Free
                                 <b className="fw-normal px-2 mx-1">
-                                   {ipfsData?.plot?.ratio_s_free}
+                                  {ipfsData?.plot?.ratio_s_free}
                                 </b>
                               </div>
                             </div>
@@ -333,7 +333,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "50px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.plot?.ratio_v}
+                                    {ipfsData?.plot?.ratio_v}
                                   </b>
                                 </div>
                                 <div className="my-0 fw-bold">
@@ -342,7 +342,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "10px" }}
                                     className="fw-normal "
                                   >
-                                     {ipfsData?.plot?.ratio_v_free}
+                                    {ipfsData?.plot?.ratio_v_free}
                                   </b>
                                 </div>
                                 <div className="fw-bold">
@@ -351,7 +351,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "13px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.plot?.ratio_s_free}
+                                    {ipfsData?.plot?.ratio_s_free}
                                   </b>
                                 </div>
                               </div>
@@ -362,7 +362,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "20px" }}
                                     className="fw-normal "
                                   >
-                                     {ipfsData?.plot?.area_max}
+                                    {ipfsData?.plot?.area_max}
                                   </b>
                                 </div>
                                 <div>
@@ -371,7 +371,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "33px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.plot?.vol_max}
+                                    {ipfsData?.plot?.vol_max}
                                   </b>
                                 </div>
                                 <div>
@@ -380,7 +380,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "40px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.plot?.ratio_s}
+                                    {ipfsData?.plot?.ratio_s}
                                   </b>
                                 </div>
                               </di>
@@ -397,7 +397,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       className="px-4 py-3 mt-2"
                     >
                       <div className="fs-5">Aditional Information</div>
-                      <hr className="mt-0"/>
+                      <hr className="mt-0" />
 
                       <Accordion>
                         <AccordionItem>
@@ -412,7 +412,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                 <div>
                                   CZ abbreveiation
                                   <b className="fw-normal px-3">
-                                     {ipfsData?.construction_zone?.cz_abbrev}
+                                    {ipfsData?.construction_zone?.cz_abbrev}
                                   </b>
                                 </div>
                                 <div className="my-0">
@@ -440,19 +440,19 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                 <div>
                                   CZ Local
                                   <b className="fw-normal px-3 mx-3">
-                                     {ipfsData?.construction_zone?.cz_local}
+                                    {ipfsData?.construction_zone?.cz_local}
                                   </b>
                                 </div>
                                 <div className="my-0">
                                   CZ type
                                   <b className="fw-normal px-4 mx-3">
-                                     {ipfsData?.construction_zone?.cz_type}
+                                    {ipfsData?.construction_zone?.cz_type}
                                   </b>
                                 </div>
                                 <div>
                                   CZ Util EST
                                   <b className="fw-normal px-1 mx-2">
-                                     {ipfsData?.construction_zone?.cz_util_est}
+                                    {ipfsData?.construction_zone?.cz_util_est}
                                   </b>
                                 </div>
                               </div>
@@ -472,7 +472,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.noise?.noise_bahn_night}
+                                    {ipfsData?.noise?.noise_bahn_night}
                                   </b>
                                 </div>
                                 <div className="my-0">
@@ -481,7 +481,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "43px" }}
                                     className="fw-normal "
                                   >
-                                     {ipfsData?.noise?.noise_bahn_day}
+                                    {ipfsData?.noise?.noise_bahn_day}
                                   </b>
                                 </div>
                               </div>
@@ -492,7 +492,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "24px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.noise?.noise_street_night}
+                                    {ipfsData?.noise?.noise_street_night}
                                   </b>
                                 </div>
                                 <div className="my-0">
@@ -501,7 +501,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "37px" }}
                                     className="fw-normal "
                                   >
-                                     {ipfsData?.noise?.noise_street_day}
+                                    {ipfsData?.noise?.noise_street_day}
                                   </b>
                                 </div>
                               </div>
@@ -521,7 +521,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.travel?.tt_agglo_pubt}
+                                    {ipfsData?.travel?.tt_agglo_pubt}
                                   </b>
                                 </div>
                               </div>
@@ -532,7 +532,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.travel?.tt_agglo_road}
+                                    {ipfsData?.travel?.tt_agglo_road}
                                   </b>
                                 </div>
                               </div>
@@ -552,7 +552,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.vacancies?.vac_all}
+                                    {ipfsData?.vacancies?.vac_all}
                                   </b>
                                 </div>
                               </div>
@@ -563,7 +563,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.vacancies?.vac_new}
+                                    {ipfsData?.vacancies?.vac_new}
                                   </b>
                                 </div>
                               </div>
@@ -574,7 +574,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.vacancies?.vac_old}
+                                    {ipfsData?.vacancies?.vac_old}
                                   </b>
                                 </div>
                               </div>
@@ -594,7 +594,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.tax?.tax_100k_pa}
+                                    {ipfsData?.tax?.tax_100k_pa}
                                   </b>
                                 </div>
                               </div>
@@ -605,7 +605,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                     style={{ marginLeft: "30px" }}
                                     className="fw-normal"
                                   >
-                                     {ipfsData?.tax?.tax_scale}
+                                    {ipfsData?.tax?.tax_scale}
                                   </b>
                                 </div>
                               </div>
