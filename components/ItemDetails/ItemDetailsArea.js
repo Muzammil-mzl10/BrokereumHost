@@ -151,7 +151,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                     >
                       <div className="section-title px-2">
                         <div className="fs-5">Description</div>
-                        <hr />
+                        <hr className="mt-0"/>
                         <p className="pt-0">{data?.asset.description}</p>
                       </div>
                     </div>
@@ -160,7 +160,6 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        
                       }}
                     >
                       <div className="d-flex justify-content-between px-2">
@@ -173,54 +172,54 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           Open in google maps
                         </a>
                       </div>
-                      <hr />
-                      <div className="d-flex justify-content-between mt-2 px-2">
-                        <div>
+                      <hr className="mt-0"/>
+                      <div className="d-flex justify-content-arround mt-2">
+                        <div className="fw-bold">
                           <div>
                             Street
-                            <b className="text-primary px-3">
-                              : {ipfsData?.address?.street}
+                            <b className="fw-normal px-4 mx-2">
+                               {ipfsData?.address?.street}
                             </b>
                           </div>
-                          <div className="my-2">
+                          <div className="my-0">
                             City
-                            <b className="text-primary px-3">
-                              : {ipfsData?.address?.city}
+                            <b className="fw-normal  mx-5">
+                               {ipfsData?.address?.city}
                             </b>
                           </div>
                           <div>
                             Canton
-                            <b className="text-primary px-3">
-                              : {ipfsData ? ipfsData?.address?.canton : ""}
+                            <b className="fw-normal px-3 mx-2">
+                               {ipfsData ? ipfsData?.address?.canton : ""}
                             </b>
                           </div>
                         </div>
-                        <div>
+                        <div className="fw-bold" >
                           <div>
                             ZIP
                             <b
-                              style={{ marginLeft: "65px" }}
-                              className="text-primary"
+                              style={{ marginLeft: "70px" }}
+                              className="fw-normal"
                             >
-                              : {ipfsData?.address?.zip}
+                               {ipfsData?.address?.zip}
                             </b>
                           </div>
-                          <div className="my-2">
+                          <div className="my-0">
                             Latitude
                             <b
-                              style={{ marginLeft: "30px" }}
-                              className="text-primary "
+                              style={{ marginLeft: "32px" }}
+                              className="fw-normal "
                             >
-                              : {parseFloat(data?.asset.lat).toFixed(5)}
+                               {parseFloat(data?.asset.lat).toFixed(5)}
                             </b>
                           </div>
                           <div>
                             Longitude
                             <b
                               style={{ marginLeft: "20px" }}
-                              className="text-primary "
+                              className="fw-normal "
                             >
-                              : {parseFloat(data?.asset.lng).toFixed(5)}
+                               {parseFloat(data?.asset.lng).toFixed(5)}
                             </b>
                           </div>
                         </div>
@@ -230,51 +229,50 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        
                       }}
                       className="px-3 py-3 mt-2"
                     >
                       <div className="section-title px-2">
                         <div className="fs-5">Building</div>
-                        <hr />
-                        <div className="d-flex justify-content-between mt-2 px-2">
+                        <hr className="mt-0"/>
+                        <div className="d-flex justify-content-between mt-2 px-0">
                           <div>
-                            <div>
+                            <div className="fw-bold">
                               Bldg Constr Year
-                              <b className="text-primary px-3">
-                                : {ipfsData?.building?.bldg_constr_year}
+                              <b className="fw-normal px-1">
+                                 {ipfsData?.building?.bldg_constr_year}
                               </b>
                             </div>
-                            <div className="my-2">
+                            <div className="my-0 fw-bold">
                               Bldg Flats
-                              <b className="text-primary px-3">
-                                : {ipfsData?.building?.bldg_flats}
+                              <b className="fw-normal px-5 mx-2">
+                                 {ipfsData?.building?.bldg_flats}
                               </b>
                             </div>
-                            <div>
+                            <div className="fw-bold">
                               Bldg Floors
-                              <b className="text-primary px-3">
-                                : {ipfsData?.building?.bldg_floors}
+                              <b className="fw-normal px-5">
+                                 {ipfsData?.building?.bldg_floors}
                               </b>
                             </div>
                           </div>
                           <div>
-                            <div>
+                            <div className="fw-bold">
                               Bldg Size
                               <b
                                 style={{ marginLeft: "30px" }}
-                                className="text-primary"
+                                className="fw-normal"
                               >
-                                : {ipfsData?.building?.bldg_size}
+                                 {ipfsData?.building?.bldg_size}
                               </b>
                             </div>
-                            <div className="my-2">
+                            <div className="my-0 fw-bold">
                               Bldg Vol
                               <b
                                 style={{ marginLeft: "37px" }}
-                                className="text-primary "
+                                className="fw-normal "
                               >
-                                : {ipfsData?.building?.bldg_vol}
+                                 {ipfsData?.building?.bldg_vol}
                               </b>
                             </div>
                           </div>
@@ -286,12 +284,11 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        
                       }}
-                      className="px-3 py-3 mt-2"
+                      className="px-4 py-3 mt-2"
                     >
                       <div className="fs-5">Plot</div>
-                      <hr />
+                      <hr className="mt-0"/>
 
                       <Accordion>
                         <AccordionItem>
@@ -302,22 +299,22 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           </AccordionItemHeading>
                           <AccordionItemPanel>
                             <div>
-                              <div>
+                              <div className="fw-bold">
                                 Parcel Area
-                                <b className="text-primary px-3">
-                                  : {ipfsData?.plot?.parcel_area}
+                                <b className="fw-normal px-3 mx-1">
+                                   {ipfsData?.plot?.parcel_area}
                                 </b>
                               </div>
-                              <div className="my-2">
+                              <div className="my-0 fw-bold">
                                 Ratio_S
-                                <b className="text-primary px-3">
-                                  : {ipfsData?.plot?.ratio_s}
+                                <b className="fw-normal px-5">
+                                   {ipfsData?.plot?.ratio_s}
                                 </b>
                               </div>
-                              <div>
+                              <div className="fw-bold">
                                 Ratio S Free
-                                <b className="text-primary px-3">
-                                  : {ipfsData?.plot?.ratio_s_free}
+                                <b className="fw-normal px-2 mx-1">
+                                   {ipfsData?.plot?.ratio_s_free}
                                 </b>
                               </div>
                             </div>
@@ -330,63 +327,63 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           <AccordionItemPanel>
                             <div className="d-flex justify-content-between  px-2">
                               <div>
-                                <div>
+                                <div className="fw-bold">
                                   Ratio V
                                   <b
-                                    style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    style={{ marginLeft: "50px" }}
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.plot?.ratio_v}
+                                     {ipfsData?.plot?.ratio_v}
                                   </b>
                                 </div>
-                                <div className="my-2">
+                                <div className="my-0 fw-bold">
                                   Ratio V Free
                                   <b
-                                    style={{ marginLeft: "37px" }}
-                                    className="text-primary "
+                                    style={{ marginLeft: "10px" }}
+                                    className="fw-normal "
                                   >
-                                    : {ipfsData?.plot?.ratio_v_free}
+                                     {ipfsData?.plot?.ratio_v_free}
                                   </b>
                                 </div>
-                                <div>
+                                <div className="fw-bold">
                                   Ratio S Free
                                   <b
-                                    style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    style={{ marginLeft: "13px" }}
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.plot?.ratio_s_free}
+                                     {ipfsData?.plot?.ratio_s_free}
                                   </b>
                                 </div>
                               </div>
-                              <div>
-                                <div className="my-2">
+                              <di className="fw-bold" v>
+                                <div className="my-0">
                                   Area Max
                                   <b
-                                    style={{ marginLeft: "37px" }}
-                                    className="text-primary "
+                                    style={{ marginLeft: "20px" }}
+                                    className="fw-normal "
                                   >
-                                    : {ipfsData?.plot?.area_max}
+                                     {ipfsData?.plot?.area_max}
                                   </b>
                                 </div>
                                 <div>
                                   Vol Max
                                   <b
-                                    style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    style={{ marginLeft: "33px" }}
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.plot?.vol_max}
+                                     {ipfsData?.plot?.vol_max}
                                   </b>
                                 </div>
                                 <div>
                                   Ratio S
                                   <b
-                                    style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    style={{ marginLeft: "40px" }}
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.plot?.ratio_s}
+                                     {ipfsData?.plot?.ratio_s}
                                   </b>
                                 </div>
-                              </div>
+                              </di>
                             </div>
                           </AccordionItemPanel>
                         </AccordionItem>
@@ -396,12 +393,11 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                       style={{
                         backgroundColor: "whitesmoke",
                         borderRadius: "20px",
-                        
                       }}
-                      className="px-3 py-3 mt-2"
+                      className="px-4 py-3 mt-2"
                     >
                       <div className="fs-5">Aditional Information</div>
-                      <hr />
+                      <hr className="mt-0"/>
 
                       <Accordion>
                         <AccordionItem>
@@ -412,16 +408,16 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           </AccordionItemHeading>
                           <AccordionItemPanel>
                             <div className="d-flex justify-content-between">
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   CZ abbreveiation
-                                  <b className="text-primary px-3">
-                                    : {ipfsData?.construction_zone?.cz_abbrev}
+                                  <b className="fw-normal px-3">
+                                     {ipfsData?.construction_zone?.cz_abbrev}
                                   </b>
                                 </div>
-                                <div className="my-2">
+                                <div className="my-0">
                                   CZ Floors Usual
-                                  <b className="text-primary px-3">
+                                  <b className="fw-normal px-1 mx-4">
                                     :{" "}
                                     {
                                       ipfsData?.construction_zone
@@ -431,7 +427,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                 </div>
                                 <div>
                                   CZ Height Usual
-                                  <b className="text-primary px-3">
+                                  <b className="fw-normal px-1 mx-3">
                                     :{" "}
                                     {
                                       ipfsData?.construction_zone
@@ -440,23 +436,23 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                                   </b>
                                 </div>
                               </div>
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   CZ Local
-                                  <b className="text-primary px-3">
-                                    : {ipfsData?.construction_zone?.cz_local}
+                                  <b className="fw-normal px-3 mx-3">
+                                     {ipfsData?.construction_zone?.cz_local}
                                   </b>
                                 </div>
-                                <div className="my-2">
+                                <div className="my-0">
                                   CZ type
-                                  <b className="text-primary px-3">
-                                    : {ipfsData?.construction_zone?.cz_type}
+                                  <b className="fw-normal px-4 mx-3">
+                                     {ipfsData?.construction_zone?.cz_type}
                                   </b>
                                 </div>
                                 <div>
                                   CZ Util EST
-                                  <b className="text-primary px-3">
-                                    : {ipfsData?.construction_zone?.cz_util_est}
+                                  <b className="fw-normal px-1 mx-2">
+                                     {ipfsData?.construction_zone?.cz_util_est}
                                   </b>
                                 </div>
                               </div>
@@ -469,43 +465,43 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           </AccordionItemHeading>
                           <AccordionItemPanel>
                             <div className="d-flex justify-content-between  px-2">
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   Noise Bahn Night
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.noise?.noise_bahn_night}
+                                     {ipfsData?.noise?.noise_bahn_night}
                                   </b>
                                 </div>
-                                <div className="my-2">
+                                <div className="my-0">
                                   Noise Bahn Day
                                   <b
-                                    style={{ marginLeft: "37px" }}
-                                    className="text-primary "
+                                    style={{ marginLeft: "43px" }}
+                                    className="fw-normal "
                                   >
-                                    : {ipfsData?.noise?.noise_bahn_day}
+                                     {ipfsData?.noise?.noise_bahn_day}
                                   </b>
                                 </div>
                               </div>
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   Noise Street Night
                                   <b
-                                    style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    style={{ marginLeft: "24px" }}
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.noise?.noise_street_night}
+                                     {ipfsData?.noise?.noise_street_night}
                                   </b>
                                 </div>
-                                <div className="my-2">
+                                <div className="my-0">
                                   Noise Street Day
                                   <b
                                     style={{ marginLeft: "37px" }}
-                                    className="text-primary "
+                                    className="fw-normal "
                                   >
-                                    : {ipfsData?.noise?.noise_street_day}
+                                     {ipfsData?.noise?.noise_street_day}
                                   </b>
                                 </div>
                               </div>
@@ -518,26 +514,25 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           </AccordionItemHeading>
                           <AccordionItemPanel>
                             <div className="d-flex justify-content-between  px-2">
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   TT Agglo Pubt
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.travel?.tt_agglo_pubt}
+                                     {ipfsData?.travel?.tt_agglo_pubt}
                                   </b>
                                 </div>
                               </div>
-                              <div>
-                                
+                              <div className="fw-bold">
                                 <div>
                                   TT Agglo Road
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.travel?.tt_agglo_road}
+                                     {ipfsData?.travel?.tt_agglo_road}
                                   </b>
                                 </div>
                               </div>
@@ -550,36 +545,36 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           </AccordionItemHeading>
                           <AccordionItemPanel>
                             <div className="d-flex justify-content-between  px-2">
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   Vac All
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.vacancies?.vac_all}
+                                     {ipfsData?.vacancies?.vac_all}
                                   </b>
                                 </div>
                               </div>
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   Vac New
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.vacancies?.vac_new}
+                                     {ipfsData?.vacancies?.vac_new}
                                   </b>
                                 </div>
                               </div>
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   Vac Old
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.vacancies?.vac_old}
+                                     {ipfsData?.vacancies?.vac_old}
                                   </b>
                                 </div>
                               </div>
@@ -592,25 +587,25 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                           </AccordionItemHeading>
                           <AccordionItemPanel>
                             <div className="d-flex justify-content-between  px-2">
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   Tax 100k Pa
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.tax?.tax_100k_pa}
+                                     {ipfsData?.tax?.tax_100k_pa}
                                   </b>
                                 </div>
                               </div>
-                              <div>
+                              <div className="fw-bold">
                                 <div>
                                   Tax Scale
                                   <b
                                     style={{ marginLeft: "30px" }}
-                                    className="text-primary"
+                                    className="fw-normal"
                                   >
-                                    : {ipfsData?.tax?.tax_scale}
+                                     {ipfsData?.tax?.tax_scale}
                                   </b>
                                 </div>
                               </div>
