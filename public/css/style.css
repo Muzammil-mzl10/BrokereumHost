@@ -1636,12 +1636,16 @@ Main Banner Area
 }
 /* Custom CSS for responsive font sizes */
 .benefitsText1 li {
-  color: whitesmoke;
+  color: black;
   
   font-size: 28px; /* Default font size for larger screens */
 }
 
 @media (max-width: 768px) {
+  .benefitsText li {
+
+  font-size: 20px;
+}
   .benefitsText1 li {
     margin-bottom: 10px;
     font-size: 16px; /* Font size for smaller screens */
@@ -1660,10 +1664,35 @@ Main Banner Area
   }
 }
 
+
+
+@media (max-width: 768px) {
+  .banner-area-three {
+    height: 50vh !important;
+  }
+  .benefitsText li {
+    margin-left:-20px;
+    margin-bottom: 2px;
+    font-size: 20px !important; /* Font size for smaller screens */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .benefitsText li {
+    font-size: 20px; /* Font size for medium screens */
+  }
+}
+
+@media (min-width: 993px) {
+  .benefitsTex1 li {
+    font-size: 24px; /* Font size for larger screens */
+  }
+}
+
 /* Style for the list items */
 .benefitsText li {
-  
-  margin-bottom: 10px;
+  color: white;
+  font-size: 28px;
 }
 
 .benefitsText li{
@@ -1672,7 +1701,7 @@ Main Banner Area
 .banner-area-three {
   background-image: url(../images/headers/landscape\ web-4682713.jpg);
   background-size: cover;
-  height: 60vh;
+  height: 65vh;
   background-position: center center;
   background-repeat: no-repeat;
   padding: 100px 0;

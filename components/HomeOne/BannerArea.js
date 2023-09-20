@@ -102,7 +102,7 @@ const BannerArea = () => {
                   Real Estate Selling Redefined
                 </p>
 
-                <ul class="benefitsText1">
+                <ul class="benefitsText">
                   <li>Use Smart Contract based Auctions</li>
                   <li>Benefit from Fair Price Discovery</li>
                   <li>Sell Yourself Without Intermediaries</li>
@@ -110,7 +110,7 @@ const BannerArea = () => {
                 </ul>
 
                 <div
-                  className="mt-5"
+                  className=""
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -149,9 +149,9 @@ const BannerArea = () => {
           </div>
         </div>
 
-        <div className="banner-shape"></div>
+        {/* <div className="banner-shape"></div> */}
       </div>
-      <div className=" container-fluid mt-5">
+      <div style={{ marginLeft: "3.5vw" }} className="container-fluid">
         <div
           style={{ fontWeight: "bold" }}
           className=" mt-4 text-danger bottom-section-text"
@@ -159,8 +159,8 @@ const BannerArea = () => {
           Benefits of Brokereum
         </div>
         <ul
-          style={{ color: "black", width: "80vw", fontWeight: "normal" }}
-          className="h3 mt-2 benefitsText"
+          style={{ color: "gray", width: "80vw", fontWeight: "normal" }}
+          className="h3 mt-2 benefitsText1"
         >
           <li>Experience how smart contracts revolutionize transactions</li>
           <li className="mt-lg-0 mt-md-0  mt-2">

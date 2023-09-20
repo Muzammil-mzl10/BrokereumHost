@@ -281,7 +281,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           const enterBidData = JSON.stringify({
             data: {
               listingID: data.id,
-              bidAmount: String(properyBuyOut),
+              bidAmount: String(bidAmount),
               userInfo: {
                 data: userData,
                 address: Address,
