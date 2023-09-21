@@ -52,7 +52,12 @@ const ItemDetailsArea = ({ tokenID, data }) => {
         setipfsData(ipfsData.parcelData);
         console.log(ipfsData.parcelData);
         setSateliteImg(ipfsData.parcelData.image_urls.satellite_image);
-        setWorldTopoImg(ipfsData.parcelData.image_urls.world_topo_image);
+        let parcelimg = ipfsData.parcelData.image_urls.parcel_image.replace(
+          "<Your_Token_Here>",
+          "DNfbHaqajFigz4jPX9B8vnatUduLKZXVwA83WKZG"
+        );
+        console.log(parcelimg)
+        setWorldTopoImg(parcelimg);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -121,12 +126,32 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                   ) : (
                     ""
                   )} */}
-                  <span>
+                  {/* <span>
                     <i className="ri-heart-line"></i> 340
-                  </span>
+                  </span> */}
                 </div>
-
-                <Carousel showArrows={true}>
+                {satelitleImg && worktopoImg && (
+                  <div>
+                    <div
+                      className="outerImgContainer"
+                    >
+                      <img
+                        src={satelitleImg}
+                        alt="Background"
+                        
+                        className="worktopoImg"
+                      
+                      />
+                      <img
+                        src={worktopoImg}
+                        alt="Overlay"
+                       
+                        className="worktopoImg"
+                      />
+                    </div>
+                  </div>
+                )}
+                {/* <Carousel showArrows={true}>
                   <div>
                     <img src={data?.asset.image} alt="Images" />
                   </div>
@@ -137,7 +162,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                   <div>
                     <img src={worktopoImg} alt="Images" />
                   </div>
-                </Carousel>
+                </Carousel> */}
 
                 {data && (
                   <div className="item-details-left-side pr-20">

@@ -1318,6 +1318,7 @@ Main Banner Area
           animation: movebounce-up 9s infinite;
 }
 
+
 .banner-shape .shape-bg {
   position: absolute;
   z-index: -1;
@@ -1641,7 +1642,57 @@ Main Banner Area
   font-size: 28px; /* Default font size for larger screens */
 }
 
+.worktopoImg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  height: 500px;
+  width: 680px;
+}
+.outerImgContainer{
+      position:relative;
+      width: 50vw;
+      height: 70vh;             
+}
+@media screen and (max-width: 1000px) {
+  .worktopoImg{
+  height: 400px !important;
+  width: 580px !important;
+}
+.outerImgContainer{
+      position:relative;
+      width: 100vw !important;
+      height: 70vh;             
+}
+}
+@media screen and (max-width: 500px) {
+  
+  .outerImgContainer{
+    position:relative;
+    width: 90vw !important;
+    height: 56vh;             
+  }
+}
+@media screen and (max-width: 600px) {
+  
+  .outerImgContainer{
+    position:relative;
+    width: 87vw !important;
+    height: 56vh;             
+  }
+}
+@media screen and (max-width: 400px) {
+  
+.outerImgContainer{
+      position:relative;
+      width: 92vw !important;
+      height: 56vh;             
+}
+}
+
 @media (max-width: 768px) {
+  
   .benefitsText li {
 
   font-size: 20px;
@@ -1667,6 +1718,7 @@ Main Banner Area
 
 
 @media (max-width: 768px) {
+ 
   .banner-area-three {
     height: 50vh !important;
   }
@@ -1678,6 +1730,7 @@ Main Banner Area
 }
 
 @media (min-width: 769px) and (max-width: 992px) {
+  
   .benefitsText li {
     font-size: 20px; /* Font size for medium screens */
   }
