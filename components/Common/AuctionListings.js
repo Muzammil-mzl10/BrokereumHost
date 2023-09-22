@@ -14,7 +14,36 @@ const AuctionListings = ({ data }) => {
   const [MinimumBidVal, setMinimumBidVal] = useState();
   const [WinningBid, setWinningBid] = useState();
   const [marketplaceContract , setMarketplaceContract] = useState()
-  
+  const [ipfsData, setipfsData] = useState();
+  const [satelittleImg, setSateliteImg] = useState()
+  const [worldTopoImg, setWorldTopoImg] = useState();
+
+   useEffect(() => {
+     async function fetchIpfsData() {
+       try {
+         console.log(data?.asset.properties.IPFSHash);
+         const response = await fetch(data?.asset.properties.IPFSHash);
+         const ipfsData = await response.json();
+         setipfsData(ipfsData.parcelData);
+         console.log(ipfsData.parcelData);
+         setSateliteImg(ipfsData.parcelData.image_urls.satellite_image);
+         let parcelimg = ipfsData.parcelData.image_urls.parcel_image.replace(
+           "<Your_Token_Here>",
+           "DNfbHaqajFigz4jPX9B8vnatUduLKZXVwA83WKZG"
+         );
+         console.log(parcelimg);
+         setWorldTopoImg(parcelimg);
+         console.log(data);
+       } catch (error) {
+         console.log(error);
+       }
+     }
+
+     fetchIpfsData();
+   }, [data]);
+
+
+
   const fetchOwnerInfo = () => {
      fetch( `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data.creatorAddress}`)
        .then((res) => res.json())
@@ -142,13 +171,31 @@ useEffect(() => {
     <div className="col-lg-3 col-md-6">
       <div className="featured-item">
         <div className="featured-item-img">
-          <a>
+          {/* <a>
             <img
               style={{ width: "100vw" }}
               src={data.asset.image}
               alt="Images"
             />
-          </a>
+          </a> */}
+          {satelittleImg && worldTopoImg && (
+            <div >
+              <div className='d-flex justify-content-center align-items-center'>
+                <img
+                  src={satelittleImg}
+                  alt="Background"
+                  style={{ position: "relative" }}
+                  className="worktopoImg1"
+                />
+                <img
+                  style={{ position: "absolute", zIndex:"1" }}
+                  src={worldTopoImg}
+                  alt="Overlay"
+                  className="worktopoImg1"
+                />
+              </div>
+            </div>
+          )}
 
           <div className="featured-user">
             <a className="featured-user-option">
@@ -160,7 +207,7 @@ useEffect(() => {
             </a>
           </div>
           <Link href={`/AuctionListing/${data.id}`}>
-            <button type="button" className="default-btn border-radius-5">
+            <button type="button" style={{zIndex:"100"}} className="default-btn border-radius-5">
               Place Bid
             </button>
           </Link>
@@ -170,8 +217,11 @@ useEffect(() => {
         </div>
 
         <div className="content">
-          <h3 >
-            <a>{data.asset.name.slice(0, 20)} { data.asset.name.length>20 ? "___":null}</a>
+          <h3>
+            <a>
+              {data.asset.name.slice(0, 20)}{" "}
+              {data.asset.name.length > 20 ? "___" : null}
+            </a>
           </h3>
           <div className="content-in pb-0">
             {/* <span>

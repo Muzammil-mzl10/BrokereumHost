@@ -93,6 +93,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
   const [bidAmount, setBidAmount] = useState()
   const [userData,setUserData] = useState()
   const [OwnerData,setOwnerData] = useState()
+  const [OwnerDataCheck,setOwnerDataCheck] = useState(false)
   const [bidErrorMessage, setBidErrorMessage] = useState(false)
   const [marketplaceModule, setMarketplaceModule] = useState();
   const [bidComplete, SetBidComplete] = useState(false)
@@ -167,18 +168,26 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
              }
                console.log(res.data[0].attributes.userType.Notaries);
              setUserData(res.data[0].attributes);
+            
+
            } else {
              router.push("/profile");
            }
          });
      }
    };
-   const fetchOWnerInfo = () => {
+  const fetchOWnerInfo = () => {
+     console.log(
+       `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`);
        fetch(`${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`)
          .then((res) => res.json())
          .then((res) => {
-           console.log(res?.data[0]?.attributes);
-           setOwnerData(res.data[0]?.attributes);
+           console.log(res)
+           if (res?.data[0]) {
+             console.log(res?.data[0]?.attributes);
+             setOwnerData(res.data[0]?.attributes);
+             setOwnerDataCheck(true);
+           }
          })
          .catch((err) => console.log(err));
    };
@@ -205,9 +214,11 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
 
   useEffect(() => {
-    fetchUserInfo()
-    fetchOWnerInfo()
-  }, []);
+    if (data) { 
+      fetchUserInfo()
+      fetchOWnerInfo()
+    }
+  }, [data]);
   
   const [currencyExchangeRate, setCurrencyExchangeRate] = useState()
 
@@ -575,11 +586,12 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
           <li>
             Category
-            <b>: Artwork</b>
+            <b>: Real Estate</b>
           </li>
         </ul>
       </div>
-      {OwnerData && (
+      {OwnerDataCheck ? (
+        
         <div className="item-details-user-item">
           <div className="images">
             <img
@@ -596,7 +608,8 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             <span>{OwnerData?.Email}</span>
           </div>
         </div>
-      )}
+     ):null}
+     
 
       <div className="item-details-in-content">
         <div className="item-left">
