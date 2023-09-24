@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ItemDetailsDescription from "./ItemDetailsDescription";
 import ItemDetailsHistory from "./ItemDetailsHistory";
 import ItemDetailsUser from "./ItemDetailsUser";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import OverlayImage from "./Overlay";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {Autoplay, Navigation, Pagination} from "swiper"
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+
 
 var Carousel = require("react-responsive-carousel").Carousel;
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -22,11 +30,19 @@ const ItemDetailsArea = ({ tokenID, data }) => {
   const [ipfsData, setipfsData] = useState();
   const [marketplaceModule, setMarketplaceModule] = useState();
   const [satelitleImg, setSateliteImg] = useState();
+  const [parcelImg, setParcelImg] = useState();
   const [worktopoImg, setWorldTopoImg] = useState();
   const sdk = new ThirdwebSDK("mumbai", {
     clientId: process.env.thirdweb_CLIENTID,
   });
   // console.log(tokenID);
+
+   const progressCircle = useRef(null);
+   const progressContent = useRef(null);
+   const onAutoplayTimeLeft = (s, time, progress) => {
+     progressCircle.current.style.setProperty("--progress", 1 - progress);
+     progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+   };
 
  useEffect(() => {
    async function fetchMkData() {
@@ -52,6 +68,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
         setipfsData(ipfsData.parcelData);
         console.log(ipfsData.parcelData);
         setSateliteImg(ipfsData.parcelData.image_urls.satellite_image);
+        setParcelImg(ipfsData.parcelData.image_urls.world_topo_image);
         let parcelimg = ipfsData.parcelData.image_urls.parcel_image.replace(
           "<Your_Token_Here>",
           "DNfbHaqajFigz4jPX9B8vnatUduLKZXVwA83WKZG"
@@ -130,27 +147,75 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                     <i className="ri-heart-line"></i> 340
                   </span> */}
                 </div>
-                {satelitleImg && worktopoImg && (
-                  <div>
-                    <div
-                      className="outerImgContainer"
-                    >
-                      <img
-                        src={satelitleImg}
-                        alt="Background"
-                        
-                        className="worktopoImg"
-                      
-                      />
-                      <img
-                        src={worktopoImg}
-                        alt="Overlay"
-                       
-                        className="worktopoImg"
-                      />
+                {satelitleImg && worktopoImg && parcelImg && (
+                  <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                      delay: 2500,
+                      disableOnInteraction: false,
+                    }}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    navigation={true}
+                    modules={[Autoplay, Pagination, Navigation]}
+                    onAutoplayTimeLeft={onAutoplayTimeLeft}
+                    className="mySwiper"
+                  >
+                    <SwiperSlide>
+                      <div className="img-responsive">
+                        <img
+                          src={satelitleImg}
+                          alt="Background"
+                          className="worktopoImg"
+                        />
+                        <img
+                          src={worktopoImg}
+                          alt="Overlay"
+                          className="worktopoImg"
+                        />
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <div className="img-responsive">
+                        <img
+                          src={satelitleImg}
+                          alt="Background"
+                          className="worktopoImg"
+                        />
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      {" "}
+                      <div  className="img-responsive">
+                        <img
+                          src={parcelImg}
+                          alt="Overlay"
+                          className="worktopoImg"
+                        />
+                      </div>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      {" "}
+                      <div  className="img-responsive">
+                        <img
+                          src={worktopoImg}
+                          alt="Overlay"
+                          className="worktopoImg"
+                        />
+                      </div>
+                    </SwiperSlide>
+
+                    <div className="autoplay-progress" slot="container-end">
+                      <svg viewBox="0 0 48 48" ref={progressCircle}>
+                        <circle cx="24" cy="24" r="20"></circle>
+                      </svg>
+                      <span ref={progressContent}></span>
                     </div>
-                  </div>
+                  </Swiper>
                 )}
+
                 {/* <Carousel showArrows={true}>
                   <div>
                     <img src={data?.asset.image} alt="Images" />
