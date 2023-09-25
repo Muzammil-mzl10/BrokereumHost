@@ -12,14 +12,23 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import { ContentTypeComposite } from '@xmtp/xmtp-js';
 
 
-const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
+const ItemDetailsDescription = ({
+  days,
+  hours,
+  minutes,
+  seconds,
+  data,
+  bidHistoryUpdate,
+  setBidHistoryUpdate,
+}) => {
   // console.log(data)
   const [dateRange, setDateRange] = useState([null, null]);
-  const [bidoutPrice,setBidOutPrice] = useState()
-  const [expired,setExpired] = useState(false)
+  const [bidoutPrice, setBidOutPrice] = useState();
+  const [expired, setExpired] = useState(false);
 
   const [startDate, endDate] = dateRange;
   const [formData, setFormData] = useState({
@@ -27,46 +36,44 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     pricePerToken: "",
   });
 
-  const [winnerUser,setWinnerUser] = useState()
-  
+  const [winnerUser, setWinnerUser] = useState();
+
   const fetchWinningBid = async () => {
     if (marketplaceModule && data) {
       setTestTrue(true);
-      console.log("fetching..")
-      const winner = await marketplaceModule.englishAuctions.getWinner(data?.id);
-      console.log(winner)
-     fetch(
-       `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${winner}`
-       )
-       .then((res) => res.json())
-       .then((res) => {
-         console.log(res?.data[0]?.attributes);     
-           setWinnerUser(res.data[0].attributes);
-          });
-          
-          
-        }
-  }
-  const [testTrue,setTestTrue] = useState(false)
+      console.log("fetching..");
+      const winner = await marketplaceModule.englishAuctions.getWinner(
+        data?.id
+      );
+      console.log(winner);
+      fetch(
+        `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${winner}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res?.data[0]?.attributes);
+          setWinnerUser(res.data[0].attributes);
+        });
+    }
+  };
+  const [testTrue, setTestTrue] = useState(false);
 
   useEffect(() => {
     if (marketplaceModule) {
-      
-      if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) { 
-        if (!testTrue) { 
-          console.log("Hello")
-        fetchWinningBid()    
+      if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+        if (!testTrue) {
+          console.log("Hello");
+          fetchWinningBid();
+        }
+        setExpired(true);
+      } else {
+        setExpired(false);
       }
-      setExpired(true)
-    } else {
-      setExpired(false)
-   }
-      }
-  },[days,hours,minutes,seconds])
-
+    }
+  }, [days, hours, minutes, seconds]);
 
   const handleChange = (e) => {
-    console.log(e.target.name)
+    console.log(e.target.name);
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -74,46 +81,45 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
     }));
   };
   // console.log(days,hours,minutes,seconds)
-  
-   function calculatePercent(totalAmount) {
-     const returnedPercentage =
-       (data?.asset.properties.downPayment / 100) * totalAmount;
-       setBidOutPrice(returnedPercentage);
-   }
+
+  function calculatePercent(totalAmount) {
+    const returnedPercentage =
+      (data?.asset.properties.downPayment / 100) * totalAmount;
+    setBidOutPrice(returnedPercentage);
+  }
 
   useEffect(() => {
-    calculatePercent(formData.pricePerToken)
-    console.log(bidoutPrice)
-
-  },[formData])
+    calculatePercent(formData.pricePerToken);
+    console.log(bidoutPrice);
+  }, [formData]);
 
   // ...
 
   const router = useRouter();
-  const [bidAmount, setBidAmount] = useState()
-  const [userData,setUserData] = useState()
-  const [OwnerData,setOwnerData] = useState()
-  const [OwnerDataCheck,setOwnerDataCheck] = useState(false)
-  const [bidErrorMessage, setBidErrorMessage] = useState(false)
+  const [bidAmount, setBidAmount] = useState();
+  const [userData, setUserData] = useState();
+  const [OwnerData, setOwnerData] = useState();
+  const [OwnerDataCheck, setOwnerDataCheck] = useState(false);
+  const [bidErrorMessage, setBidErrorMessage] = useState(false);
   const [marketplaceModule, setMarketplaceModule] = useState();
-  const [bidComplete, SetBidComplete] = useState(false)
-  const [winningBid, setWinningBid]= useState()
-  const [minimumBidVal, setMinimumBidVal] = useState()
+  const [bidComplete, SetBidComplete] = useState(false);
+  const [winningBid, setWinningBid] = useState();
+  const [minimumBidVal, setMinimumBidVal] = useState();
   const [ipfsData, setipfsData] = useState();
-  const [checkNotary,setCheckNotary] = useState(false)
-  const signer = useSigner()
-  const Address = useAddress()
-  
-   const [strapiWinBid, setStrapiWinBid] = useState();
-   
-   
-   useEffect(() => {
-     if (!Address) {
-       router.push("/");
-      }
- }, [Address, router]);
+  const [placeBidLoading, setPlaceBidLoading] = useState(false)
+  const [checkNotary, setCheckNotary] = useState(false);
+  const signer = useSigner();
+  const Address = useAddress();
 
-   useEffect(() => {
+  const [strapiWinBid, setStrapiWinBid] = useState();
+
+  useEffect(() => {
+    if (!Address) {
+      router.push("/");
+    }
+  }, [Address, router]);
+
+  useEffect(() => {
     fetch(
       `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
     )
@@ -121,110 +127,110 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       .then((res) => {
         console.log(res);
         if (res.data) {
-          let winBid=0
+          let winBid = 0;
           res.data.map((data) => {
             if (parseFloat(data.attributes.bidAmount) > winBid) {
               winBid = parseFloat(data.attributes.bidAmount);
             }
-          })
-          console.log(winBid)
-          setStrapiWinBid(winBid)
-          console.log(res.data)
+          });
+          console.log(winBid);
+          setStrapiWinBid(winBid);
+          console.log(res.data);
           // setPRevBids(res.data);
         }
       })
       .then((err) => console.log(err));
   }, [data]);
 
-   useEffect(() => {
-     async function fetchIpfsData() {
-       try {
-         console.log(data?.asset.properties.IPFSHash);
-         const response = await fetch(data?.asset.properties.IPFSHash);
-         const ipfsData = await response.json();
-         setipfsData(ipfsData.parcelData);
-         console.log(ipfsData.parcelData);
-       } catch (error) {
-         console.log(error);
-       }
-     }
-     fetchIpfsData();
-   }, [data]);
-
-
+  useEffect(() => {
+    async function fetchIpfsData() {
+      try {
+        console.log(data?.asset.properties.IPFSHash);
+        const response = await fetch(data?.asset.properties.IPFSHash);
+        const ipfsData = await response.json();
+        setipfsData(ipfsData.parcelData);
+        console.log(ipfsData.parcelData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchIpfsData();
+  }, [data]);
 
   //  const sdk = new ThirdwebSDK("mumbai");
 
-   const fetchUserInfo = () => {
-     if (Address) {
-       fetch(`${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${Address}`)
-         .then((res) => res.json())
-         .then((res) => {
-           if (res.data[0]) {
-             if (res.data[0].attributes.userType.Notaries == "Notaries") {
-               setCheckNotary(true);
-             } else {
-               setCheckNotary(false);
-             }
-               console.log(res.data[0].attributes.userType.Notaries);
-             setUserData(res.data[0].attributes);
-            
-
-           } else {
-             router.push("/profile");
-           }
-         });
-     }
-   };
+  const fetchUserInfo = () => {
+    if (Address) {
+      fetch(
+        `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${Address}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.data[0]) {
+            if (res.data[0].attributes.userType.Notaries == "Notaries") {
+              setCheckNotary(true);
+            } else {
+              setCheckNotary(false);
+            }
+            console.log(res.data[0].attributes.userType.Notaries);
+            setUserData(res.data[0].attributes);
+          } else {
+            router.push("/profile");
+          }
+        });
+    }
+  };
   const fetchOWnerInfo = () => {
-     console.log(
-       `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`);
-       fetch(`${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`)
-         .then((res) => res.json())
-         .then((res) => {
-           console.log(res)
-           if (res?.data[0]) {
-             console.log(res?.data[0]?.attributes);
-             setOwnerData(res.data[0]?.attributes);
-             setOwnerDataCheck(true);
-           }
-         })
-         .catch((err) => console.log(err));
-   };
-
- useEffect(() => {
-   async function fetchData() {
-     if (Mumbai && ThirdwebSDK && signer) {
-       try {
-         const sdk = ThirdwebSDK.fromSigner(signer, Mumbai, {
-           clientId: process.env.thirdweb_CLIENTID,
-         });
-         const marketplaceModule = await sdk.getContract(
-           process.env.Marketplace_Contract
-         );
-         setMarketplaceModule(marketplaceModule);
-       } catch (error) {
-         console.log(error);
-       }
-     }
-   }
-
-   fetchData();
- }, [Mumbai, ThirdwebSDK, signer]);
-
+    console.log(
+      `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`
+    );
+    fetch(
+      `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${data?.creatorAddress}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res?.data[0]) {
+          console.log(res?.data[0]?.attributes);
+          setOwnerData(res.data[0]?.attributes);
+          setOwnerDataCheck(true);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-    if (data) { 
-      fetchUserInfo()
-      fetchOWnerInfo()
+    async function fetchData() {
+      if (Mumbai && ThirdwebSDK && signer) {
+        try {
+          const sdk = ThirdwebSDK.fromSigner(signer, Mumbai, {
+            clientId: process.env.thirdweb_CLIENTID,
+          });
+          const marketplaceModule = await sdk.getContract(
+            process.env.Marketplace_Contract
+          );
+          setMarketplaceModule(marketplaceModule);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    fetchData();
+  }, [Mumbai, ThirdwebSDK, signer]);
+
+  useEffect(() => {
+    if (data) {
+      fetchUserInfo();
+      fetchOWnerInfo();
     }
   }, [data]);
-  
-  const [currencyExchangeRate, setCurrencyExchangeRate] = useState()
+
+  const [currencyExchangeRate, setCurrencyExchangeRate] = useState();
 
   useEffect(() => {
-    fetchCurrencyRate()
-  },[])
+    fetchCurrencyRate();
+  }, []);
   const fetchCurrencyRate = async () => {
     fetch(`https://api.coinbase.com/v2/exchange-rates?currency=matic`)
       .then((res) => res.json())
@@ -232,7 +238,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         console.log(res.data.rates.CHF);
         setCurrencyExchangeRate(res.data.rates.CHF);
       });
-  }
+  };
   useEffect(() => {
     async function fetchData() {
       if (marketplaceModule && data) {
@@ -240,17 +246,19 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
           console.log(userData);
           console.log(data.id);
 
-          const minimumBid = await marketplaceModule.englishAuctions.getMinimumNextBid(data?.id);
-          console.log(minimumBid)
+          const minimumBid =
+            await marketplaceModule.englishAuctions.getMinimumNextBid(data?.id);
+          console.log(minimumBid);
           setPropertyBuyout(parseFloat(minimumBid.displayValue));
           const downPaymentPercentage = data?.asset?.properties?.downPayment;
           const totalPropertyAmount =
             (parseFloat(minimumBid.displayValue) * 100) / downPaymentPercentage;
-          console.log(totalPropertyAmount*currencyExchangeRate)
+          console.log(totalPropertyAmount * currencyExchangeRate);
           setMinimumBidVal(totalPropertyAmount);
           onBidChange2();
 
-          const winningBid = await marketplaceModule.englishAuctions.getWinningBid(data?.id);
+          const winningBid =
+            await marketplaceModule.englishAuctions.getWinningBid(data?.id);
           setWinningBid(winningBid);
         } catch (error) {
           console.log(error);
@@ -263,21 +271,21 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
 
   useEffect(() => {
     if (minimumBidVal && currencyExchangeRate) {
-      onBidChange2()
+      onBidChange2();
     }
-  },[minimumBidVal, currencyExchangeRate])  
+  }, [minimumBidVal, currencyExchangeRate]);
 
-    // console.log(winningBid)
-    // console.log(minimumBidVal)
- 
+  // console.log(winningBid)
+  // console.log(minimumBidVal)
 
   const placeBid = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    setPlaceBidLoading(true)
     console.log(properyBuyOut / currencyExchangeRate);
-    console.log(properyBuyOut)
-    console.log(minimumBidVal)
-    console.log(bidAmount / currencyExchangeRate)?.toFixed(2)
-    console.log(minimumBidVal *currencyExchangeRate);
+    console.log(properyBuyOut);
+    console.log(minimumBidVal);
+    console.log(bidAmount / currencyExchangeRate)?.toFixed(2);
+    console.log(minimumBidVal * currencyExchangeRate);
     if (bidAmount / currencyExchangeRate >= minimumBidVal) {
       setBidErrorMessage(false);
       console.log(data.id);
@@ -321,6 +329,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             .then((res) => {
               console.log("Successfully Uploaded...!!");
               console.log(res);
+                setBidHistoryUpdate(true); 
             })
             .catch((err) => {
               console.log(err);
@@ -345,7 +354,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             });
 
           SetBidComplete(true);
-
+          setPlaceBidLoading(false);  
           toast.success("Your Bid was Successfull....!", {
             position: "top-center",
             autoClose: 5000,
@@ -357,6 +366,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             theme: "light",
           });
         } else {
+          setPlaceBidLoading(false);
           toast.error("🦄 Bid was not successfull", {
             position: "top-center",
             autoClose: 5000,
@@ -370,6 +380,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         }
       } catch (err) {
         console.log(err);
+        setPlaceBidLoading(false);
         toast.error("🦄 Bid was not successfull", {
           position: "top-center",
           autoClose: 5000,
@@ -383,121 +394,119 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
       }
     } else {
       setBidErrorMessage(true);
+      setPlaceBidLoading(false);
       console.log("Error");
     }
-  } 
+  };
 
   const updateListing = async (e) => {
-    e.preventDefault()
-    console.log(formData)
+    e.preventDefault();
+    console.log(formData);
     console.log(dateRange);
-      const auction = {
-        // address of the contract of the asset you want to auction
-        assetContractAddress: process.env.ERC_Contract,
-        // token ID of the asset you want to auction
-        tokenId: data.id,
-        // how many of the asset you want to auction
-        quantity: 1,
-        // address of the currency contract that will be used to pay for the auctioned tokens
-        currencyContractAddress: NATIVE_TOKEN_ADDRESS,
-        // the minimum bid that will be accepted for the token
-        minimumBidAmount: bidoutPrice,
-        // how much people would have to bid to instantly buy the asset
-        buyoutBidAmount: formData.pricePerToken,
-        // If a bid is made less than these many seconds before expiration, the expiration time is increased by this.
-        timeBufferInSeconds: "300", // 5 minutes by default
-        // A bid must be at least this much bps greater than the current winning bid
-        bidBufferBps: "500", // 5% by default
-        // when should the auction open up for bidding
-        startTimestamp: startDate,
-        // end time of auction
-        endTimestamp: endDate,
-      };
-      
+    const auction = {
+      // address of the contract of the asset you want to auction
+      assetContractAddress: process.env.ERC_Contract,
+      // token ID of the asset you want to auction
+      tokenId: data.id,
+      // how many of the asset you want to auction
+      quantity: 1,
+      // address of the currency contract that will be used to pay for the auctioned tokens
+      currencyContractAddress: NATIVE_TOKEN_ADDRESS,
+      // the minimum bid that will be accepted for the token
+      minimumBidAmount: bidoutPrice,
+      // how much people would have to bid to instantly buy the asset
+      buyoutBidAmount: formData.pricePerToken,
+      // If a bid is made less than these many seconds before expiration, the expiration time is increased by this.
+      timeBufferInSeconds: "300", // 5 minutes by default
+      // A bid must be at least this much bps greater than the current winning bid
+      bidBufferBps: "500", // 5% by default
+      // when should the auction open up for bidding
+      startTimestamp: startDate,
+      // end time of auction
+      endTimestamp: endDate,
+    };
+
     // const tx = await marketplaceModule.englishAuctions.updateListing(data.id,auction)
     // console.log(tx)
-  }
+  };
 
-  const cancelAuction = async() => {
+  const cancelAuction = async () => {
     try {
-      
-      const tx = await marketplaceModule.englishAuctions.cancelAuction(data.id)
-      
-      console.log(tx)
-    toast.success("Successfully Cancelled Auction", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
-        
-        router.push("/")
+      const tx = await marketplaceModule.englishAuctions.cancelAuction(data.id);
+
+      console.log(tx);
+      toast.success("Successfully Cancelled Auction", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      router.push("/");
     } catch (err) {
-      console.log(err)
-         toast.error("🦄 Can not Cancelled", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+      console.log(err);
+      toast.error("🦄 Can not Cancelled", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }
+  };
 
   const closeAuctionForBidders = async () => {
     try {
-      
       const tx = await marketplaceModule.englishAuctions.executeSale(data.id);
-      console.log(tx)
-       toast.success("Successfully Closed Auction For Bidder", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
+      console.log(tx);
+      toast.success("Successfully Closed Auction For Bidder", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (err) {
-
-       console.log(err)
-       toast.error("🦄 Listing can not be Closed", {
-         position: "top-center",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "light",
-       });
+      console.log(err);
+      toast.error("🦄 Listing can not be Closed", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }
+  };
   // console.log("notary:", checkNotary)
   // console.log(expired)
   // console.log(winningBid)
-  const [properyBuyOut,setPropertyBuyout] = useState()
-  const [downPayment,setDownPayment] = useState()
+  const [properyBuyOut, setPropertyBuyout] = useState();
+  const [downPayment, setDownPayment] = useState();
   const onBidChange = (e) => {
-    console.log(e)
+    console.log(e);
     const bidAmount = parseFloat(e.target.value); // Convert bidAmount to a number
     const downPaymentPercentage = data?.asset?.properties?.downPayment; // Replace with your down payment percentage
-    console.log(e.target.value)
-    setBidAmount(e.target.value)
- 
-    console.log(downPaymentPercentage)
-    console.log(bidAmount)
+    console.log(e.target.value);
+    setBidAmount(e.target.value);
+
+    console.log(downPaymentPercentage);
+    console.log(bidAmount);
     const totalPropertyAmount = (downPaymentPercentage / 100) * bidAmount;
-    console.log(totalPropertyAmount)
-    setPropertyBuyout(totalPropertyAmount)
+    console.log(totalPropertyAmount);
+    setPropertyBuyout(totalPropertyAmount);
     console.log("Total Property Amount:", totalPropertyAmount);
   };
   const onBidChange2 = () => {
@@ -591,7 +600,6 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
         </ul>
       </div>
       {OwnerDataCheck ? (
-        
         <div className="item-details-user-item">
           <div className="images">
             <img
@@ -608,8 +616,7 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             <span>{OwnerData?.Email}</span>
           </div>
         </div>
-     ):null}
-     
+      ) : null}
 
       <div className="item-details-in-content">
         <div className="item-left">
@@ -783,17 +790,22 @@ const ItemDetailsDescription = ({ days, hours, minutes, seconds, data }) => {
             </div> */}
 
             <div className="item-details-btn">
-              <button
-                type="submit"
-                className={
-                  bidComplete
-                    ? "btn btn-success w-100 border-radius-50"
-                    : "default-btn border-radius-50"
-                }
-              >
-                {" "}
-                {bidComplete ? "Your Bid was Successfull" : "Place Bid"}
-              </button>
+             
+                <button
+                  type="submit"
+                  disabled={bidComplete || placeBidLoading}
+                  className={
+                    bidComplete
+                      ? "btn btn-success w-100 border-radius-50"
+                      : "default-btn border-radius-50"
+                  }
+                >
+                  {placeBidLoading ?
+                    <ScaleLoader color="#8D99FF" /> :
+                  bidComplete ? "Your Bid was Successfull" : "Place Bid"
+                   }
+                </button>
+             
             </div>
           </form>
           {bidErrorMessage ? (

@@ -32,6 +32,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
   const [satelitleImg, setSateliteImg] = useState();
   const [parcelImg, setParcelImg] = useState();
   const [worktopoImg, setWorldTopoImg] = useState();
+  const [bidHistoryUpdate, setBidHistoryUpdate] = useState(true)
   const sdk = new ThirdwebSDK("mumbai", {
     clientId: process.env.thirdweb_CLIENTID,
   });
@@ -51,6 +52,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
          process.env.Marketplace_Contract
        );
        setMarketplaceModule(marketplaceContract);
+       setBidHistoryUpdate(true)
      } catch (error) {
        console.error("Error fetching marketplace data:", error);
      }
@@ -152,7 +154,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                     spaceBetween={30}
                     centeredSlides={true}
                     autoplay={{
-                      delay: 2500,
+                      delay: 4500,
                       disableOnInteraction: false,
                     }}
                     pagination={{
@@ -188,7 +190,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                     </SwiperSlide>
                     <SwiperSlide>
                       {" "}
-                      <div  className="img-responsive">
+                      <div className="img-responsive">
                         <img
                           src={parcelImg}
                           alt="Overlay"
@@ -198,7 +200,7 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                     </SwiperSlide>
                     <SwiperSlide>
                       {" "}
-                      <div  className="img-responsive">
+                      <div className="img-responsive">
                         <img
                           src={worktopoImg}
                           alt="Overlay"
@@ -712,6 +714,8 @@ const ItemDetailsArea = ({ tokenID, data }) => {
             <div className="col-lg-5 mt-lg-0 mt-md-0 mt-3">
               <div className="item-details-dsce">
                 <ItemDetailsDescription
+                  setBidHistoryUpdate={setBidHistoryUpdate}
+                  bidHistoryUpdate={bidHistoryUpdate}
                   days={days}
                   hours={hours}
                   minutes={minutes}
@@ -720,7 +724,11 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                   ipfsData={ipfsData}
                 />
 
-                <ItemDetailsHistory data={data} />
+                <ItemDetailsHistory
+                  setBidHistoryUpdate={setBidHistoryUpdate}
+                  bidHistoryUpdate={bidHistoryUpdate}
+                  data={data}
+                />
                 {/* <ItemDetailsUser /> */}
               </div>
             </div>

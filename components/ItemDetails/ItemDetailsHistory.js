@@ -3,24 +3,49 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import moment from 'moment/moment';
 
-const ItemDetailsHistory = ({ data }) => {
+const ItemDetailsHistory = ({
+  setBidHistoryUpdate,
+  data,
+  bidHistoryUpdate,
+}) => {
   // console.log(data?.id);
 
-  const [prevBids, setPRevBids] = useState()
-  useEffect(() => {
-  fetch(
-    `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
-  )
-    .then((res) =>  res.json())
-    .then((res) => {
-      console.log(res);
-      if (res.data) { 
-        setPRevBids(res.data.reverse());
-      }
 
-    })
-    .then((err) => console.log(err));
-  },[data])
+  const [prevBids, setPRevBids] = useState();
+  useEffect(() => {
+    if (bidHistoryUpdate) {
+      console.log("I am In...!!")
+      setBidHistoryUpdate(false)
+      fetch(
+        `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            setPRevBids(res.data.reverse());
+          }
+        })
+        .then((err) => console.log(err));
+    }
+  }, [data, bidHistoryUpdate]);
+
+
+  useEffect(() => {
+      setBidHistoryUpdate(false)
+      fetch(
+        `${process.env.STRAPI_URL_PROD}/api/bidding/?filters[listingID][$eq]=${data?.id}`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            setPRevBids(res.data.reverse());
+          }
+        })
+        .then((err) => console.log(err));
+    
+  }, [data]);
 
   return (
     <>
@@ -41,7 +66,10 @@ const ItemDetailsHistory = ({ data }) => {
                     </div>
                     <div className="item-details-card-content">
                       <h3>
-                        Bid Placed For <b>{parseFloat(data.attributes.bidAmount).toFixed(2)} CHF</b>
+                        Bid Placed For{" "}
+                        <b>
+                          {parseFloat(data.attributes.bidAmount).toFixed(2)} CHF
+                        </b>
                       </h3>
                       <span>@{data.attributes.userInfo.data.firstName}</span>
                     </div>
