@@ -59,17 +59,18 @@ const ItemDetailsDescription = ({
   const [testTrue, setTestTrue] = useState(false);
 
   useEffect(() => {
-    if (marketplaceModule) {
+    
       if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
+       
         if (!testTrue) {
-          console.log("Hello");
+       
           fetchWinningBid();
         }
         setExpired(true);
       } else {
         setExpired(false);
       }
-    }
+    
   }, [days, hours, minutes, seconds]);
 
   const handleChange = (e) => {
@@ -354,7 +355,8 @@ const ItemDetailsDescription = ({
             });
 
           SetBidComplete(true);
-          setPlaceBidLoading(false);  
+          setPlaceBidLoading(false);
+          
           toast.success("Your Bid was Successfull....!", {
             position: "top-center",
             autoClose: 5000,
