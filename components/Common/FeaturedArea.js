@@ -78,9 +78,11 @@ useEffect(() => {
     console.log(marketplaceContract);
     if (marketplaceContract) {
       try {
-        const auctionList =
-          await marketplaceContract.englishAuctions.getAll();
+        let auctionList = await marketplaceContract.englishAuctions.getAll();
+        auctionList = auctionList.filter((data) => data.status !== 2);
+        console.log(auctionList);
         setAuctionListing(auctionList);
+
       } catch (error) {
         console.error("Error fetching auction listing:", error);
       }

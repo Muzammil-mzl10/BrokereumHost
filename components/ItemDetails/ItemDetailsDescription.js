@@ -636,29 +636,46 @@ const ItemDetailsDescription = ({
       </div>
       {winningBid && expired && (
         <div className="item-details-in-content">
-          <div className="item-left">
-            <h3>Auction Winner</h3>
+          <div>
+            <div className="d-flex">
+              <h3> Auction Winner:</h3>
+              <div>
+                <h3 className="item-remaining mx-5">
+                  {winningBid?.bidderAddress.slice(0, 10) +
+                    "......" +
+                    winningBid?.bidderAddress.slice(-4)}
+                </h3>
+              </div>
+            </div>
+            <div className="timer-text d-flex" data-countdown="2021/11/11">
+              <h5>
+                Down Payment Already Paid:{" "}
+                {(
+                  parseFloat(winningBid?.bidAmountCurrencyValue?.displayValue) *
+                  currencyExchangeRate
+                ).toFixed(2)}{" "}
+                CHF{" "}
+              </h5>
+            </div>
             <div className="timer-text" data-countdown="2021/11/11">
-              {winningBid?.bidAmountCurrencyValue?.displayValue}{" "}
-              {winningBid?.bidAmountCurrencyValue?.symbol}
+              <h5>Total Property Amount: {strapiWinBid?.toFixed(2)} CHF</h5>
+            </div>
+            <div className="d-flex justify-content-center align-items-center mb-2">
+              {data?.creatorAddress == Address || checkNotary ? (
+                <Link href={`/chat/${winningBid?.bidderAddress}`}>
+                  <button style={{ width: "100%" }} className="btn default-btn">
+                    Chat
+                  </button>
+                </Link>
+              ) : null}
             </div>
           </div>
-          <div className="item-right">
-            {data?.creatorAddress == Address || checkNotary ? (
-              <Link href={`/chat/${winningBid?.bidderAddress}`}>
-                <button className="btn default-btn">Chat</button>
-              </Link>
-            ) : null}
-            <h3 className="item-remaining mt-3">
-              {winningBid?.bidderAddress.slice(0, 10) +
-                "......" +
-                winningBid?.bidderAddress.slice(-4)}
-            </h3>
-          </div>
+
+          <div className="item-right"></div>
         </div>
       )}
 
-      {data?.creatorAddress == Address ? (
+      {Address && data?.creatorAddress == Address ? (
         <form onSubmit={updateListing}>
           <div className="item-details-btn">
             <h2 className="text-danger"> You are the Owner of the Property</h2>
@@ -710,18 +727,12 @@ const ItemDetailsDescription = ({
               <button type="submit" style={{backgroundColor:"gray"}}  className="default-btn btn-info mb-2 border-radius-50">
                 Update Listing
               </button> */}
-            <button
-              type="button"
-              onClick={cancelAuction}
-              className="default-btn border-radius-50"
-            >
-              Cancel Listing
-            </button>
+
             {expired && expired ? (
               <button
                 type="button"
                 onClick={closeAuctionForBidders}
-                className="default-btn border-radius-50 mt-2"
+                className="default-btn border-radius-50 "
               >
                 Execute Sale
               </button>
@@ -792,22 +803,23 @@ const ItemDetailsDescription = ({
             </div> */}
 
             <div className="item-details-btn">
-             
-                <button
-                  type="submit"
-                  disabled={bidComplete || placeBidLoading}
-                  className={
-                    bidComplete
-                      ? "btn btn-success w-100 border-radius-50"
-                      : "default-btn border-radius-50"
-                  }
-                >
-                  {placeBidLoading ?
-                    <ScaleLoader color="#8D99FF" /> :
-                  bidComplete ? "Your Bid was Successfull" : "Place Bid"
-                   }
-                </button>
-             
+              <button
+                type="submit"
+                disabled={bidComplete || placeBidLoading}
+                className={
+                  bidComplete
+                    ? "btn btn-success w-100 border-radius-50"
+                    : "default-btn border-radius-50"
+                }
+              >
+                {placeBidLoading ? (
+                  <ScaleLoader color="#8D99FF" />
+                ) : bidComplete ? (
+                  "Your Bid was Successfull"
+                ) : (
+                  "Place Bid"
+                )}
+              </button>
             </div>
           </form>
           {bidErrorMessage ? (

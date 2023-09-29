@@ -7,6 +7,8 @@ import Footer from "../../components/Layout/Footer";
 import Navbar from "../../components/Layout/Navbar";
 import { useAddress, useSigner } from "@thirdweb-dev/react";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // const PEER_ADDRESS = "0x0Dd6F513D90EFADAf7902a705509C370e6088C52";
 
@@ -39,14 +41,39 @@ export default function Home() {
 
   // Function to initialize the XMTP client
   const initXmtp = async function () {
-    // Create the XMTP client
-    const xmtp = await Client.create(signer, { env: "production" });
-    //Create or load conversation with Gm bot
-    newConversation(xmtp, router.query.chat);
-    // Set the XMTP client in state for later use
-    setIsOnNetwork(!!xmtp.address);
-    //Set the client in the ref
-    clientRef.current = xmtp;
+    try {
+      
+      // Create the XMTP client
+      const xmtp = await Client.create(signer, { env: "production" });
+      toast.success("Successfully Connected to XMTP", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      //Create or load conversation with Gm bot
+      newConversation(xmtp, router.query.chat);
+      // Set the XMTP client in state for later use
+      setIsOnNetwork(!!xmtp.address);
+      //Set the client in the ref
+      clientRef.current = xmtp;
+    } catch (err) {
+      console.log(err)
+       toast.error("Error While making the connection", {
+         position: "top-center",
+         autoClose: 5000,
+         hideProgressBar: false,
+         closeOnClick: true,
+         pauseOnHover: true,
+         draggable: true,
+         progress: undefined,
+         theme: "light",
+       });
+    }
   };
 
   // Function to connect to the wallet
