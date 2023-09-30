@@ -649,7 +649,7 @@ const ItemDetailsDescription = ({
             </div>
             <div className="timer-text d-flex" data-countdown="2021/11/11">
               <h5>
-                Down Payment Already Paid:{" "}
+                Down Payment:{" "}
                 {(
                   parseFloat(winningBid?.bidAmountCurrencyValue?.displayValue) *
                   currencyExchangeRate
@@ -658,7 +658,7 @@ const ItemDetailsDescription = ({
               </h5>
             </div>
             <div className="timer-text" data-countdown="2021/11/11">
-              <h5>Total Property Amount: {strapiWinBid?.toFixed(2)} CHF</h5>
+              <h5>Full Property Price: {strapiWinBid?.toFixed(2)} CHF</h5>
             </div>
             <div className="d-flex justify-content-center align-items-center mb-2">
               {data?.creatorAddress == Address || checkNotary ? (
