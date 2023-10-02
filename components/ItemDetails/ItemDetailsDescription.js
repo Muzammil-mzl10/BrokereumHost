@@ -7,6 +7,7 @@ import { Web3Button, useSigner, useAddress, NATIVE_TOKEN_ADDRESS } from '@thirdw
 import { Mumbai } from '@thirdweb-dev/chains';
 import { ethers } from "ethers";
 import axios from 'axios';
+import emailjs from "@emailjs/browser"; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -279,6 +280,8 @@ const ItemDetailsDescription = ({
   // console.log(winningBid)
   // console.log(minimumBidVal)
 
+  console.log(userData)
+
   const placeBid = async (e) => {
     e.preventDefault();
     setPlaceBidLoading(true)
@@ -287,6 +290,19 @@ const ItemDetailsDescription = ({
     console.log(minimumBidVal);
     console.log(bidAmount / currencyExchangeRate)?.toFixed(2);
     console.log(minimumBidVal * currencyExchangeRate);
+
+    var templateParams = {
+      to_name: userData?.Email,
+      first_name: userData?.firstName,
+      from_name: "Brokereum",
+      message: "Bid placed successfully.....!",
+      reply_to: userData?.Email,
+    };
+
+    
+
+
+
     if (bidAmount / currencyExchangeRate >= minimumBidVal) {
       setBidErrorMessage(false);
       console.log(data.id);
@@ -357,6 +373,22 @@ const ItemDetailsDescription = ({
           SetBidComplete(true);
           setPlaceBidLoading(false);
           
+          emailjs
+            .send(
+              "service_2okvhy7",
+              "template_2fgrzgm",
+              templateParams,
+              "IFlIpDYbo60B9ZY6b"
+            )
+            .then(
+              function (response) {
+                console.log("SUCCESS!", response);
+              },
+              function (error) {
+                console.log("FAILED...", error);
+              }
+            );
+
           toast.success("Your Bid was Successfull....!", {
             position: "top-center",
             autoClose: 5000,
@@ -468,6 +500,33 @@ const ItemDetailsDescription = ({
     try {
       const tx = await marketplaceModule.englishAuctions.executeSale(data.id);
       console.log(tx);
+      const activityAdd = JSON.stringify({
+        data: {
+          Name: "Sales Executed",
+          address: Address,
+          ListID: parseInt(data.id),
+          imgHash: ipfsData.image_urls.satellite_image,
+          Data: {
+            data: tx.receipt,
+          },
+        },
+      });
+
+       axios
+         .post(`${process.env.STRAPI_URL_PROD}/api/activities`, activityAdd, {
+           headers: {
+             "Content-type": "application/json",
+           },
+         })
+         .then((res) => {
+           console.log("Successfully Uploaded...!!");
+           console.log(res);
+         })
+         .catch((err) => {
+           console.log(err);
+         });
+    
+
       toast.success("Successfully Closed Auction For Bidder", {
         position: "top-center",
         autoClose: 5000,

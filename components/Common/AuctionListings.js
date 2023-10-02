@@ -164,7 +164,7 @@ useEffect(() => {
         });
     };
   
-
+console.log(data)
 
 
   return (
@@ -179,8 +179,8 @@ useEffect(() => {
             />
           </a> */}
           {satelittleImg && worldTopoImg && (
-            <div >
-              <div className='d-flex justify-content-center align-items-center'>
+            <div>
+              <div className="d-flex justify-content-center align-items-center">
                 <img
                   src={satelittleImg}
                   alt="Background"
@@ -188,7 +188,7 @@ useEffect(() => {
                   className="worktopoImg1"
                 />
                 <img
-                  style={{ position: "absolute", zIndex:"1" }}
+                  style={{ position: "absolute", zIndex: "1" }}
                   src={worldTopoImg}
                   alt="Overlay"
                   className="worktopoImg1"
@@ -207,7 +207,11 @@ useEffect(() => {
             </a>
           </div>
           <Link href={`/AuctionListing/${data.id}`}>
-            <button type="button" style={{zIndex:"100"}} className="default-btn border-radius-5">
+            <button
+              type="button"
+              style={{ zIndex: "100" }}
+              className="default-btn border-radius-5"
+            >
               Place Bid
             </button>
           </Link>
@@ -228,11 +232,13 @@ useEffect(() => {
                {parseFloat(data.buyoutCurrencyValue.displayValue).toFixed(2)}{" "}
               {data.buyoutCurrencyValue.symbol}
             </span> */}
-            <h3>
-              Bid{" "}
+            <h3 style={{ fontSize: "17px" }}>
+              Full Property Price:{" "}
               {(
-                parseFloat(MinimumBidVal?.displayValue) * currencyExchangeRate
-              ).toFixed(2)}{" "}
+                (parseFloat(MinimumBidVal?.displayValue) *
+                  currencyExchangeRate) /
+                (data?.asset.properties.downPayment / 100)
+              ).toFixed(2)}
               CHF
             </h3>
           </div>

@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@mailchain/sdk": "^0.23.0",
     "@thirdweb-dev/chains": "^0.1.43",
     "@thirdweb-dev/react": "^3.14.31",
@@ -20,6 +21,7 @@
     "caniuse-lite": "^1.0.30001502",
     "draft-convert": "^2.1.13",
     "draft-js": "^0.11.7",
+    "emailjs": "^4.0.3",
     "ethers": "^5.7.2",
     "jimp": "^0.16",
     "jquery": "^3.7.0",
