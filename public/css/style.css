@@ -5185,6 +5185,8 @@ Create Area
 
 .create-card img {
   margin-bottom: 20px;
+  height: 10%;
+  width: 10%;
 }
 
 .create-card h3 {

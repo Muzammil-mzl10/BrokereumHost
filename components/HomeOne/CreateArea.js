@@ -12,7 +12,11 @@ const CreateArea = () => {
           <div className="row align-items-center pt-45">
             <div className="col-lg-6">
               <div className="create-img">
-                <img src="../images/create/create-img.png" alt="Images" />
+                <img
+                  height={500}
+                  src="../images/create/Front_page_image.jpeg"
+                  alt="Images"
+                />
               </div>
             </div>
 
@@ -21,10 +25,7 @@ const CreateArea = () => {
                 <div className="row justify-content-center">
                   <div className="col-lg-6 col-6">
                     <div className="create-card">
-                      <img
-                        src="../images/create/create-icon1.png"
-                        alt="Images"
-                      />
+                      <img src="../images/create/2.png" alt="Images" />
                       <h3>
                         {" "}
                         <Link legacyBehavior href="/add-wallet">
@@ -41,10 +42,7 @@ const CreateArea = () => {
 
                   <div className="col-lg-6 col-6">
                     <div className="create-card">
-                      <img
-                        src="../images/create/create-icon2.png"
-                        alt="Images"
-                      />
+                      <img src="../images/create/3.png" alt="Images" />
                       <h3>
                         <Link legacyBehavior href="/create-collection">
                           <a>Edit Your Profile</a>
@@ -59,10 +57,7 @@ const CreateArea = () => {
 
                   <div className="col-lg-6 col-6">
                     <div className="create-card">
-                      <img
-                        src="../images/create/create-icon3.png"
-                        alt="Images"
-                      />
+                      <img src="../images/create/1.png" alt="Images" />
                       <h3>
                         <Link legacyBehavior href="/help-center">
                           <a>Add Your Real Estate</a>
@@ -79,10 +74,7 @@ const CreateArea = () => {
 
                   <div className="col-lg-6 col-6">
                     <div className="create-card">
-                      <img
-                        src="../images/create/create-icon4.png"
-                        alt="Images"
-                      />
+                      <img src="../images/create/4.png" alt="Images" />
                       <h3>
                         <Link legacyBehavior href="/activity">
                           <a>List Property For Sale</a>

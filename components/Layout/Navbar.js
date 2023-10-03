@@ -152,7 +152,7 @@ const Navbar = () => {
                       <i className="ri-arrow-down-s-line"></i>
                     </a>
                     <ul className="dropdown-menu">
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link
                           legacyBehavior
                           href="/collection"
@@ -160,7 +160,7 @@ const Navbar = () => {
                         >
                           <a className="nav-link">Collection</a>
                         </Link>
-                      </li>
+                      </li> */}
 
                       <li className="nav-item">
                         <Link
@@ -168,7 +168,7 @@ const Navbar = () => {
                           href="/create-collection"
                           activeClassName="active"
                         >
-                          <a className="nav-link">Mint Property</a>
+                          <a className="nav-link">Add Property</a>
                         </Link>
                       </li>
 
@@ -188,7 +188,7 @@ const Navbar = () => {
                           href="/author-profile"
                           activeClassName="active"
                         >
-                          <a className="nav-link">Author Profile</a>
+                          <a className="nav-link">My Property</a>
                         </Link>
                       </li>
 
@@ -291,7 +291,7 @@ const Navbar = () => {
                         </Link>
                       </li>
 
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <a href="#" className="nav-link">
                           Blog
                           <i className="ri-arrow-down-s-line"></i>
@@ -354,7 +354,7 @@ const Navbar = () => {
                             </Link>
                           </li>
                         </ul>
-                      </li>
+                      </li> */}
 
                       <li className="nav-item">
                         <Link
@@ -394,7 +394,9 @@ const Navbar = () => {
                           href="https://xmtp.chat/inbox"
                           activeClassName="active"
                         >
-                          <a  target="_blank" className="nav-link">Chats</a>
+                          <a target="_blank" className="nav-link">
+                            Chats
+                          </a>
                         </Link>
                       </li>
                     </>
