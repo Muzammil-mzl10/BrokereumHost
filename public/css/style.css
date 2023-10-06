@@ -1618,6 +1618,14 @@ Main Banner Area
 
 /* Custom CSS for responsive font sizes */
 @media (max-width: 768px) {
+  .create-img img{
+  width: 36vh !important;
+  }
+  .create-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .h3-sm {
     font-size: 16px; /* Adjust the font size as needed for smaller screens */
   }
@@ -5177,6 +5185,9 @@ Create Area
 ====================================*/
 .create-img {
   margin-bottom: 30px;
+}
+.create-img img{
+  width: 50vh;
 }
 
 .create-card {

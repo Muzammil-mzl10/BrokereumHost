@@ -13,7 +13,7 @@ const CreateArea = () => {
             <div className="col-lg-6">
               <div className="create-img">
                 <img
-                  height={500}
+                  
                   src="../images/create/Front_page_image.jpeg"
                   alt="Images"
                 />

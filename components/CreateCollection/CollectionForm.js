@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios"; 
 import Overlay from "./Overlay"
 import { Mumbai } from "@thirdweb-dev/chains";
+import emailjs from "@emailjs/browser"; 
 import { ReactComponentElement as Loader } from "../../public/images/loader.svg";
 import {
   
@@ -37,7 +38,38 @@ const CollectionForm = () => {
   const [file, setFile] = useState();
   const [contract,setContract] = useState()
   const [docummentfile, setdocumentFile] = useState([]);
+  const [userData, setUserData] = useState();
   const signer = useSigner()
+  const address = useAddress();
+
+    const fetchUserInfo = () => {
+      if (address) {
+        fetch(
+          `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${address}`
+        )
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res?.data[0]?.attributes);
+            if (res.data[0]) {
+              setUserData(res.data[0].attributes);
+            } else {
+              router.push("/profile");
+            }
+          });
+      }
+    };
+
+    useEffect(() => {
+      fetchUserInfo();
+    }, [address]);
+
+  var templateParams = {
+        to_name: userData?.Email,
+        first_name: userData?.firstName,
+        from_name: "Brokereum",
+        message: "Property NFT Minted Successfully.....!",
+        reply_to: userData?.Email,
+      };
 
 
   // const { contract } = useContract(process.env.ERC_Contract, "nft-collection");
@@ -75,7 +107,7 @@ const CollectionForm = () => {
     "Flat",
   ];
 
-  const address = useAddress();
+ 
 
   const propertyTypeChange = (e) => {
     console.log(e);
@@ -222,6 +254,7 @@ const CollectionForm = () => {
       ],
       options: { uploadWithGatewayUrl: true },
     });
+    console.log(uploadUrl)
     setIPFSHASH(uploadUrl[0]);
     console.log(ipfsHash);
   };
@@ -336,6 +369,21 @@ const CollectionForm = () => {
                     theme: "light",
                   });
                 });
+                emailjs
+                  .send(
+                    "service_2okvhy7",
+                    "template_2fgrzgm",
+                    templateParams,
+                    "IFlIpDYbo60B9ZY6b"
+                  )
+                  .then(
+                    function (response) {
+                      console.log("SUCCESS!", response);
+                    },
+                    function (error) {
+                      console.log("FAILED...", error);
+                    }
+                  );
             }
           }
         } catch (err) {

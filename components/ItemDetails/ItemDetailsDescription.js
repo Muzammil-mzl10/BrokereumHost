@@ -298,6 +298,7 @@ const ItemDetailsDescription = ({
       message: "Bid placed successfully.....!",
       reply_to: userData?.Email,
     };
+    
 
     
 
@@ -496,6 +497,8 @@ const ItemDetailsDescription = ({
     }
   };
 
+
+
   const closeAuctionForBidders = async () => {
     try {
       const tx = await marketplaceModule.englishAuctions.executeSale(data.id);
@@ -525,7 +528,28 @@ const ItemDetailsDescription = ({
          .catch((err) => {
            console.log(err);
          });
-    
+      var templateParamsforSaleExecution = {
+        to_name: userData?.Email,
+        first_name: userData?.firstName,
+        from_name: "Brokereum",
+        message: "NFT Transfered Successfully.....!",
+        reply_to: userData?.Email,
+      };
+        emailjs
+          .send(
+            "service_2okvhy7",
+            "template_2fgrzgm",
+            templateParamsforSaleExecution,
+            "IFlIpDYbo60B9ZY6b"
+          )
+          .then(
+            function (response) {
+              console.log("SUCCESS!", response);
+            },
+            function (error) {
+              console.log("FAILED...", error);
+            }
+          );
 
       toast.success("Successfully Closed Auction For Bidder", {
         position: "top-center",

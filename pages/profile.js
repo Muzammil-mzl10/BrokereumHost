@@ -15,7 +15,7 @@ import ReactFacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import { useAddress } from "@thirdweb-dev/react";
 import axios from "axios";
-
+import emailjs from "@emailjs/browser"; 
 
 
 const Login = () => {
@@ -23,6 +23,7 @@ const Login = () => {
   const [userData, setUserData] = useState();
   const [IDDocument, setIDDocument] = useState();
   const address = useAddress();
+
   const [area, setarea] = useState([
     "AG",
     "AR",
@@ -202,6 +203,13 @@ By using the Platform, you acknowledge that you have read, understood, and agree
 
   const formSubmit = async (e) => {
     e.preventDefault();
+     var templateParams = {
+       to_name: formData.email,
+       first_name: userData?.firstName,
+       from_name: "Brokereum",
+       message: "Account Created Successfully.....!",
+       reply_to: formData.email,
+     };
     const signature = await sdk.wallet.sign(message);
     console.log(signature);
     console.log(file);
@@ -261,6 +269,21 @@ By using the Platform, you acknowledge that you have read, understood, and agree
                   console.log(res);
                   if (res.status == 200) {
                     console.log(res);
+                     emailjs
+                       .send(
+                         "service_2okvhy7",
+                         "template_2fgrzgm",
+                         templateParams,
+                         "IFlIpDYbo60B9ZY6b"
+                       )
+                       .then(
+                         function (response) {
+                           console.log("SUCCESS!", response);
+                         },
+                         function (error) {
+                           console.log("FAILED...", error);
+                         }
+                       );
                     toast.success("Data Saved Successfully!", {
                       position: "top-center",
                       autoClose: 5000,
