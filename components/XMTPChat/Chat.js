@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Chat.module.css";
+import { useAddress } from "@thirdweb-dev/react";
+import emailjs from "@emailjs/browser"; 
 
-function Chat({ client, messageHistory, conversation }) {
+function Chat({ client, messageHistory, conversation, receiverAddress }) {
   const [inputValue, setInputValue] = useState("");
+  const [receiverData, setReceiverData] = useState();
+  const [senderrData, setSenderData] = useState();
+  const [check, setCheck] = useState(true);
+  const address = useAddress();
 
   // Function to handle sending a message
   const handleSend = async () => {
@@ -12,8 +18,65 @@ function Chat({ client, messageHistory, conversation }) {
     }
   };
 
+  const fetchReceiverUser = () => {
+    fetch(
+      `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${address}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res?.data[0]?.attributes);
+        setReceiverData(res.data[0].attributes);
+      });
+  };
+
+  const fetchSenderUser = () => {
+    fetch(
+      `${process.env.STRAPI_URL_PROD}/api/brokereum-user/?filters[walletAddress][$eq]=${receiverAddress}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res?.data[0]?.attributes);
+        setSenderData(res.data[0].attributes);
+      });
+  };
+
+  useEffect(() => {
+    fetchReceiverUser();
+    fetchSenderUser();
+  }, [address, receiverAddress]);
+
   // Function to handle sending a text message
   const onSendMessage = async (value) => {
+    console.log(receiverAddress);
+    console.log(address);
+    console.log("Hello");
+    if (check) {
+      var templateParams = {
+        to_name: senderrData?.Email,
+        first_name: senderrData?.firstName,
+        from_name: "Brokereum",
+        message: `You have received a message from ${receiverData?.firstName}.....!
+        https://xmtp.chat`,
+        reply_to: senderrData?.Email,
+      };
+      emailjs
+        .send(
+          "service_2okvhy7",
+          "template_2fgrzgm",
+          templateParams,
+          "IFlIpDYbo60B9ZY6b"
+        )
+        .then(
+          function (response) {
+            console.log("SUCCESS!", response);
+          },
+          function (error) {
+            console.log("FAILED...", error);
+          }
+        );
+      setCheck(false);
+    }
+
     return conversation.send(value);
   };
 
@@ -37,9 +100,7 @@ function Chat({ client, messageHistory, conversation }) {
             </strong>
             <span>{message.content}</span>
             <span className="date"> ({message.sent.toLocaleTimeString()})</span>
-            <span className="eyes" onClick={() => console.log(message)}>
-            
-            </span>
+            <span className="eyes" onClick={() => console.log(message)}></span>
           </li>
         ))}
       </ul>

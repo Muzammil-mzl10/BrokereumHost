@@ -127,8 +127,8 @@ export default function Home() {
   }, [messages, isConnected, isOnNetwork]);
 
   return (
-      <div className={styles.Home}>
-          <Navbar/>
+    <div className={styles.Home}>
+      <Navbar />
       {/* Display the ConnectWallet component if not connected */}
       {!isConnected && (
         <div className={styles.walletBtn}>
@@ -149,12 +149,13 @@ export default function Home() {
       {/* Render the Chat component if connected, initialized, and messages exist */}
       {isConnected && isOnNetwork && messages && (
         <Chat
+          receiverAddress={router.query.chat}
           client={clientRef.current}
           conversation={convRef.current}
           messageHistory={messages}
         />
-          )}
-          <Footer/>
+      )}
+      <Footer />
     </div>
   );
 }
