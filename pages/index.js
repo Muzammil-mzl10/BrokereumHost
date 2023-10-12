@@ -10,9 +10,10 @@ import CollectionsArea from '../components/Common/CollectionsArea';
 import Footer from '../components/Layout/Footer';
 import Copyright from '../components/Common/Copyright';
 import { useState } from 'react';
+import Tour from '../components/Tour';
 
 const Index = () => {
-
+  
 
   return (
     <>
@@ -24,6 +25,7 @@ const Index = () => {
       <FeaturedArea title="Live Auctions" />
       <CreateArea />
       <AuthorArea />
+      <Tour />
       {/* <CollectionsArea /> */}
       <Footer />
       <Copyright />

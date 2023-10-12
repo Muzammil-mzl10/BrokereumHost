@@ -102,10 +102,15 @@ useEffect(() => {
       <div className="featured-area pt-100 pb-70">
         <div className="container">
           <div className="tab featured-tab-area">
-            <div className="row align-items-center">
+            <div className="row align-items-center ">
               <div className="col-lg-6 col-md-4">
-                <div className="section-title">
-                  <h2>{title}</h2>
+                <div className="section-title ">
+                  <h2
+                    className="live-auction-listing"
+                    style={{ width: "max-content" }}
+                  >
+                    {title}
+                  </h2>
                 </div>
               </div>
             </div>
@@ -139,10 +144,9 @@ useEffect(() => {
                   <div className="tabs_item">
                     <div className="row justify-content-center">
                       {AuctionListing &&
-                        AuctionListing.map((data, index) => (               
-                          <AuctionListings data={data} key={index} />     
+                        AuctionListing.map((data, index) => (
+                          <AuctionListings data={data} key={index} />
                         ))}
-                      
                     </div>
                   </div>
                 </TabPanel>

@@ -146,7 +146,7 @@ const Navbar = () => {
                     </Link>
                   </li>
 
-                  <li className="nav-item">
+                  <li className="nav-item list-nfts">
                     <a href="#" className="nav-link">
                       Pages
                       <i className="ri-arrow-down-s-line"></i>
@@ -162,7 +162,7 @@ const Navbar = () => {
                         </Link>
                       </li> */}
 
-                      <li className="nav-item">
+                      <li className="nav-item ">
                         <Link
                           legacyBehavior
                           href="/create-collection"
@@ -182,7 +182,7 @@ const Navbar = () => {
                         </Link>
                       </li>
 
-                      <li className="nav-item">
+                      <li className="nav-item ">
                         <Link
                           legacyBehavior
                           href="/author-profile"
@@ -379,7 +379,7 @@ const Navbar = () => {
                   </li>
                   {walletAddress ? (
                     <>
-                      <li className="nav-item">
+                      <li className="nav-item profile-creation">
                         <Link
                           legacyBehavior
                           href="/profile"
@@ -405,7 +405,7 @@ const Navbar = () => {
                   )}
                 </ul>
 
-                <div className="others-options">
+                <div className="others-options element-selector wallet-connect-button">
                   <ul className="optional-item-list">
                     <li>
                       <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
@@ -461,7 +461,7 @@ const Navbar = () => {
                           <a>Create</a>
                         </Link>
                       </li>
-                      <li>
+                      <li className="wallet-connect-button">
                         <ConnectWallet theme="dark" btnTitle="Connect Wallet" />
                       </li>
                     </ul>

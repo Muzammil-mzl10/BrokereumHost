@@ -102,7 +102,7 @@ const ActivityArea = () => {
                             <a target="_blank" rel="noopener noreferrer">
                               <i
                                 style={{ cursor: "pointer" }}
-                                class="ri-arrow-up-circle-fill"
+                                className="ri-arrow-up-circle-fill"
                               ></i>
                             </a>
                           </Link>

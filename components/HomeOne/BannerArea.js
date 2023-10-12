@@ -98,11 +98,11 @@ const BannerArea = () => {
           <div className="row align-items-center">
             <div className="col-lg-6 mt-4">
               <div className="banner-content">
-                <p className="h1 text-danger fw-bold">
+                <p className="h1 text-danger fw-bold  element-to-attach-to">
                   Real Estate Selling Redefined
                 </p>
 
-                <ul class="benefitsText">
+                <ul className="benefitsText">
                   <li>Use Smart Contract based Auctions</li>
                   <li>Benefit from Fair Price Discovery</li>
                   <li>Sell Yourself Without Intermediaries</li>
