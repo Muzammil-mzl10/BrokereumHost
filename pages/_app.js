@@ -53,16 +53,16 @@ function MyApp({ Component, pageProps }) {
         activeChain={"mumbai"}
         autoConnect={true}
         
-        sdkOptions={{
-          gasless: {
-            openzeppelin: {
-              relayerUrl:
-                "https://api.defender.openzeppelin.com/autotasks/16d7ca5d-5132-4c3b-86bb-a381e37e9dc8/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/5uDQeW3qK6A51PAQoPTHxP",
-            },
-          },
-        }}
+        // sdkOptions={{
+        //   gasless: {
+        //     openzeppelin: {
+        //       relayerUrl:
+        //         "https://api.defender.openzeppelin.com/autotasks/16d7ca5d-5132-4c3b-86bb-a381e37e9dc8/runs/webhook/aaaabf92-6135-4d67-9a24-27dbf665f52e/5uDQeW3qK6A51PAQoPTHxP",
+        //     },
+        //   },
+        // }}
         supportedWallets={[
-          metamaskWallet(),
+          metamaskWallet({recommended:true}),
           paperWallet({
             paperClientId: "2631fa89-19e6-4fb1-b2dc-49ff23ce0b1d",
           }),
@@ -70,11 +70,11 @@ function MyApp({ Component, pageProps }) {
           coinbaseWallet(),
           walletConnect(),
           trustWallet(),
-          smartWallet({
-            factoryAddress: process.env.factoryAddress,
-            thirdwebApiKey: process.env.thirdwebApiKey,
-            gasless: true,
-          }),
+          // smartWallet({
+          //   factoryAddress: process.env.factoryAddress,
+          //   thirdwebApiKey: process.env.thirdwebApiKey,
+          //   gasless: true,
+          // }),
         ]}
       >
         <Component {...pageProps} />

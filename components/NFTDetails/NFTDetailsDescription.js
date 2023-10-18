@@ -23,7 +23,6 @@ import { Mumbai } from "@thirdweb-dev/chains";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
-import { route } from "next/dist/server/router";
 import axios from "axios";
 
 const NFTDetailsDescription = ({ NFT, ipfsData }) => {
