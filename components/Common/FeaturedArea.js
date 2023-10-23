@@ -12,6 +12,9 @@ import Pagination from './Pagination';
 resetIdCounter();
 
 const FeaturedArea = ({ title, pagination }) => {
+   const [totalPages, setTotalPages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [fullNFTdata , setfullNFTData]=useState()
   //counter calculation
   const [days, setDays] = useState('');
   const [hours, setHours] = useState('');
@@ -80,8 +83,22 @@ useEffect(() => {
       try {
         let auctionList = await marketplaceContract.englishAuctions.getAll();
         auctionList = auctionList.filter((data) => data.status !== 2);
+        auctionList = auctionList.sort((a, b) => {
+          if (a.status === 4 && b.status === 5) return -1;
+          if (a.status === 5 && b.status === 4) return 1;
+          return 0;
+        });
+        console.log(auctionList)
+        setfullNFTData(auctionList)
+         const numberOfPages = Math.ceil(auctionList.length / 8);
+         console.log(numberOfPages);
+         setTotalPages(
+           Array.from({ length: numberOfPages }, (_, index) => index + 1)
+         );
+         console.log(totalPages);
+         const filteredArray = getPageFromArray(auctionList, currentPage, 8);
         console.log(auctionList);
-        setAuctionListing(auctionList);
+        setAuctionListing(filteredArray);
 
       } catch (error) {
         console.error("Error fetching auction listing:", error);
@@ -94,6 +111,20 @@ useEffect(() => {
 
   
   
+  function getPageFromArray(dataArray, currentPage, itemsPerPage) {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return dataArray.slice(startIndex, endIndex);
+  }
+  useEffect(() => {
+    if (fullNFTdata) {
+      const data = getPageFromArray(fullNFTdata, currentPage, 8);
+      console.log(data);
+      setAuctionListing(data);
+    }
+  }, [currentPage]);
+  
+  console.log(currentPage)
   // console.log(AuctionListing)
 
 
@@ -147,6 +178,39 @@ useEffect(() => {
                         AuctionListing.map((data, index) => (
                           <AuctionListings data={data} key={index} />
                         ))}
+                    </div>
+                    <div className="col-lg-12 col-md-12">
+                      <div className="pagination-area">
+                        <a href="#" className="prev page-numbers">
+                          <i className="ri-arrow-left-s-line"></i>
+                        </a>
+                        {totalPages.map((data, index) => (
+                          <span
+                            style={{ marginLeft: "5px", marginBottom: "20px" }}
+                            className="page-numbers current"
+                            aria-current="page"
+                            onClick={() => setCurrentPage(data)}
+                          >
+                            <span
+                              className={
+                                data == currentPage
+                                  ? data > 21
+                                    ? "btn btn-danger mt-2"
+                                    : "btn btn-danger"
+                                  : data > 21
+                                  ? "mt-2 btn btn-primary"
+                                  : "btn btn-primary"
+                              }
+                            >
+                              {data}
+                            </span>
+                          </span>
+                        ))}
+
+                        <a href="#" className="next page-numbers">
+                          <i className="ri-arrow-right-s-line"></i>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </TabPanel>
