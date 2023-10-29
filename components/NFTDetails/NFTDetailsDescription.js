@@ -206,6 +206,8 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
     }));
   };
 
+  console.log(NFT);
+
   console.log(formData.listingType);
 
   return (

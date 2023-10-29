@@ -280,7 +280,7 @@ const ItemDetailsDescription = ({
   // console.log(winningBid)
   // console.log(minimumBidVal)
 
-  console.log(userData)
+  // console.log(userData)
 
   const placeBid = async (e) => {
     e.preventDefault();
@@ -609,6 +609,9 @@ const ItemDetailsDescription = ({
   };
   // console.log(`${process.env.STRAPI_URL_PROD}${OwnerData?.profilePicHash}`);
   // console.log(currencyExchangeRate)
+
+  console.log(ipfsData)
+
 
   return (
     <>

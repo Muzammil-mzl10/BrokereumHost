@@ -274,6 +274,7 @@ const CollectionForm = () => {
           description: formData.description,
           lat: formData.coordinatesLat,
           lng: formData.coordinatesLng,
+          propertDoc: docummentfile,
           properties: {
             IPFSHash: ipfsHash,
             priceType: formData.priceType,

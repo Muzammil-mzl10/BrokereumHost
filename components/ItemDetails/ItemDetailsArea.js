@@ -247,6 +247,27 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                         <p className="pt-0">{data?.asset.description}</p>
                       </div>
                     </div>
+
+                    {data?.asset.propertDoc && (
+                      <div
+                        style={{
+                          backgroundColor: "whitesmoke",
+                          borderRadius: "20px",
+                          marginTop: "10px",
+                        }}
+                        className="px-3 py-5"
+                      >
+                        <div className="section-title px-2">
+                          <div className="fs-5">Property Document</div>
+                          <hr />
+                          <iframe
+                            src={data?.asset.propertDoc[0]} // Replace with the URL to your PDF
+                            width="100%"
+                            height="500px" // You can adjust the height as needed
+                          ></iframe>
+                        </div>
+                      </div>
+                    )}
                     <div
                       className="mt-2 px-3 py-3"
                       style={{

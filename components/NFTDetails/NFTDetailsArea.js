@@ -131,6 +131,7 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                     style={{
                       backgroundColor: "whitesmoke",
                       borderRadius: "20px",
+                      
                     }}
                     className="px-3 py-5"
                   >
@@ -140,6 +141,26 @@ const ItemDetailsArea = ({ tokenID ,  }) => {
                       <p>{NFT.metadata.description}</p>
                     </div>
                   </div>
+                    {NFT.metadata.propertDoc && (
+                  <div
+                    style={{
+                          backgroundColor: "whitesmoke",
+                          borderRadius: "20px",
+                          marginTop:"10px"
+                    }}
+                    className="px-3 py-5"
+                  >
+                    <div className="section-title px-2">
+                      <div className="fs-5">Property Document</div>
+                      <hr />
+                      <iframe
+                        src={NFT.metadata.propertDoc[0]} // Replace with the URL to your PDF
+                        width="100%"
+                        height="500px" // You can adjust the height as needed
+                      ></iframe>
+                    </div>
+                  </div>
+                  )}
                   <div
                     className="mt-5 px-3 py-5"
                     style={{
