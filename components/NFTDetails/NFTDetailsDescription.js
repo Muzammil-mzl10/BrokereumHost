@@ -168,8 +168,32 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
       }
       const receipt = tx.receipt; // the transaction receipt
       const id = tx.id; // the id of the newly created listing
+      console.log(tx)
       console.log(receipt);
       console.log(id);
+      console.log(id.toNumber())
+      if (blindAuction) {
+        
+        console.log(blindAuction)
+        const auctionId = JSON.stringify({
+          data: {
+            AuctionId:String(id.toNumber()),
+          },
+        });
+        axios
+          .post(`${process.env.STRAPI_URL_PROD}/api/auctions`, auctionId, {
+            headers: {
+              "Content-type": "application/json",
+            },
+          })
+          .then((res) => {
+            console.log("Auction Blinded Uploaded...!!");
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     } catch (err) {
       console.log(err);
       toast.error("🦄 Error while listing the Property", {
@@ -209,6 +233,8 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
   console.log(NFT);
 
   console.log(formData.listingType);
+
+  const [blindAuction, setBlindAuction] = useState(false);
 
   return (
     <>
@@ -304,7 +330,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
               Select Listings Type
             </label>
             <ul className="side-bar-widget-tag mt-4">
-              <li
+              {/* <li
                 onClick={radioButtonDirectChange}
                 id="Direct"
                 disabled={formData.listingType == "Direct"}
@@ -312,7 +338,7 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
                 style={{ cursor: "pointer" }}
               >
                 <a>Direct Listing</a>
-              </li>
+              </li> */}
               <li
                 onClick={radioButtonAuctionChange}
                 aria-disabled={formData.listingType == "Auction"}
@@ -325,6 +351,24 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
             </ul>
           </div>
           <div className="col-lg-12 mb-4">
+            <div className="form-group w-full">
+              <ul
+                style={{ listStyleType: "none", cursor: "pointer" }}
+                className={
+                  blindAuction
+                    ? "bg-danger mt-4 p-2 d-flex justify-content-center align-items-center"
+                    : "mt-4 p-2 d-flex border justify-content-center align-items-center"
+                }
+                onClick={() => setBlindAuction(!blindAuction)}
+              >
+                <li
+                  style={{ cursor: "pointer", userSelect: "none" }}
+                  id="BlindAuction"
+                >
+                  <a>Blind Auction</a>
+                </li>
+              </ul>
+            </div>
             <div className="form-group">
               <label>Reserve Price</label>
               <input
@@ -364,16 +408,15 @@ const NFTDetailsDescription = ({ NFT, ipfsData }) => {
               />
             </div>
           </div>
-          <div style={{fontSize:"30px"}} className="my-5 d-flex flex-column justify-content-center align-items-start">
-            <div>
-             DownPayment % {NFT.metadata.properties.downPayment}
-            </div>
-            {finalbidamount ?
-            <div>
-             Final Bid Amount {finalbidamount}
-            </div>
-            :null}
-            </div>
+          <div
+            style={{ fontSize: "30px" }}
+            className="my-5 d-flex flex-column justify-content-center align-items-start"
+          >
+            <div>DownPayment % {NFT.metadata.properties.downPayment}</div>
+            {finalbidamount ? (
+              <div>Final Bid Amount {finalbidamount}</div>
+            ) : null}
+          </div>
 
           <button type="submit" className="default-btn border-radius-50">
             List for Sale

@@ -45,7 +45,31 @@ const ItemDetailsArea = ({ tokenID, data }) => {
      progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
    };
 
- useEffect(() => {
+  const [blindAuction, setBlindAuction] = useState()
+  
+  const checkBlindAuction = () => {
+    console.log(data.id)
+    fetch(
+      `${process.env.STRAPI_URL_PROD}/api/auctions/?filters[AuctionId][$eq]=${data.id}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.data.length == 0) {
+          console.log("Blinded");
+          setBlindAuction(true);
+        } else {
+          console.log("Not Blinded");
+          setBlindAuction(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  
+  useEffect(() => {
+   
    async function fetchMkData() {
      try {
        const marketplaceContract = await sdk.getContract(
@@ -58,8 +82,12 @@ const ItemDetailsArea = ({ tokenID, data }) => {
      }
    }
    fetchMkData();
- }, []);
-
+  }, []);
+  useEffect(() => {
+    if (data) { 
+      checkBlindAuction()
+    }
+  },[data])
 
   useEffect(() => {
     async function fetchIpfsData() {
@@ -744,13 +772,20 @@ const ItemDetailsArea = ({ tokenID, data }) => {
                   data={data}
                   ipfsData={ipfsData}
                 />
+                {/* History check */}
+             
+                {blindAuction && (
+                  
+                  blindAuction ? (
+                    <ItemDetailsHistory
+                      setBidHistoryUpdate={setBidHistoryUpdate}
+                      bidHistoryUpdate={bidHistoryUpdate}
+                      data={data}
+                    />
+                  ) : <h1 className="text-danger">Blinded Auction</h1>
+                  )
+                }
 
-                <ItemDetailsHistory
-                  setBidHistoryUpdate={setBidHistoryUpdate}
-                  bidHistoryUpdate={bidHistoryUpdate}
-                  data={data}
-                />
-                {/* <ItemDetailsUser /> */}
               </div>
             </div>
           </div>

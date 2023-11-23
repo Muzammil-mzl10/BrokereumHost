@@ -610,7 +610,7 @@ const ItemDetailsDescription = ({
   // console.log(`${process.env.STRAPI_URL_PROD}${OwnerData?.profilePicHash}`);
   // console.log(currencyExchangeRate)
 
-  console.log(ipfsData)
+  // console.log(ipfsData)
 
 
   return (
@@ -766,12 +766,12 @@ const ItemDetailsDescription = ({
           <div className="item-details-btn">
             <h2 className="text-danger"> You are the Owner of the Property</h2>
             <div className="side-bar-widget">
-              <label
+              {/* <label
                 style={{ fontSize: "30px", fontWeight: "bolder" }}
                 className="mt-2"
               >
                 Edit the Listing
-              </label>
+              </label> */}
               <br />
             </div>
             {/* <div className="col-lg-12 mb-4">
