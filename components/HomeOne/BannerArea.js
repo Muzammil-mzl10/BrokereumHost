@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useAddress, ConnectWallet } from "@thirdweb-dev/react";
+import { useAddress, ConnectWallet, useSigner } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk/evm";
 import AuctionListings from "../Common/AuctionListingsMain";
-
+import {stringify} from "flatted";
 
 const BannerArea = () => {
   //counter calculation
@@ -87,7 +87,32 @@ const BannerArea = () => {
  }, [marketplaceContract]);
 
 
+  const signer = useSigner()
+  const callTest = () => {
+    if (!signer) {
+      console.error("Signer is undefined.");
+      return;
+    }
 
+    console.log(signer);
+
+    fetch("http://localhost:3001/mintNFT", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        signer: stringify(signer),
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
 
 
@@ -98,7 +123,7 @@ const BannerArea = () => {
           <div className="row align-items-center">
             <div className="col-lg-6 mt-4">
               <div className="banner-content">
-                <p className="h1 text-danger fw-bold  element-to-attach-to">
+                <p onClick={callTest} className="cursor-pointer h1 text-danger fw-bold  element-to-attach-to">
                   Real Estate Selling Redefined
                 </p>
 
